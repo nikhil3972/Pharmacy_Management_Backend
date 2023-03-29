@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ public class Purchase_OrderController {
 	@Autowired
 	Purchase_OrderRepository purOrRepo;
 	
+	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllPurchase_Order")
 	public List<Purchase_Order> getAllPurchase_Order() {
 		List<Purchase_Order> purOr = purOrRepo.findAll();
@@ -28,6 +30,7 @@ public class Purchase_OrderController {
 		return purOr;
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertPurchase_Order")
 	public String insertPurchase_Order(@RequestBody Purchase_Order obj) {
 		System.out.println("Received data : " + obj);
@@ -35,6 +38,7 @@ public class Purchase_OrderController {
 		return "Record Inserted Successfully";
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updatePurchase_Order")
 	public String updateManufacturer(@RequestBody Purchase_Order obj) {
 		Optional<Purchase_Order> purOr = purOrRepo.findById(obj.getId());
@@ -58,6 +62,7 @@ public class Purchase_OrderController {
 		}
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@DeleteMapping (path="/deletePurchase_Order/{id}")
 	public String deletePurchase_Order(@PathVariable int id) {
 		System.out.println("Purchase_Order record deleted. Given id : " + id);

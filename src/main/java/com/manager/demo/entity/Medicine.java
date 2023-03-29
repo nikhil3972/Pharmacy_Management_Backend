@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -11,6 +12,7 @@ import jakarta.persistence.Table;
 @Table(name="Medicine")
 public class Medicine {
 	@Id
+	@GeneratedValue
 	int id;
 	String name;
 	String description;

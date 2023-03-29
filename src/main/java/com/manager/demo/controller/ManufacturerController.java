@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ public class ManufacturerController {
 	@Autowired
 	ManufacturerRepository manRepo;
 	
+	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllManufacturer")
 	public List<Manufacturer> getAllManufacturer() {
 		List<Manufacturer> med = manRepo.findAll();
@@ -28,6 +30,7 @@ public class ManufacturerController {
 		return med;
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertManufacturer")
 	public String insertManufacturer(@RequestBody Manufacturer obj) {
 		System.out.println("Received data : " + obj);
@@ -35,6 +38,7 @@ public class ManufacturerController {
 		return "Record Inserted Successfully";
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateManufacturer")
 	public String updateManufacturer(@RequestBody Manufacturer obj) {
 		Optional<Manufacturer> man = manRepo.findById(obj.getId());
@@ -57,6 +61,7 @@ public class ManufacturerController {
 		}
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@DeleteMapping (path="/deleteManufacturer/{id}")
 	public String deleteManufacturer(@PathVariable int id) {
 		System.out.println("Manufacturer record deleted. Given id : " + id);

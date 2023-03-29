@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ public class MedicineController {
 	@Autowired
 	MedicineRepository medRepo;
 	
+	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllMedicine")
 	public List<Medicine> getAllMedicine() {
 		List<Medicine> med = medRepo.findAll();
@@ -28,6 +30,7 @@ public class MedicineController {
 		return med;
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertMedicine")
 	public String insertMedicine(@RequestBody Medicine obj) {
 		System.out.println("Received data : " + obj);
@@ -35,6 +38,7 @@ public class MedicineController {
 		return "Record Inserted Successfully";
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@PutMapping (path="/updateMedicine")
 	public String updateData(@RequestBody Medicine obj) {
 		Optional<Medicine> med = medRepo.findById(obj.getId());
@@ -61,6 +65,7 @@ public class MedicineController {
 		}
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@DeleteMapping (path="/deleteMedicine/{id}")
 	public String deleteMedicine(@PathVariable int id) {
 		System.out.println("Medicine record deleted. Given id : " + id);

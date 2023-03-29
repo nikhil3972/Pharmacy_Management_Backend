@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ public class SalesController {
 	@Autowired
 	SalesRepository saleRepo;
 	
+	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllSales")
 	public List<Sales> getAllSales() {
 		List<Sales> sale = saleRepo.findAll();
@@ -28,6 +30,7 @@ public class SalesController {
 		return sale;
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertSales")
 	public String insertSales(@RequestBody Sales obj) {
 		System.out.println("Received data : " + obj);
@@ -35,6 +38,7 @@ public class SalesController {
 		return "Record Inserted Successfully";
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateSales")
 	public String updateSales(@RequestBody Sales obj) {
 		Optional<Sales> sale = saleRepo.findById(obj.getId());
@@ -57,6 +61,7 @@ public class SalesController {
 		}
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@DeleteMapping (path="/deleteSales/{id}")
 	public String deleteSales(@PathVariable int id) {
 		System.out.println("Sales record deleted. Given id : " + id);

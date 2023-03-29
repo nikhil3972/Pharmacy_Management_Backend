@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ public class Disease_TypeController {
 	@Autowired
 	Disease_TypeRepository disTypeRepo;
 	
+	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllDisease_Type")
 	public List<Disease_Type> getAllDiseaseType() {
 		List<Disease_Type> disTy = disTypeRepo.findAll();
@@ -28,6 +30,7 @@ public class Disease_TypeController {
 		return disTy;
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertDisease_Type")
 	public String insertManufacturer(@RequestBody Disease_Type obj) {
 		System.out.println("Received data : " + obj);
@@ -35,6 +38,7 @@ public class Disease_TypeController {
 		return "Record Inserted Successfully";
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateDisease_Type")
 	public String updateManufacturer(@RequestBody Disease_Type obj) {
 		Optional<Disease_Type> disTy = disTypeRepo.findById(obj.getId());
@@ -56,6 +60,7 @@ public class Disease_TypeController {
 		}
 	}
 	
+	@CrossOrigin("http://localhost:4200")
 	@DeleteMapping (path="/deleteDisease_Type/{id}")
 	public String deleteManufacturer(@PathVariable int id) {
 		System.out.println("Disease_type record deleted. Given id : " + id);
