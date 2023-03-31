@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.manager.demo.entity.Customer;
+import com.manager.demo.entity.CustomerMedicine;
 import com.manager.demo.repository.CustomerRepository;
 
 @RestController
@@ -70,5 +71,13 @@ public class CustomerController {
 		System.out.println("Customer record deleted. Given id : " + id);
 		cusRepo.deleteById(id);
 		return "Record Deleted Successfully";
+	}
+	
+	@CrossOrigin("http://localhost:4200")
+	@GetMapping(path="/getMedicineWithCustomer")
+	public List<CustomerMedicine> getMedicineWithCustomer() {
+		List<CustomerMedicine> cus = cusRepo.getMedicineWithCustomer();
+		System.out.println("Get list of all CustomerMedicine successfully");
+		return cus;
 	}
 }

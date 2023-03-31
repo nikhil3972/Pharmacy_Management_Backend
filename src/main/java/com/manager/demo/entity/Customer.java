@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class Customer {
 
 	@Id
-	@GeneratedValue
+//	@GeneratedValue
 	int id;
 	String firstName;
 	String lastName;
