@@ -50,7 +50,6 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-	
 	</dependencies>
 
 	<build>
@@ -60,7 +59,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>docker-spring-boot</finalName>
 	</build>
 
 </project>
