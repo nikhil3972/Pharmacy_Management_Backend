@@ -28,7 +28,7 @@ public class Medicine {
 	Date created_ts;
 	Date modified_ts;
 	
-	Medicine(){}
+	public Medicine(){}
 	public Medicine(int id, String name, String description, String dosage, BigDecimal price, Date manufacture_date,
 			Date expiry_date, int current_stock, String created_by, String modified_by, Date created_ts,
 			Date modified_ts) {
