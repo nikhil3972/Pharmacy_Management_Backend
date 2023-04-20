@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name="Disease_Type")
-public class Disease_Type {
+public class DiseaseType {
 	
 	/**
 	 * The ID of the disease type.

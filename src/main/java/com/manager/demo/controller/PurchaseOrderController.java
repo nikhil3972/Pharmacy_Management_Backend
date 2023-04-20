@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.manager.demo.entity.Purchase_Order;
-import com.manager.demo.repository.Purchase_OrderRepository;
+import com.manager.demo.entity.PurchaseOrder;
+import com.manager.demo.repository.PurchaseOrderRepository;
 
 
 /**
@@ -22,18 +22,18 @@ import com.manager.demo.repository.Purchase_OrderRepository;
  * It provides APIs for retrieving all Purchase_Order, inserting a new Purchase_Order, updating an existing Purchase_Order, and deleting a Purchase_Order.
 */
 @RestController
-public class Purchase_OrderController {
+public class PurchaseOrderController {
 	@Autowired
-	Purchase_OrderRepository purOrRepo;
+    PurchaseOrderRepository purOrRepo;
 
 	/**
 	 * This method retrieves a list of all Purchase_Order entities.
 	 * @return List of Purchase_Order
 	 */
 	@CrossOrigin("http://localhost:4200")
-	@GetMapping(path="/getAllPurchase_Order")
-	public List<Purchase_Order> getAllPurchase_Order() {
-		List<Purchase_Order> purOr = purOrRepo.findAll();
+	@GetMapping(path="/getAllPurchaseOrder")
+	public List<PurchaseOrder> getAllPurchaseOrder() {
+		List<PurchaseOrder> purOr = purOrRepo.findAll();
 		System.out.println("Get list of all Purchase_Order successfully");
 		return purOr;
 	}
@@ -44,8 +44,8 @@ public class Purchase_OrderController {
 	 * @return String message indicating success or failure of the operation.
 	 */
 	@CrossOrigin("http://localhost:4200")
-	@PostMapping(path="/insertPurchase_Order")
-	public String insertPurchase_Order(@RequestBody Purchase_Order obj) {
+	@PostMapping(path="/insertPurchaseOrder")
+	public String insertPurchaseOrder(@RequestBody PurchaseOrder obj) {
 		System.out.println("Received data : " + obj);
 		purOrRepo.save(obj);
 		return "Record Inserted Successfully";
@@ -57,12 +57,12 @@ public class Purchase_OrderController {
 	 * @return String message indicating success or failure of the operation.
 	 */
 	@CrossOrigin("http://localhost:4200")
-	@PutMapping(path="/updatePurchase_Order")
-	public String updateManufacturer(@RequestBody Purchase_Order obj) {
-		Optional<Purchase_Order> purOr = purOrRepo.findById(obj.getId());
+	@PutMapping(path="/updatePurchaseOrder")
+	public String updatePurchaseOrder(@RequestBody PurchaseOrder obj) {
+		Optional<PurchaseOrder> purOr = purOrRepo.findById(obj.getId());
 		
 		if(purOr.isPresent()) {
-			Purchase_Order purOrUpd = purOr.get();
+			PurchaseOrder purOrUpd = purOr.get();
 			purOrUpd.setDate(obj.getDate());
 			purOrUpd.setManufacturer(obj.getManufacturer());
 			purOrUpd.setExpected_delivery_date(obj.getExpected_delivery_date());
@@ -86,8 +86,8 @@ public class Purchase_OrderController {
 	 * @return String message indicating success or failure of the operation.
 	 */
 	@CrossOrigin("http://localhost:4200")
-	@DeleteMapping (path="/deletePurchase_Order/{id}")
-	public String deletePurchase_Order(@PathVariable int id) {
+	@DeleteMapping (path="/deletePurchaseOrder/{id}")
+	public String deletePurchaseOrder(@PathVariable int id) {
 		System.out.println("Purchase_Order record deleted. Given id : " + id);
 		purOrRepo.deleteById(id);
 		return "Record Deleted Successfully";

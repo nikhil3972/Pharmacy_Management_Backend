@@ -2,7 +2,7 @@ package com.manager.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.manager.demo.entity.Disease_Type;
+import com.manager.demo.entity.DiseaseType;
 
 /**
  * A repository interface for managing Disease_Type entities in the database.
@@ -14,5 +14,5 @@ import com.manager.demo.entity.Disease_Type;
  * @version [Version Number]
  * @since 2023
  */
-public interface Disease_TypeRepository extends JpaRepository<Disease_Type, Integer> {
+public interface DiseaseTypeRepository extends JpaRepository<DiseaseType, Integer> {
 }
