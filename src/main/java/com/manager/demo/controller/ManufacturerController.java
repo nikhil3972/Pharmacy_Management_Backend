@@ -38,9 +38,9 @@ public class ManufacturerController {
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllManufacturer")
 	public List<Manufacturer> getAllManufacturer() {
-		List<Manufacturer> med = manRepo.findAll();
-		System.out.println("Get list of all manufacturer successfully");
-		return med;
+		return manRepo.findAll();
+//		System.out.println("Get list of all manufacturer successfully");
+//		return med;
 	}
 
 	/**
@@ -51,10 +51,10 @@ public class ManufacturerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertManufacturer")
-	public String insertManufacturer(@RequestBody Manufacturer obj) {
+	public Manufacturer insertManufacturer(@RequestBody Manufacturer obj) {
 		System.out.println("Received data : " + obj);
-		manRepo.save(obj);
-		return "Record Inserted Successfully";
+		return manRepo.save(obj);
+//		return "Record Inserted Successfully";
 	}
 
 	/**
@@ -65,10 +65,14 @@ public class ManufacturerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateManufacturer")
-	public String updateManufacturer(@RequestBody Manufacturer obj) {
+	public Manufacturer updateManufacturer(@RequestBody Manufacturer obj) {
 		Optional<Manufacturer> man = manRepo.findById(obj.getId());
-		
-		if(man.isPresent()) {
+
+//		if(!=cus.isPresent()) {
+//
+//			throw new NotFoundException("Medicine id " + obj.getId() + "does not exist");
+////			return "Record Updated Successfully";
+//		}
 			Manufacturer manUpd = man.get();
 			manUpd.setName(obj.getName());
 			manUpd.setContact(obj.getContact());
@@ -78,12 +82,7 @@ public class ManufacturerController {
 			manUpd.setCreated_ts(obj.getCreated_ts());
 			manUpd.setModified_ts(obj.getModified_ts());
 			System.out.println("Received Data in PutMapping :" + obj);
-			manRepo.save(obj);
-			return "Record Updated Successfully";
-		}
-		else {
-			return "Unable to update the record";
-		}
+			return manRepo.save(obj);
 	}
 
 	/**
@@ -93,7 +92,7 @@ public class ManufacturerController {
 	 * @return a String indicating the success or failure of the operation.
 	 */
 	@CrossOrigin("http://localhost:4200")
-	@DeleteMapping (path="/deleteManufacturer/")
+	@DeleteMapping (path="/deleteManufacturer/{id}")
 	public String deleteManufacturer(@PathVariable int id) {
 		System.out.println("Manufacturer record deleted. Given id : " + id);
 		manRepo.deleteById(id);
