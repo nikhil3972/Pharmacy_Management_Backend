@@ -11,12 +11,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
 
 /**
  * Purchase_Order entity representing a purchase order in the system.
  */
 @Entity
 @Table(name="Purchase_Order")
+@Builder
 public class PurchaseOrder {
 
 	@Id

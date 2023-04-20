@@ -33,9 +33,9 @@ public class PurchaseOrderController {
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllPurchaseOrder")
 	public List<PurchaseOrder> getAllPurchaseOrder() {
-		List<PurchaseOrder> purOr = purOrRepo.findAll();
-		System.out.println("Get list of all Purchase_Order successfully");
-		return purOr;
+		return purOrRepo.findAll();
+//		System.out.println("Get list of all Purchase_Order successfully");
+//		return purOr;
 	}
 
 	/**
@@ -45,10 +45,10 @@ public class PurchaseOrderController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertPurchaseOrder")
-	public String insertPurchaseOrder(@RequestBody PurchaseOrder obj) {
+	public PurchaseOrder insertPurchaseOrder(@RequestBody PurchaseOrder obj) {
 		System.out.println("Received data : " + obj);
-		purOrRepo.save(obj);
-		return "Record Inserted Successfully";
+		return purOrRepo.save(obj);
+//		return "Record Inserted Successfully";
 	}
 
 	/**
@@ -58,10 +58,14 @@ public class PurchaseOrderController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updatePurchaseOrder")
-	public String updatePurchaseOrder(@RequestBody PurchaseOrder obj) {
+	public PurchaseOrder updatePurchaseOrder(@RequestBody PurchaseOrder obj) {
 		Optional<PurchaseOrder> purOr = purOrRepo.findById(obj.getId());
-		
-		if(purOr.isPresent()) {
+
+//		if(!=purOr.isPresent()) {
+//
+//			throw new NotFoundException("PurchaseOrder id " + obj.getId() + "does not exist");
+////			return "Record Updated Successfully";
+//		}
 			PurchaseOrder purOrUpd = purOr.get();
 			purOrUpd.setDate(obj.getDate());
 			purOrUpd.setManufacturer(obj.getManufacturer());
@@ -72,12 +76,7 @@ public class PurchaseOrderController {
 			purOrUpd.setCreated_ts(obj.getCreated_ts());
 			purOrUpd.setModified_ts(obj.getModified_ts());
 			System.out.println("Received Data in PutMapping :" + obj);
-			purOrRepo.save(obj);
-			return "Record Updated Successfully";
-		}
-		else {
-			return "Unable to update the record";
-		}
+			return purOrRepo.save(obj);
 	}
 
 	/**
