@@ -33,9 +33,9 @@ public class SalesController {
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllSales")
 	public List<Sales> getAllSales() {
-		List<Sales> sale = saleRepo.findAll();
-		System.out.println("Get list of all Sales successfully");
-		return sale;
+		return saleRepo.findAll();
+//		System.out.println("Get list of all Sales successfully");
+//		return sale;
 	}
 
 	/**
@@ -45,10 +45,10 @@ public class SalesController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertSales")
-	public String insertSales(@RequestBody Sales obj) {
+	public Sales insertSales(@RequestBody Sales obj) {
 		System.out.println("Received data : " + obj);
-		saleRepo.save(obj);
-		return "Record Inserted Successfully";
+		return saleRepo.save(obj);
+//		return "Record Inserted Successfully";
 	}
 
 	/**
@@ -58,10 +58,15 @@ public class SalesController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateSales")
-	public String updateSales(@RequestBody Sales obj) {
+	public Sales updateSales(@RequestBody Sales obj) {
 		Optional<Sales> sale = saleRepo.findById(obj.getId());
 		
-		if(sale.isPresent()) {
+		//		if(!=cus.isPresent()) {
+//
+//			throw new NotFoundException("Medicine id " + obj.getId() + "does not exist");
+////			return "Record Updated Successfully";
+//		}
+
 			Sales saleUpd = sale.get();
 			saleUpd.setDate(obj.getDate());
 			saleUpd.setCustomer(obj.getCustomer());
@@ -71,12 +76,7 @@ public class SalesController {
 			saleUpd.setCreated_ts(obj.getCreated_ts());
 			saleUpd.setModified_ts(obj.getModified_ts());
 			System.out.println("Received Data in PutMapping :" + obj);
-			saleRepo.save(obj);
-			return "Record Updated Successfully";
-		}
-		else {
-			return "Unable to update the record";
-		}
+			return saleRepo.save(obj);
 	}
 
 	/**
