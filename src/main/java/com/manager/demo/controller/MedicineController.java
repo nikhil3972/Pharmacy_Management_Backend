@@ -18,12 +18,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.manager.demo.entity.Medicine;
 import com.manager.demo.repository.MedicineRepository;
 
+/**
+ * The MedicineController class handles all the HTTP requests related to the Medicine entity.
+ * It provides methods for getting, adding, updating, and deleting Medicine records.
+ * The class is annotated with @RestController to indicate that it provides RESTful web services.
+*/
 @RestController
 public class MedicineController {
 	
 	@Autowired
 	MedicineRepository medRepo;
 	
+	/**
+	 * Returns a list of all medicines.
+	 * @return a list of all medicines
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllMedicine")
 	public List<Medicine> getAllMedicine() {
@@ -32,6 +41,11 @@ public class MedicineController {
 //		return med;
 	}
 	
+	/**
+	 * Inserts a new medicine record into the database.
+	 * @param obj the Medicine object to be inserted
+	 * @return a message indicating the success or failure of the operation
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertMedicine")
 	public Medicine insertMedicine(@RequestBody Medicine obj) {
@@ -40,6 +54,11 @@ public class MedicineController {
 //		return "Record Inserted Successfully";
 	}
 	
+	/**
+	 * Updates an existing medicine record in the database.
+	 * @param obj the Medicine object containing the updated data
+	 * @return a message indicating the success or failure of the operation
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping (path="/updateMedicine")
 	public Medicine updateData(@RequestBody Medicine obj) {
@@ -68,14 +87,16 @@ public class MedicineController {
 
 	}
 	
+	/**
+	 * Deletes a medicine record from the database.
+	 * @param id the ID of the medicine record to be deleted
+	 * @return a message indicating the success or failure of the operation
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@DeleteMapping (path="/deleteMedicine/{id}")
 	public String deleteMedicine(@PathVariable int id) {
 		System.out.println("Medicine record deleted. Given id : " + id);
 		medRepo.deleteById(id);
 		return "Record Deleted Successfully";
-	}
-
-
-	
+	}	
 }

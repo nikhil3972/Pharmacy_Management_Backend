@@ -16,12 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.manager.demo.entity.Disease_Type;
 import com.manager.demo.repository.Disease_TypeRepository;
 
+
+/**
+* This class represents a REST controller for Disease_Type entity.
+* It provides endpoints to perform CRUD operations on Disease_Type.
+*/
 @RestController
 public class Disease_TypeController {
-	
 	@Autowired
 	Disease_TypeRepository disTypeRepo;
-	
+
+	/**
+	 * Retrieves all the records of disease_type.
+	 * @return List of Disease_Type records.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllDisease_Type")
 	public List<Disease_Type> getAllDiseaseType() {
@@ -29,7 +37,12 @@ public class Disease_TypeController {
 		System.out.println("Get list of all disease_type successfully");
 		return disTy;
 	}
-	
+
+	/**
+	 * Inserts a new record of disease_type.
+	 * @param obj Disease_Type object representing the new record.
+	 * @return String indicating success or failure message.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertDisease_Type")
 	public String insertManufacturer(@RequestBody Disease_Type obj) {
@@ -37,7 +50,12 @@ public class Disease_TypeController {
 		disTypeRepo.save(obj);
 		return "Record Inserted Successfully";
 	}
-	
+
+	/**
+	 * Updates an existing record of disease_type.
+	 * @param obj Disease_Type object representing the updated record.
+	 * @return String indicating success or failure message.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateDisease_Type")
 	public String updateManufacturer(@RequestBody Disease_Type obj) {
@@ -59,7 +77,12 @@ public class Disease_TypeController {
 			return "Unable to update the record";
 		}
 	}
-	
+
+	/**
+	 * Deletes an existing record of disease_type.
+	 * @param id int representing the ID of the record to be deleted.
+	 * @return String indicating success or failure message.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@DeleteMapping (path="/deleteDisease_Type/{id}")
 	public String deleteManufacturer(@PathVariable int id) {

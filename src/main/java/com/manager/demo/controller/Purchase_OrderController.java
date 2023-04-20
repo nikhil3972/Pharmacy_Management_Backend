@@ -16,12 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.manager.demo.entity.Purchase_Order;
 import com.manager.demo.repository.Purchase_OrderRepository;
 
+
+/**
+ * This class represents the controller for Purchase_Order entity, responsible for handling RESTful APIs related to Purchase_Order.
+ * It provides APIs for retrieving all Purchase_Order, inserting a new Purchase_Order, updating an existing Purchase_Order, and deleting a Purchase_Order.
+*/
 @RestController
 public class Purchase_OrderController {
-
 	@Autowired
 	Purchase_OrderRepository purOrRepo;
-	
+
+	/**
+	 * This method retrieves a list of all Purchase_Order entities.
+	 * @return List of Purchase_Order
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllPurchase_Order")
 	public List<Purchase_Order> getAllPurchase_Order() {
@@ -29,7 +37,12 @@ public class Purchase_OrderController {
 		System.out.println("Get list of all Purchase_Order successfully");
 		return purOr;
 	}
-	
+
+	/**
+	 * This method inserts a new Purchase_Order entity into the database.
+	 * @param obj The Purchase_Order object to be inserted.
+	 * @return String message indicating success or failure of the operation.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertPurchase_Order")
 	public String insertPurchase_Order(@RequestBody Purchase_Order obj) {
@@ -37,7 +50,12 @@ public class Purchase_OrderController {
 		purOrRepo.save(obj);
 		return "Record Inserted Successfully";
 	}
-	
+
+	/**
+	 * This method updates an existing Purchase_Order entity in the database.
+	 * @param obj The Purchase_Order object containing the updated data.
+	 * @return String message indicating success or failure of the operation.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updatePurchase_Order")
 	public String updateManufacturer(@RequestBody Purchase_Order obj) {
@@ -61,7 +79,12 @@ public class Purchase_OrderController {
 			return "Unable to update the record";
 		}
 	}
-	
+
+	/**
+	 * This method deletes a Purchase_Order entity from the database using the given id.
+	 * @param id The id of the Purchase_Order to be deleted.
+	 * @return String message indicating success or failure of the operation.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@DeleteMapping (path="/deletePurchase_Order/{id}")
 	public String deletePurchase_Order(@PathVariable int id) {

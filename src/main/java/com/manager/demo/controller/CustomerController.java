@@ -1,3 +1,4 @@
+
 package com.manager.demo.controller;
 
 import java.util.List;
@@ -17,12 +18,20 @@ import com.manager.demo.entity.Customer;
 import com.manager.demo.entity.CustomerMedicine;
 import com.manager.demo.repository.CustomerRepository;
 
+
+/**
+ * The CustomerController class is a REST controller that handles HTTP requests related to the Customer entity in the Pharmacy Management System.
+ */
 @RestController
 public class CustomerController {
 
 	@Autowired
 	CustomerRepository cusRepo;
 	
+	/**
+	 * Retrieves a list of all customers from the CustomerRepository.
+	 * @return A list of Customer entities.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllCustomer")
 	public List<Customer> getAllCustomer() {
@@ -31,6 +40,11 @@ public class CustomerController {
 //		return cus;
 	}
 	
+	/**
+	 * Inserts a new customer into the CustomerRepository.
+	 * @param obj The Customer entity to be inserted.
+	 * @return A string confirming that the record was successfully inserted.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertCustomer")
 	public Customer insertCustomer(@RequestBody Customer obj) {
@@ -39,6 +53,11 @@ public class CustomerController {
 //		return "Record Inserted Successfully";
 	}
 	
+	/**
+	 * Updates an existing customer in the CustomerRepository.
+	 * @param obj The updated Customer entity.
+	 * @return A string confirming that the record was successfully updated.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateCustomer")
 	public Customer updateCustomer(@RequestBody Customer obj) {
@@ -65,6 +84,11 @@ public class CustomerController {
 
 	}
 	
+	/**
+	 * Deletes a customer from the CustomerRepository based on the provided id.
+	 * @param id The id of the customer to be deleted.
+	 * @return A string confirming that the record was successfully deleted.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@DeleteMapping (path="/deleteCustomer/{id}")
 	public String deleteCustomer(@PathVariable int id) {
@@ -73,11 +97,14 @@ public class CustomerController {
 		return "Record Deleted Successfully";
 	}
 	
-	@CrossOrigin("http://localhost:4200")
+	/**
+	 * Retrieves a list of CustomerMedicine entities from the CustomerRepository.
+	 * @return A list of of CustomerMedicine object containing the details of Customers along with the Medicines they have purchased.
+	*/
 	@GetMapping(path="/getMedicineWithCustomer")
 	public List<CustomerMedicine> getMedicineWithCustomer() {
-		List<CustomerMedicine> cus = cusRepo.getMedicineWithCustomer();
-		System.out.println("Get list of all CustomerMedicine successfully");
-		return cus;
+	List<CustomerMedicine> cus = cusRepo.getMedicineWithCustomer();
+	System.out.println("Get list of all CustomerMedicine successfully");
+	return cus;
 	}
 }

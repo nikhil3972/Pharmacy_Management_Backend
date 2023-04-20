@@ -16,12 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.manager.demo.entity.Disease;
 import com.manager.demo.repository.DiseaseRepository;
 
+
+/**
+* This class is the controller for handling HTTP requests related to Disease entity.
+* It contains methods for retrieving, inserting, updating and deleting Disease records.
+* The responses are returned in JSON format.
+* @author [Author Name]
+* @version 1.0
+* @since [Date of creation]
+*/
 @RestController
 public class DiseaseController {
-	
 	@Autowired
 	DiseaseRepository disRepo;
-	
+
+	/**
+	 * Retrieves all the records from the 'Disease' table.
+	 * 
+	 * @return List<Disease> List of all the Disease records
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllDisease")
 	public List<Disease> getAllDisease() {
@@ -29,7 +42,13 @@ public class DiseaseController {
 		System.out.println("Get list of all disease successfully");
 		return dis;
 	}
-	
+
+	/**
+	 * Inserts a new record into the 'Disease' table.
+	 * 
+	 * @param obj Disease object to be inserted
+	 * @return String status message
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertDisease")
 	public String insertDisease(@RequestBody Disease obj) {
@@ -37,7 +56,13 @@ public class DiseaseController {
 		disRepo.save(obj);
 		return "Record Inserted Successfully";
 	}
-	
+
+	/**
+	 * Updates an existing record in the 'Disease' table.
+	 * 
+	 * @param obj Disease object with updated values
+	 * @return String status message
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateDisease")
 	public String updateDisease(@RequestBody Disease obj) {
@@ -60,7 +85,13 @@ public class DiseaseController {
 			return "Unable to update the record";
 		}
 	}
-	
+
+	/**
+	 * Deletes a record from the 'Disease' table based on the given id.
+	 * 
+	 * @param id id of the record to be deleted
+	 * @return String status message
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@DeleteMapping (path="/deleteDisease/{id}")
 	public String deleteDisease(@PathVariable int id) {
@@ -68,4 +99,5 @@ public class DiseaseController {
 		disRepo.deleteById(id);
 		return "Record Deleted Successfully";
 	}
+
 }
