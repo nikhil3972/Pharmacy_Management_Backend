@@ -83,6 +83,11 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>SpringJPA</groupId>
+			<artifactId>SpringJPA</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -265,5 +265,10 @@ public class Medicine {
 				+ ", price=" + price + ", manufacture_date=" + manufacture_date + ", expiry_date=" + expiry_date
 				+ ", current_stock=" + current_stock + ", created_by=" + created_by + ", modified_by=" + modified_by
 				+ ", created_ts=" + created_ts + ", modified_ts=" + modified_ts + "]";
+	}
+
+	public static Object builder() {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 }
