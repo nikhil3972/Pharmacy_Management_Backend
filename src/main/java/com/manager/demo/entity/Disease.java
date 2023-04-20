@@ -10,12 +10,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
 
 /**
  * This class represents a Disease entity with its attributes and relationships to other entities.
  */
 @Entity
 @Table(name="Disease")
+@Builder
 public class Disease {
 	
 	@Id
@@ -33,6 +35,7 @@ public class Disease {
 	Date created_ts;
 	Date modified_ts;
 
+<<<<<<< HEAD
 
 	/**
 	 * Default constructor for Disease.
@@ -51,6 +54,11 @@ public class Disease {
 	 * @param modified_ts The timestamp when the disease was last modified.
 	 */
 	public Disease(int id, String name, String info, List<DiseaseType> disease_type, String created_by, String modified_by, Date created_ts, Date modified_ts) {
+=======
+	Disease(){}
+
+	public Disease(int id, String name, String info, List<DiseaseType> disease_type, String created_by, String modified_by, Date created_ts, Date modified_ts){
+>>>>>>> 8de043f6e7f495999c3dbd45d9339ef0c50ca4ff
 		this.id = id;
 		this.name = name;
 		this.info = info;
@@ -60,7 +68,11 @@ public class Disease {
 		this.created_ts = created_ts;
 		this.modified_ts = modified_ts;
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 8de043f6e7f495999c3dbd45d9339ef0c50ca4ff
 	/**
 	 * Gets the id of the Disease.
 	 * @return int value of the id.
