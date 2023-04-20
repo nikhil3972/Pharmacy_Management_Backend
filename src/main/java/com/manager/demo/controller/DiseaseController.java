@@ -38,9 +38,9 @@ public class DiseaseController {
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllDisease")
 	public List<Disease> getAllDisease() {
-		List<Disease> dis = disRepo.findAll();
-		System.out.println("Get list of all disease successfully");
-		return dis;
+		return disRepo.findAll();
+//		System.out.println("Get list of all disease successfully");
+//		return dis;
 	}
 
 	/**
@@ -51,10 +51,10 @@ public class DiseaseController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertDisease")
-	public String insertDisease(@RequestBody Disease obj) {
+	public Disease insertDisease(@RequestBody Disease obj) {
 		System.out.println("Received data : " + obj);
-		disRepo.save(obj);
-		return "Record Inserted Successfully";
+		return disRepo.save(obj);
+//		return "Record Inserted Successfully";
 	}
 
 	/**
@@ -65,10 +65,14 @@ public class DiseaseController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateDisease")
-	public String updateDisease(@RequestBody Disease obj) {
+	public Disease updateDisease(@RequestBody Disease obj) {
 		Optional<Disease> dis = disRepo.findById(obj.getId());
-		
-		if(dis.isPresent()) {
+
+		//	if(!=dis.isPresent()) {
+//
+//			throw new NotFoundException("Disease id " + obj.getId() + "does not exist");
+////			return "Record Updated Successfully";
+//		}
 			Disease disUpd = dis.get();
 			disUpd.setName(obj.getName());
 			disUpd.setInfo(obj.getInfo());
@@ -78,12 +82,7 @@ public class DiseaseController {
 			disUpd.setCreated_ts(obj.getCreated_ts());
 			disUpd.setModified_ts(obj.getModified_ts());
 			System.out.println("Received Data in PutMapping :" + obj);
-			disRepo.save(obj);
-			return "Record Updated Successfully";
-		}
-		else {
-			return "Unable to update the record";
-		}
+			return disRepo.save(obj);
 	}
 
 	/**

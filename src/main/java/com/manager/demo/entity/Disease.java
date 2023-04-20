@@ -10,12 +10,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
 
 /**
  * This class represents a Disease entity with its attributes and relationships to other entities.
  */
 @Entity
 @Table(name="Disease")
+@Builder
 public class Disease {
 	
 	@Id
@@ -32,6 +34,19 @@ public class Disease {
 	String modified_by;
 	Date created_ts;
 	Date modified_ts;
+
+	Disease(){}
+
+	public Disease(int id, String name, String info, List<DiseaseType> disease_type, String created_by, String modified_by, Date created_ts, Date modified_ts){
+		this.id = id;
+		this.name = name;
+		this.info = info;
+		this.disease_type = disease_type;
+		this.created_by = created_by;
+		this.modified_by = modified_by;
+		this.created_ts = created_ts;
+		this.modified_ts = modified_ts;
+	}
 	
 	/**
 	 * Gets the id of the Disease.
