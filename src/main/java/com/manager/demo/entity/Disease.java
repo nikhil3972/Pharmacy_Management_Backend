@@ -24,9 +24,9 @@ public class Disease {
 	String name;
 	String info;
 	
-	@OneToMany(targetEntity = Disease_Type.class, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = DiseaseType.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "disease_fk", referencedColumnName = "id")
-	List<Disease_Type> disease_type;
+	List<DiseaseType> disease_type;
 	
 	String created_by;
 	String modified_by;
@@ -85,7 +85,7 @@ public class Disease {
 	 * Gets the list of Disease_Type associated with the Disease.
 	 * @return List of Disease_Type objects.
 	 */
-	public List<Disease_Type> getDisease_type() {
+	public List<DiseaseType> getDisease_type() {
 		return disease_type;
 	}
 	
@@ -93,7 +93,7 @@ public class Disease {
 	 * Sets the list of Disease_Type associated with the Disease.
 	 * @param disease_type the List of Disease_Type objects to be set.
 	 */
-	public void setDisease_type(List<Disease_Type> disease_type) {
+	public void setDisease_type(List<DiseaseType> disease_type) {
 		this.disease_type = disease_type;
 	}
 	

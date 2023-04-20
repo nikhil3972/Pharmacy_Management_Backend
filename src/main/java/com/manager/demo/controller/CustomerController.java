@@ -35,9 +35,9 @@ public class CustomerController {
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllCustomer")
 	public List<Customer> getAllCustomer() {
-		List<Customer> cus = cusRepo.findAll();
-		System.out.println("Get list of all Customer successfully");
-		return cus;
+		return cusRepo.findAll();
+//		System.out.println("Get list of all Customer successfully");
+//		return cus;
 	}
 	
 	/**
@@ -47,10 +47,10 @@ public class CustomerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertCustomer")
-	public String insertCustomer(@RequestBody Customer obj) {
+	public Customer insertCustomer(@RequestBody Customer obj) {
 		System.out.println("Received data : " + obj);
-		cusRepo.save(obj);
-		return "Record Inserted Successfully";
+		return cusRepo.save(obj);
+//		return "Record Inserted Successfully";
 	}
 	
 	/**
@@ -60,10 +60,14 @@ public class CustomerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateCustomer")
-	public String updateCustomer(@RequestBody Customer obj) {
+	public Customer updateCustomer(@RequestBody Customer obj) {
 		Optional<Customer> cus = cusRepo.findById(obj.getId());
-		
-		if(cus.isPresent()) {
+
+//		if(!=cus.isPresent()) {
+//
+//			throw new NotFoundException("Medicine id " + obj.getId() + "does not exist");
+////			return "Record Updated Successfully";
+//		}
 			Customer cusUpd = cus.get();
 			cusUpd.setFirstName(obj.getFirstName());
 			cusUpd.setLastName(obj.getLastName());
@@ -76,12 +80,8 @@ public class CustomerController {
 			cusUpd.setCreated_ts(obj.getCreated_ts());
 			cusUpd.setModified_ts(obj.getModified_ts());
 			System.out.println("Received Data in PutMapping :" + obj);
-			cusRepo.save(obj);
-			return "Record Updated Successfully";
-		}
-		else {
-			return "Unable to update the record";
-		}
+			return cusRepo.save(obj);
+
 	}
 	
 	/**

@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
 
 
 /**
@@ -19,6 +20,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name="Sales")
+@Builder
 public class Sales {
 
 	@Id

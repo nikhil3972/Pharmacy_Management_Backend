@@ -10,12 +10,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
 
 /**
  * Represents a Manufacturer entity in the system.
  */
 @Entity
 @Table(name="Manufacturer")
+@Builder
 public class Manufacturer {
     @Id
     @GeneratedValue

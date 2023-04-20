@@ -9,8 +9,8 @@ package com.manager.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.manager.demo.entity.Purchase_Order;
+import com.manager.demo.entity.PurchaseOrder;
 
-public interface Purchase_OrderRepository extends JpaRepository<Purchase_Order, Integer> {
+public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, Integer> {
 
 }

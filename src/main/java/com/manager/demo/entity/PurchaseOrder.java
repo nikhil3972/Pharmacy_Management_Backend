@@ -11,13 +11,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
 
 /**
  * Purchase_Order entity representing a purchase order in the system.
  */
 @Entity
 @Table(name="Purchase_Order")
-public class Purchase_Order {
+@Builder
+public class PurchaseOrder {
 
 	@Id
 	@GeneratedValue
@@ -38,7 +40,7 @@ public class Purchase_Order {
 	/**
 	 * Default constructor for Purchase_Order.
 	 */
-	Purchase_Order(){}
+	PurchaseOrder(){}
 
 	/**
 	 * Constructor for Purchase_Order with parameters.
@@ -52,8 +54,8 @@ public class Purchase_Order {
 	 * @param created_ts the timestamp when the purchase order was created.
 	 * @param modified_ts the timestamp when the purchase order was last modified.
 	 */
-	public Purchase_Order(int id, Date date, List<Manufacturer> manufacturer, Date expected_delivery_date,
-			BigDecimal total_cost, String created_by, String modified_by, Date created_ts, Date modified_ts) {
+	public PurchaseOrder(int id, Date date, List<Manufacturer> manufacturer, Date expected_delivery_date,
+						 BigDecimal total_cost, String created_by, String modified_by, Date created_ts, Date modified_ts) {
 		super();
 		this.id = id;
 		this.date = date;

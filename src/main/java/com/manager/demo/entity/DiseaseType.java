@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
 
 /**
  * This class represents a Disease Type entity, which is mapped to the "Disease_Type" table in the database.
@@ -17,7 +18,8 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name="Disease_Type")
-public class Disease_Type {
+@Builder
+public class DiseaseType {
 	
 	/**
 	 * The ID of the disease type.
@@ -57,7 +59,20 @@ public class Disease_Type {
 	 * The timestamp when the disease type record was last modified.
 	 */
 	Date modified_ts;
-	
+
+	DiseaseType(){}
+
+	public DiseaseType(int id, String type, List<Medicine> medicine, String created_by, String modified_by, Date created_ts, Date modified_ts){
+		super();
+		this.id = id;
+		this.type = type;
+		this.medicine = medicine;
+		this.created_by = created_by;
+		this.modified_by = modified_by;
+		this.created_ts = created_ts;
+		this.modified_ts = modified_ts;
+	}
+
 	/**
 	 * Gets the ID of the disease type.
 	 * @return The ID of the disease type.
