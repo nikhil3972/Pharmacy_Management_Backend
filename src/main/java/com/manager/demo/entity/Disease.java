@@ -11,6 +11,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+/**
+ * This class represents a Disease entity with its attributes and relationships to other entities.
+ */
 @Entity
 @Table(name="Disease")
 public class Disease {
@@ -29,54 +32,138 @@ public class Disease {
 	String modified_by;
 	Date created_ts;
 	Date modified_ts;
+	
+	/**
+	 * Gets the id of the Disease.
+	 * @return int value of the id.
+	 */
 	public int getId() {
 		return id;
 	}
+	
+	/**
+	 * Sets the id of the Disease.
+	 * @param id the int value of the id to be set.
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	/**
+	 * Gets the name of the Disease.
+	 * @return String value of the name.
+	 */
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * Sets the name of the Disease.
+	 * @param name the String value of the name to be set.
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * Gets the information about the Disease.
+	 * @return String value of the information.
+	 */
 	public String getInfo() {
 		return info;
 	}
+	
+	/**
+	 * Sets the information about the Disease.
+	 * @param info the String value of the information to be set.
+	 */
 	public void setInfo(String info) {
 		this.info = info;
 	}
+	
+	/**
+	 * Gets the list of Disease_Type associated with the Disease.
+	 * @return List of Disease_Type objects.
+	 */
 	public List<Disease_Type> getDisease_type() {
 		return disease_type;
 	}
+	
+	/**
+	 * Sets the list of Disease_Type associated with the Disease.
+	 * @param disease_type the List of Disease_Type objects to be set.
+	 */
 	public void setDisease_type(List<Disease_Type> disease_type) {
 		this.disease_type = disease_type;
 	}
+	
+	/**
+	 * Gets the name of the user who created the Disease.
+	 * @return String value of the user name.
+	 */
 	public String getCreated_by() {
 		return created_by;
 	}
+	
+	/**
+	 * Sets the name of the user who created the Disease.
+	 * @param created_by the String value of the user name to be set.
+	 */
 	public void setCreated_by(String created_by) {
 		this.created_by = created_by;
 	}
+	
+	/**
+	 * Gets the name of the user who last modified the Disease.
+	 * @return String value of the user name.
+	 */
 	public String getModified_by() {
 		return modified_by;
 	}
+	
+	/**
+	 * Sets the name of the user who last modified the Disease.
+	 * @param modified_by the String value of the user name to be set.
+	 */
 	public void setModified_by(String modified_by) {
 		this.modified_by = modified_by;
 	}
+	
+	/**
+	 * Gets the timestamp of when the Disease was created.
+	 * @return Date object representing the timestamp.
+	 */
 	public Date getCreated_ts() {
 		return created_ts;
 	}
+	
+	/**
+	 * Sets the timestamp of when the Disease was created.
+	 * @param created_ts the Date object representing the timestamp to be set.
+	 */
 	public void setCreated_ts(Date created_ts) {
 		this.created_ts = created_ts;
 	}
+	
+	/**
+	 * Gets the timestamp of when the Disease was last modified.
+	 * @return Date object representing the timestamp.
+	 */
 	public Date getModified_ts() {
 		return modified_ts;
 	}
+	/**
+	 * Sets the modified timestamp of this Disease object.
+	 * @param modified_ts the modified timestamp to be set
+	 */
 	public void setModified_ts(Date modified_ts) {
 		this.modified_ts = modified_ts;
 	}
+
+	/**
+	 * Returns a string representation of this Disease object.
+	 * @return a string representation of this Disease object
+	 */
 	@Override
 	public String toString() {
 		return "Disease [id=" + id + ", name=" + name + ", info=" + info + ", disease_type=" + disease_type

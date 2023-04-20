@@ -1,4 +1,5 @@
-package com.manager.demo.controller;
+
+    package com.manager.demo.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,12 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.manager.demo.entity.Sales;
 import com.manager.demo.repository.SalesRepository;
 
+
+/**
+ * This class represents the controller for Sales management
+*/
 @RestController
 public class SalesController {
-
 	@Autowired
 	SalesRepository saleRepo;
-	
+
+	/**
+	 * Get a list of all Sales records
+	 * @return List of Sales records
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllSales")
 	public List<Sales> getAllSales() {
@@ -29,7 +37,12 @@ public class SalesController {
 		System.out.println("Get list of all Sales successfully");
 		return sale;
 	}
-	
+
+	/**
+	 * Insert a new Sales record
+	 * @param obj - Sales object to insert
+	 * @return String message indicating if the record was inserted successfully
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertSales")
 	public String insertSales(@RequestBody Sales obj) {
@@ -37,7 +50,12 @@ public class SalesController {
 		saleRepo.save(obj);
 		return "Record Inserted Successfully";
 	}
-	
+
+	/**
+	 * Update an existing Sales record
+	 * @param obj - Sales object to update
+	 * @return String message indicating if the record was updated successfully or not
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateSales")
 	public String updateSales(@RequestBody Sales obj) {
@@ -60,7 +78,12 @@ public class SalesController {
 			return "Unable to update the record";
 		}
 	}
-	
+
+	/**
+	 * Delete an existing Sales record by its id
+	 * @param id - Id of the Sales record to delete
+	 * @return String message indicating if the record was deleted successfully or not
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@DeleteMapping (path="/deleteSales/{id}")
 	public String deleteSales(@PathVariable int id) {
@@ -68,5 +91,5 @@ public class SalesController {
 		saleRepo.deleteById(id);
 		return "Record Deleted Successfully";
 	}
-	
+
 }

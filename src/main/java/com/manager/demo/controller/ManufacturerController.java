@@ -16,12 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.manager.demo.entity.Manufacturer;
 import com.manager.demo.repository.ManufacturerRepository;
 
+
+/**
+* This class is the controller for the Manufacturer entity. It handles all the HTTP requests related to the Manufacturer.
+* It uses the ManufacturerRepository interface to perform CRUD operations on the database.
+* The @RestController annotation is used to indicate that this class is a Spring MVC controller and should be used to handle incoming HTTP requests.
+* The @Autowired annotation is used to auto wire the ManufacturerRepository interface to the controller class.
+* The @CrossOrigin annotation is used to allow cross-origin requests from a specific domain.
+*/
+
 @RestController
 public class ManufacturerController {
-
 	@Autowired
 	ManufacturerRepository manRepo;
-	
+
+	/**
+	 * This method retrieves all the records of Manufacturer from the database.
+	 * 
+	 * @return a List of Manufacturer objects.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllManufacturer")
 	public List<Manufacturer> getAllManufacturer() {
@@ -29,7 +42,13 @@ public class ManufacturerController {
 		System.out.println("Get list of all manufacturer successfully");
 		return med;
 	}
-	
+
+	/**
+	 * This method inserts a new Manufacturer record into the database.
+	 * 
+	 * @param obj - A Manufacturer object containing the details of the new record to be inserted.
+	 * @return a String indicating the success or failure of the operation.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertManufacturer")
 	public String insertManufacturer(@RequestBody Manufacturer obj) {
@@ -37,7 +56,13 @@ public class ManufacturerController {
 		manRepo.save(obj);
 		return "Record Inserted Successfully";
 	}
-	
+
+	/**
+	 * This method updates an existing Manufacturer record in the database.
+	 * 
+	 * @param obj - A Manufacturer object containing the details of the record to be updated.
+	 * @return a String indicating the success or failure of the operation.
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateManufacturer")
 	public String updateManufacturer(@RequestBody Manufacturer obj) {
@@ -60,9 +85,15 @@ public class ManufacturerController {
 			return "Unable to update the record";
 		}
 	}
-	
+
+	/**
+	 * This method deletes an existing Manufacturer record from the database.
+	 * 
+	 * @param id - An integer representing the id of the record to be deleted.
+	 * @return a String indicating the success or failure of the operation.
+	 */
 	@CrossOrigin("http://localhost:4200")
-	@DeleteMapping (path="/deleteManufacturer/{id}")
+	@DeleteMapping (path="/deleteManufacturer/")
 	public String deleteManufacturer(@PathVariable int id) {
 		System.out.println("Manufacturer record deleted. Given id : " + id);
 		manRepo.deleteById(id);
