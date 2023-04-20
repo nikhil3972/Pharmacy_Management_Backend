@@ -27,11 +27,31 @@ public class Medicine {
 	String modified_by;
 	Date created_ts;
 	Date modified_ts;
-	
-	Medicine(){}
+
+
+	/**
+	 * Default constructor for Medicine.
+	 */
+	public Medicine() {}
+
+	/**
+	 * Constructor for Medicine with specified parameters.
+	 * @param id The ID of the medicine.
+	 * @param name The name of the medicine.
+	 * @param description The description of the medicine.
+	 * @param dosage The dosage of the medicine.
+	 * @param price The price of the medicine.
+	 * @param manufacture_date The manufacture date of the medicine.
+	 * @param expiry_date The expiry date of the medicine.
+	 * @param current_stock The current stock of the medicine.
+	 * @param created_by The user who created the medicine.
+	 * @param modified_by The user who last modified the medicine.
+	 * @param created_ts The timestamp when the medicine was created.
+	 * @param modified_ts The timestamp when the medicine was last modified.
+	 */
 	public Medicine(int id, String name, String description, String dosage, BigDecimal price, Date manufacture_date,
-			Date expiry_date, int current_stock, String created_by, String modified_by, Date created_ts,
-			Date modified_ts) {
+					Date expiry_date, int current_stock, String created_by, String modified_by, Date created_ts,
+					Date modified_ts) {
 		super();
 		this.id = id;
 		this.name = name;

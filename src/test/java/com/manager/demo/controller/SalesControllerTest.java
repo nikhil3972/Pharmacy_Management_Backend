@@ -30,6 +30,9 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * JUnit test class for testing SalesController methods using Mockito framework.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class SalesControllerTest {
 
@@ -61,16 +64,26 @@ public class SalesControllerTest {
 
     Sales sales_2 = new Sales(4, "2023-01-04", customers_1, BigDecimal.valueOf(300.14), "Harshal", "Ramesh", new Date(2000-01-01), new Date(2000-01-01));
 
+    /**
+     * Set up method to initialize mock objects and create the mockMvc instance for testing the salesController.
+     */
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(salesController).build();
     }
 
+    /**
+     * This method tests the getAllSales() method of SalesController by mocking the repository call and verifying the response.
+     * @throws Exception if any error occurs during test execution.
+     */
     @Test
     public void getAllSales() throws Exception{
+        //Arrange
         List<Sales> sales = new ArrayList<>(Arrays.asList(sales_1, sales_2));
         Mockito.when(salesRepository.findAll()).thenReturn(sales);
+
+        //Act and Assert
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/getAllSales")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -78,8 +91,13 @@ public class SalesControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)));
     }
 
+    /**
+     * This method tests the addSale() method of SalesController by creating a mock Sales object, calling the method and verifying the response.
+     * @throws Exception if any error occurs during test execution.
+     */
     @Test
     public void addSale() throws Exception{
+        //Arrange
         Sales sales = Sales.builder()
                 .id(5)
                 .date("2023-01-01")
@@ -91,7 +109,6 @@ public class SalesControllerTest {
                 .modified_ts(new Date(2000-01-01))
                 .build();
 
-//        Mockito.when(salesRepository.save(sales)).thenReturn(sales);
         String content = objectWriter.writeValueAsString(sales);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/insertSales")
@@ -99,13 +116,18 @@ public class SalesControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(content);
 
+        //Act and Assert
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
+    /**
+     * This method tests the updateSales() method of SalesController by creating a mock Sales object, mocking the repository call and verifying the response.
+     * @throws Exception if any error occurs during test execution.
+     */
     @Test
     public void updateSales() throws Exception{
+        //Arrange
         Sales salesUpdate = Sales.builder()
                 .id(4)
                 .date("2022-04-01")
@@ -118,7 +140,6 @@ public class SalesControllerTest {
                 .build();
 
         Mockito.when(salesRepository.findById(sales_2.getId())).thenReturn(java.util.Optional.ofNullable(sales_2));
-//        Mockito.when(salesRepository.save(salesUpdate)).thenReturn(salesUpdate);
 
         String upContent = objectWriter.writeValueAsString(salesUpdate);
 
@@ -127,19 +148,24 @@ public class SalesControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(upContent);
 
+        //Act and Assert
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
+    /**
+     * This method tests the deleteSales() method of SalesController by mocking the repository call and verifying the response.
+     * @throws Exception if any error occurs during test execution.
+     */
     @Test
     public void deleteSales() throws Exception{
-//        Mockito.when(salesRepository.findById(sales_2.getId())).thenReturn(Optional.of(sales_2));
-
+        //Act and Assert
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/deleteSales/4")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
+
 
 }

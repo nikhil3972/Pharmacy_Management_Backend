@@ -30,6 +30,9 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * This class contains unit tests for the PurchaseOrderController class.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class PurchaseOrderControllerTest {
 
@@ -60,12 +63,19 @@ public class PurchaseOrderControllerTest {
 
     PurchaseOrder purchaseOrder_2 = new PurchaseOrder(69, new Date(2010-01-01), manufacturers_1, new Date(2000-01-01), BigDecimal.valueOf(23.67), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
+    /**
+     * Set up method to initialize mock objects and create the mockMvc instance for testing the PurchaseOrderController.
+     */
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(purchaseOrderController).build();
     }
 
+    /**
+     * Test method to verify the getAllPurchaseOrder() method in the PurchaseOrderController class.
+     * @throws Exception when there is an error in performing the test request
+     */
     @Test
     public void getAllPurchaseOrder() throws Exception{
         List<PurchaseOrder> purchaseOrder = new ArrayList<>(Arrays.asList(purchaseOrder_1, purchaseOrder_2));
@@ -77,6 +87,10 @@ public class PurchaseOrderControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)));
     }
 
+    /**
+     * Test method to verify the addPurchaseOrder() method in the PurchaseOrderController class.
+     * @throws Exception when there is an error in performing the test request
+     */
     @Test
     public void addPurchaseOrder() throws Exception{
         PurchaseOrder purchaseOrder = PurchaseOrder.builder()
@@ -91,7 +105,6 @@ public class PurchaseOrderControllerTest {
                 .modified_ts(new Date(2000-01-01))
                 .build();
 
-//        Mockito.when(purchaseOrderRepository.save(purchaseOrder)).thenReturn(purchaseOrder);
         String content = objectWriter.writeValueAsString(purchaseOrder);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/insertPurchaseOrder")
@@ -101,9 +114,12 @@ public class PurchaseOrderControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
+    /**
+     * Test method to verify the updatePurchaseOrder() method in the PurchaseOrderController class.
+     * @throws Exception when there is an error in performing the test request
+     */
     @Test
     public void updatePurchaseOrder() throws Exception{
         PurchaseOrder purchaseOrderUpdate = PurchaseOrder.builder()
@@ -119,7 +135,6 @@ public class PurchaseOrderControllerTest {
                 .build();
 
         Mockito.when(purchaseOrderRepository.findById(purchaseOrder_2.getId())).thenReturn(java.util.Optional.ofNullable(purchaseOrder_2));
-//        Mockito.when(purchaseOrderRepository.save(purchaseOrderUpdate)).thenReturn(purchaseOrderUpdate);
 
         String upContent = objectWriter.writeValueAsString(purchaseOrderUpdate);
 
@@ -130,20 +145,17 @@ public class PurchaseOrderControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
+    /**
+     * Test method to verify the deletePurchaseOrder() method in the PurchaseOrderController class.
+     * @throws Exception when there is an error in performing the test request
+     */
     @Test
     public void deletePurchaseOrder() throws Exception{
-//        Mockito.when(purchaseOrderRepository.findById(purchaseOrder_2.getId())).thenReturn(Optional.of(purchaseOrder_2));
-
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/deletePurchaseOrder/69")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-
-
-
-
 }

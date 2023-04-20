@@ -60,8 +60,21 @@ public class DiseaseType {
 	 */
 	Date modified_ts;
 
-	DiseaseType(){}
+	/**
+	 * Default constructor for DiseaseType.
+	 */
+	public DiseaseType() {}
 
+	/**
+	 * Constructor for DiseaseType with specified parameters.
+	 * @param id The ID of the disease type.
+	 * @param type The type of the disease.
+	 * @param medicine The list of medicines associated with the disease type.
+	 * @param created_by The user who created the disease type.
+	 * @param modified_by The user who last modified the disease type.
+	 * @param created_ts The timestamp when the disease type was created.
+	 * @param modified_ts The timestamp when the disease type was last modified.
+	 */
 	public DiseaseType(int id, String type, List<Medicine> medicine, String created_by, String modified_by, Date created_ts, Date modified_ts){
 		super();
 		this.id = id;

@@ -30,36 +30,40 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Test class for the DiseaseTypeController. Uses Mockito to mock the DiseaseTypeRepository
+ * and test various HTTP endpoints.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class DiseaseTypeControllerTest {
 
+    // Initialize necessary objects
     MockMvc mockMvc;
-
     ObjectMapper objectMapper = new ObjectMapper();
     ObjectWriter objectWriter = objectMapper.writer();
-
-    @Mock
-    DiseaseTypeRepository diseaseTypeRepository;
-
-    @InjectMocks
-    DiseaseTypeController diseaseTypeController;
-
+    @Mock DiseaseTypeRepository diseaseTypeRepository;
+    @InjectMocks DiseaseTypeController diseaseTypeController;
     List<Medicine> medicines = new ArrayList<>();
     Medicine medicine = new Medicine(93, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
-
     List<Medicine> medicines_1 = new ArrayList<>();
     Medicine medicine_1 = new Medicine(94, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
-
     DiseaseType diseaseType_1 = new DiseaseType(17, "Viral", medicines, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
-
     DiseaseType diseaseType_2 = new DiseaseType(18, "Viral", medicines_1, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
+    /**
+     * Sets up the test environment before each test case by initializing the MockMvc object
+     * with the DiseaseTypeController.
+     */
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(diseaseTypeController).build();
     }
 
+    /**
+     * Tests the getAllDiseaseType endpoint by mocking the DiseaseTypeRepository's findAll method
+     * and verifying that the response has a size of 2.
+     */
     @Test
     public void getAllDiseaseType() throws Exception{
         List<DiseaseType> diseaseType = new ArrayList<>(Arrays.asList(diseaseType_1, diseaseType_2));
@@ -71,6 +75,10 @@ public class DiseaseTypeControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)));
     }
 
+    /**
+     * Tests the addDiseaseType endpoint by creating a new DiseaseType object and sending it
+     * as a JSON string in the request body.
+     */
     @Test
     public void addDiseaseType() throws Exception{
         DiseaseType diseaseType = DiseaseType.builder()
@@ -83,7 +91,6 @@ public class DiseaseTypeControllerTest {
                 .modified_ts(new Date(2000-01-01))
                 .build();
 
-//        Mockito.when(diseaseTypeRepository.save(diseaseType)).thenReturn(diseaseType);
         String content = objectWriter.writeValueAsString(diseaseType);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/insertDiseaseType")
@@ -96,6 +103,12 @@ public class DiseaseTypeControllerTest {
 //                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
+    /**
+
+     Tests updating a DiseaseType object through the REST API.
+
+     @throws Exception if an error occurs while performing the test
+     */
     @Test
     public void updateDiseaseType() throws Exception{
         DiseaseType diseaseTypeUpdate = DiseaseType.builder()
@@ -109,7 +122,6 @@ public class DiseaseTypeControllerTest {
                 .build();
 
         Mockito.when(diseaseTypeRepository.findById(diseaseType_2.getId())).thenReturn(java.util.Optional.ofNullable(diseaseType_2));
-//        Mockito.when(diseaseTypeRepository.save(diseaseTypeUpdate)).thenReturn(diseaseTypeUpdate);
 
         String upContent = objectWriter.writeValueAsString(diseaseTypeUpdate);
 
@@ -120,12 +132,15 @@ public class DiseaseTypeControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
+    /**
+     * Tests deleting a DiseaseType object through the REST API.
+     * @throws Exception if an error occurs while performing the test
+     */
     @Test
     public void deleteDiseaseType() throws Exception{
-//        Mockito.when(diseaseTypeRepository.findById(diseaseType_2.getId())).thenReturn(Optional.of(diseaseType_2));
+        // Mockito.when(diseaseTypeRepository.findById(diseaseType_2.getId())).thenReturn(Optional.of(diseaseType_2));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/deleteDiseaseType/18")

@@ -32,7 +32,35 @@ public class Disease {
 	String modified_by;
 	Date created_ts;
 	Date modified_ts;
-	
+
+
+	/**
+	 * Default constructor for Disease.
+	 */
+	public Disease() {}
+
+	/**
+	 * Constructor for Disease with specified parameters.
+	 * @param id The ID of the disease.
+	 * @param name The name of the disease.
+	 * @param info The information about the disease.
+	 * @param disease_type The list of disease types associated with the disease.
+	 * @param created_by The user who created the disease.
+	 * @param modified_by The user who last modified the disease.
+	 * @param created_ts The timestamp when the disease was created.
+	 * @param modified_ts The timestamp when the disease was last modified.
+	 */
+	public Disease(int id, String name, String info, List<DiseaseType> disease_type, String created_by, String modified_by, Date created_ts, Date modified_ts) {
+		this.id = id;
+		this.name = name;
+		this.info = info;
+		this.disease_type = disease_type;
+		this.created_by = created_by;
+		this.modified_by = modified_by;
+		this.created_ts = created_ts;
+		this.modified_ts = modified_ts;
+	}
+
 	/**
 	 * Gets the id of the Disease.
 	 * @return int value of the id.

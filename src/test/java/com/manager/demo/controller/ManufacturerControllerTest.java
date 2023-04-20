@@ -30,6 +30,10 @@ import java.util.Optional;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * This is a JUnit test class for the ManufacturerController class.
+ * It uses the MockitoJUnitRunner to mock the required dependencies.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class ManufacturerControllerTest {
 
@@ -55,12 +59,20 @@ public class ManufacturerControllerTest {
     Manufacturer manufacturer_2 = new Manufacturer(11, "Cisco", "7478287379", medicines_1, "Nagesh", "Rahul", new Date(2000-01-01), new Date(2000-01-01));
 
 
+    /**
+     * Set up the test environment before running the tests.
+     */
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(manufacturerController).build();
     }
 
+
+    /**
+     * Test method for retrieving all manufacturers from the database.
+     * @throws Exception if there is an error performing the test
+     */
     @Test
     public void getAllManufacturers() throws Exception{
         List<Manufacturer> manufacturers = new ArrayList<>(Arrays.asList(manufacturer_1, manufacturer_2));
@@ -72,6 +84,10 @@ public class ManufacturerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)));
     }
 
+    /**
+     * Test method for adding a new manufacturer record to the database.
+     * @throws Exception if there is an error performing the test
+     */
     @Test
     public void addManufacturer() throws Exception{
         Manufacturer manufacturer = Manufacturer.builder()
@@ -98,6 +114,10 @@ public class ManufacturerControllerTest {
 //                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
+    /**
+     * Test method for updating a manufacturer record in the database.
+     * @throws Exception if there is an error performing the test
+     */
     @Test
     public void updateManufacturer() throws Exception{
         Manufacturer manufacturerUpdate = Manufacturer.builder()
@@ -126,6 +146,10 @@ public class ManufacturerControllerTest {
 //                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
+    /**
+     * Test method for deleting a manufacturer record from the database.
+     * @throws Exception if there is an error performing the test
+     */
     @Test
     public void deleteManufacturer() throws Exception{
 //        Mockito.when(manufacturerRepository.findById(manufacturer_2.getId())).thenReturn(Optional.of(manufacturer_2));
