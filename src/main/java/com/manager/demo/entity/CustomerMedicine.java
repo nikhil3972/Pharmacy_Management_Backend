@@ -10,7 +10,7 @@ public class CustomerMedicine {
 	private String email;
 	private String contact;
 	private String name;
-	private BigDecimal price;
+	public BigDecimal price;
 	
 	CustomerMedicine(){}
 	public CustomerMedicine(int id, String firstName, String lastName, String email, String contact, String name,
