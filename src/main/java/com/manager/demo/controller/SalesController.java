@@ -1,4 +1,5 @@
-package com.manager.demo.controller;
+
+    package com.manager.demo.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,34 +17,56 @@ import org.springframework.web.bind.annotation.RestController;
 import com.manager.demo.entity.Sales;
 import com.manager.demo.repository.SalesRepository;
 
+
+/**
+ * This class represents the controller for Sales management
+*/
 @RestController
 public class SalesController {
-
 	@Autowired
 	SalesRepository saleRepo;
-	
+
+	/**
+	 * Get a list of all Sales records
+	 * @return List of Sales records
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllSales")
 	public List<Sales> getAllSales() {
-		List<Sales> sale = saleRepo.findAll();
-		System.out.println("Get list of all Sales successfully");
-		return sale;
+		return saleRepo.findAll();
+//		System.out.println("Get list of all Sales successfully");
+//		return sale;
 	}
-	
+
+	/**
+	 * Insert a new Sales record
+	 * @param obj - Sales object to insert
+	 * @return String message indicating if the record was inserted successfully
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertSales")
-	public String insertSales(@RequestBody Sales obj) {
+	public Sales insertSales(@RequestBody Sales obj) {
 		System.out.println("Received data : " + obj);
-		saleRepo.save(obj);
-		return "Record Inserted Successfully";
+		return saleRepo.save(obj);
+//		return "Record Inserted Successfully";
 	}
-	
+
+	/**
+	 * Update an existing Sales record
+	 * @param obj - Sales object to update
+	 * @return String message indicating if the record was updated successfully or not
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateSales")
-	public String updateSales(@RequestBody Sales obj) {
+	public Sales updateSales(@RequestBody Sales obj) {
 		Optional<Sales> sale = saleRepo.findById(obj.getId());
 		
-		if(sale.isPresent()) {
+		//		if(!=cus.isPresent()) {
+//
+//			throw new NotFoundException("Medicine id " + obj.getId() + "does not exist");
+////			return "Record Updated Successfully";
+//		}
+
 			Sales saleUpd = sale.get();
 			saleUpd.setDate(obj.getDate());
 			saleUpd.setCustomer(obj.getCustomer());
@@ -53,14 +76,14 @@ public class SalesController {
 			saleUpd.setCreated_ts(obj.getCreated_ts());
 			saleUpd.setModified_ts(obj.getModified_ts());
 			System.out.println("Received Data in PutMapping :" + obj);
-			saleRepo.save(obj);
-			return "Record Updated Successfully";
-		}
-		else {
-			return "Unable to update the record";
-		}
+			return saleRepo.save(obj);
 	}
-	
+
+	/**
+	 * Delete an existing Sales record by its id
+	 * @param id - Id of the Sales record to delete
+	 * @return String message indicating if the record was deleted successfully or not
+	 */
 	@CrossOrigin("http://localhost:4200")
 	@DeleteMapping (path="/deleteSales/{id}")
 	public String deleteSales(@PathVariable int id) {
@@ -68,5 +91,5 @@ public class SalesController {
 		saleRepo.deleteById(id);
 		return "Record Deleted Successfully";
 	}
-	
+
 }

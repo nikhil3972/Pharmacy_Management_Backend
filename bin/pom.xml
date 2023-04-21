@@ -50,7 +50,10 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+<<<<<<< HEAD
 	
+=======
+>>>>>>> d93384e8c7bbe68f7ae2ff9bede7ad1eaddc6ed2
 	</dependencies>
 
 	<build>
