@@ -3,7 +3,7 @@ package com.manager.demo.service;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.manager.demo.entity.CustomerMedicine;
+
 import com.manager.demo.entity.Manufacturer;
 
 public class  ManufacturerService {
@@ -35,7 +35,7 @@ public class  ManufacturerService {
 		});
 		return manufactureList.stream().filter(c->c.getId()== manufactureId).findFirst().get();
 	}
-	public void deleteCustomerMedicine(int manufactureId) {
+	public void deleteManufacturer(int manufactureId) {
 		manufactureList.stream().forEach(c->{
 			if(c.getId()==manufactureId) {
 				manufactureList.remove(c);
