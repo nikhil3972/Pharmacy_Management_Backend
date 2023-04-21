@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,22 +66,20 @@ public class ManufacturerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateManufacturer")
-	public Manufacturer updateManufacturer(@RequestBody Manufacturer obj) {
+	public Manufacturer updateManufacturer(@RequestBody Manufacturer obj) throws ChangeSetPersister.NotFoundException {
 		Optional<Manufacturer> man = manRepo.findById(obj.getId());
 
-//		if(!=cus.isPresent()) {
-//
-//			throw new NotFoundException("Medicine id " + obj.getId() + "does not exist");
-////			return "Record Updated Successfully";
-//		}
+		if (!man.isPresent()) {
+			throw new ChangeSetPersister.NotFoundException();
+		}
 			Manufacturer manUpd = man.get();
 			manUpd.setName(obj.getName());
 			manUpd.setContact(obj.getContact());
 			manUpd.setMedicine(obj.getMedicine());
-			manUpd.setCreated_by(obj.getCreated_by());
-			manUpd.setModified_by(obj.getModified_by());
-			manUpd.setCreated_ts(obj.getCreated_ts());
-			manUpd.setModified_ts(obj.getModified_ts());
+		manUpd.setCreatedBy(obj.getCreatedBy());
+		manUpd.setModifiedBy(obj.getModifiedBy());
+		manUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
+		manUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
 			System.out.println("Received Data in PutMapping :" + obj);
 			return manRepo.save(obj);
 	}

@@ -49,11 +49,11 @@ public class CustomerControllerTest {
     List<Medicine> medicines = new ArrayList<>();
     Medicine medicine = new Medicine(35, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    List<Medicine> medicines_1 = new ArrayList<>();
-    Medicine medicine_1 = new Medicine(36, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    List<Medicine> medicinesOne = new ArrayList<>();
+    Medicine medicineOne = new Medicine(36, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    Customer customer_1 = new Customer(15, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
-    Customer customer_2 = new Customer(16, "Amit", "Shinde", "9766107234", "ams941@gmail.com", medicines_1, new Date(2001-06-04), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Customer customerOne = new Customer(15, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Customer customerTwo = new Customer(16, "Amit", "Shinde", "9766107234", "ams941@gmail.com", medicinesOne, new Date(2001-06-04), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
     /**
      * Set up method to initialize the mock objects and the MockMvc instance.
@@ -70,7 +70,7 @@ public class CustomerControllerTest {
      */
     @Test
     public void getAllCustomers() throws Exception{
-        List<Customer> customers = new ArrayList<>(Arrays.asList(customer_1, customer_2));
+        List<Customer> customers = new ArrayList<>(Arrays.asList(customerOne, customerTwo));
         Mockito.when(customerRepository.findAll()).thenReturn(customers);
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/getAllCustomer")
@@ -86,17 +86,17 @@ public class CustomerControllerTest {
     @Test
     public void addCustomer() throws Exception{
         Customer customer = Customer.builder()
-                .id(17)
+                .customerId(17)
                 .firstName("Ganesh")
                 .lastName("Chormale")
                 .contact("8328528894")
                 .email("ganesh123@gmail.com")
                 .medicine((List<Medicine>) medicines)
                 .dob(new Date(2000-01-01))
-                .created_by("Harshal")
-                .modified_by("Amit")
-                .created_ts(new Date(2000-01-01))
-                .modified_ts(new Date(2000-01-01))
+                .createdBy("Harshal")
+                .modifiedBy("Amit")
+                .createdTimestamp(new Date(2000-01-01))
+                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         String content = objectWriter.writeValueAsString(customer);
@@ -108,7 +108,6 @@ public class CustomerControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
     /**
@@ -118,21 +117,20 @@ public class CustomerControllerTest {
     @Test
     public void updateCustomer() throws Exception{
         Customer customerUpdate = Customer.builder()
-                .id(16)
+                .customerId(16)
                 .firstName("Amit")
                 .lastName("Jadhav")
                 .contact("8328528894")
                 .email("ganesh123@gmail.com")
                 .medicine((List<Medicine>) medicines)
                 .dob(new Date(2000-01-01))
-                .created_by("Harshal")
-                .modified_by("Amit")
-                .created_ts(new Date(2000-01-01))
-                .modified_ts(new Date(2000-01-01))
+                .createdBy("Harshal")
+                .modifiedBy("Amit")
+                .createdTimestamp(new Date(2000-01-01))
+                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
-        Mockito.when(customerRepository.findById(customer_2.getId())).thenReturn(java.util.Optional.ofNullable(customer_2));
-//        Mockito.when(customerRepository.save(customerUpdate)).thenReturn(customerUpdate);
+        Mockito.when(customerRepository.findById(customerTwo.getId())).thenReturn(java.util.Optional.ofNullable(customerTwo));
 
         String upContent = objectWriter.writeValueAsString(customerUpdate);
 
@@ -143,7 +141,6 @@ public class CustomerControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
     /**
@@ -152,8 +149,6 @@ public class CustomerControllerTest {
      */
     @Test
     public void deleteCustomer() throws Exception{
-//        Mockito.when(customerRepository.findById(customer_2.getId())).thenReturn(Optional.of(customer_2));
-
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/deleteCustomer/16")
                         .contentType(MediaType.APPLICATION_JSON))

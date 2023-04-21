@@ -48,18 +48,18 @@ public class DiseaseControllerTest {
     List<Medicine> medicines = new ArrayList<>();
     Medicine medicine = new Medicine(49, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    List<Medicine> medicines_1 = new ArrayList<>();
-    Medicine medicine_1 = new Medicine(50, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    List<Medicine> medicinesOne = new ArrayList<>();
+    Medicine medicineOne = new Medicine(50, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
     List<DiseaseType> diseaseTypes = new ArrayList<>();
     DiseaseType diseaseType = new DiseaseType(77, "Viral", medicines, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    List<DiseaseType> diseaseTypes_1 = new ArrayList<>();
-    DiseaseType diseaseType_1 = new DiseaseType(78, "Viral", medicines_1, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    List<DiseaseType> diseaseTypesOne = new ArrayList<>();
+    DiseaseType diseaseTypeOne = new DiseaseType(78, "Viral", medicinesOne, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    Disease disease_1 = new Disease(13, "Fever", "Increased Body Temperature", diseaseTypes, "Nagesh", "Rahul", new Date(2000-01-01), new Date(2000-01-01));
+    Disease diseaseOne = new Disease(13, "Fever", "Increased Body Temperature", diseaseTypes, "Nagesh", "Rahul", new Date(2000-01-01), new Date(2000-01-01));
 
-    Disease disease_2 = new Disease(14, "Cold", "Cough", diseaseTypes_1, "Nagesh", "Rahul", new Date(2000-01-01), new Date(2000-01-01));
+    Disease diseaseTwo = new Disease(14, "Cold", "Cough", diseaseTypesOne, "Nagesh", "Rahul", new Date(2000-01-01), new Date(2000-01-01));
 
     @Before
     public void setUp(){
@@ -69,7 +69,7 @@ public class DiseaseControllerTest {
 
     @Test
     public void getAllDiseases() throws Exception{
-        List<Disease> diseases = new ArrayList<>(Arrays.asList(disease_1, disease_2));
+        List<Disease> diseases = new ArrayList<>(Arrays.asList(diseaseOne, diseaseTwo));
         Mockito.when(diseaseRepository.findAll()).thenReturn(diseases);
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/getAllDisease")
@@ -81,17 +81,16 @@ public class DiseaseControllerTest {
     @Test
     public void addDisease() throws Exception{
         Disease disease = Disease.builder()
-                .id(15)
-                .name("Cold")
-                .info("Sneezing")
-                .disease_type((List<DiseaseType>) diseaseTypes_1)
-                .created_by("Harshal")
-                .modified_by("Amit")
-                .created_ts(new Date(2000-01-01))
-                .modified_ts(new Date(2000-01-01))
+                .diseaseId(15)
+                .diseaseName("Cold")
+                .diseaseInfo("Sneezing")
+                .diseaseType((List<DiseaseType>) diseaseTypesOne)
+                .createdBy("Harshal")
+                .modifiedBy("Amit")
+                .createdTimestamp(new Date(2000-01-01))
+                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
-//        Mockito.when(diseaseRepository.save(disease)).thenReturn(disease);
         String content = objectWriter.writeValueAsString(disease);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/insertDisease")
@@ -101,24 +100,22 @@ public class DiseaseControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
     @Test
     public void updateDisease() throws Exception{
         Disease diseaseUpdate = Disease.builder()
-                .id(14)
-                .name("Cold")
-                .info("Cough")
-                .disease_type((List<DiseaseType>) diseaseTypes)
-                .created_by("Harshal")
-                .modified_by("Amit")
-                .created_ts(new Date(2000-01-01))
-                .modified_ts(new Date(2000-01-01))
+                .diseaseId(14)
+                .diseaseName("Cold")
+                .diseaseInfo("Cough")
+                .diseaseType((List<DiseaseType>) diseaseTypes)
+                .createdBy("Harshal")
+                .modifiedBy("Amit")
+                .createdTimestamp(new Date(2000-01-01))
+                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
-        Mockito.when(diseaseRepository.findById(disease_2.getId())).thenReturn(java.util.Optional.ofNullable(disease_2));
-//        Mockito.when(diseaseRepository.save(diseaseUpdate)).thenReturn(diseaseUpdate);
+        Mockito.when(diseaseRepository.findById(diseaseTwo.getId())).thenReturn(java.util.Optional.ofNullable(diseaseTwo));
 
         String upContent = objectWriter.writeValueAsString(diseaseUpdate);
 
@@ -129,13 +126,10 @@ public class DiseaseControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
     @Test
     public void deleteDisease() throws Exception{
-//        Mockito.when(diseaseRepository.findById(disease_2.getId())).thenReturn(Optional.of(disease_2));
-
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/deleteDisease/11")
                         .contentType(MediaType.APPLICATION_JSON))

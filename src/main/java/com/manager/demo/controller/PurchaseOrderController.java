@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,23 +59,21 @@ public class PurchaseOrderController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updatePurchaseOrder")
-	public PurchaseOrder updatePurchaseOrder(@RequestBody PurchaseOrder obj) {
+	public PurchaseOrder updatePurchaseOrder(@RequestBody PurchaseOrder obj) throws ChangeSetPersister.NotFoundException {
 		Optional<PurchaseOrder> purOr = purOrRepo.findById(obj.getId());
 
-//		if(!=purOr.isPresent()) {
-//
-//			throw new NotFoundException("PurchaseOrder id " + obj.getId() + "does not exist");
-////			return "Record Updated Successfully";
-//		}
+		if (!purOr.isPresent()) {
+			throw new ChangeSetPersister.NotFoundException();
+		}
 			PurchaseOrder purOrUpd = purOr.get();
 			purOrUpd.setDate(obj.getDate());
 			purOrUpd.setManufacturer(obj.getManufacturer());
-			purOrUpd.setExpected_delivery_date(obj.getExpected_delivery_date());
-			purOrUpd.setTotal_cost(obj.getTotal_cost());
-			purOrUpd.setCreated_by(obj.getCreated_by());
-			purOrUpd.setModified_by(obj.getModified_by());
-			purOrUpd.setCreated_ts(obj.getCreated_ts());
-			purOrUpd.setModified_ts(obj.getModified_ts());
+			purOrUpd.setExpectedDeliveryDate(obj.getExpectedDeliveryDate());
+			purOrUpd.setTotalCost(obj.getTotalCost());
+		purOrUpd.setCreatedBy(obj.getCreatedBy());
+		purOrUpd.setModifiedBy(obj.getModifiedBy());
+		purOrUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
+		purOrUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
 			System.out.println("Received Data in PutMapping :" + obj);
 			return purOrRepo.save(obj);
 	}

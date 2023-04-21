@@ -23,8 +23,8 @@ public class PurchaseOrderService {
 		 purchaseOrderList.stream().forEach(c->{
 			if(c.getId()==  purchaseOrderId) {
 				c.setDate( purchaseOrder.getDate());
-				c.setExpected_delivery_date( purchaseOrder.getExpected_delivery_date());
-				c.setTotal_cost( purchaseOrder.getTotal_cost());
+				c.setExpectedDeliveryDate( purchaseOrder.getExpectedDeliveryDate());
+				c.setTotalCost( purchaseOrder.getTotalCost());
 				
 			}
 		});

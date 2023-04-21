@@ -7,34 +7,34 @@ import java.math.BigDecimal;
  */
 public class CustomerMedicine {
 
-	private int id;
+	private int customerMedicineId;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String contact;
-	private String name;
+	private String medicineName;
 	public BigDecimal price;
 	
 	/**
 	 * Constructs a new CustomerMedicine object with the specified details.
 	 *
-	 * @param id The ID of the customer's purchase.
+	 * @param customerMedicineId The ID of the customer's purchase.
 	 * @param firstName The first name of the customer.
 	 * @param lastName The last name of the customer.
 	 * @param email The email address of the customer.
 	 * @param contact The phone number of the customer.
-	 * @param name The name of the medicine.
+	 * @param medicineName The name of the medicine.
 	 * @param price The price of the medicine.
 	 */
-	public CustomerMedicine(int id, String firstName, String lastName, String email, String contact, String name,
+	public CustomerMedicine(int customerMedicineId, String firstName, String lastName, String email, String contact, String medicineName,
 			BigDecimal price) {
 		super();
-		this.id = id;
+		this.customerMedicineId = customerMedicineId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.contact = contact;
-		this.name = name;
+		this.medicineName = medicineName;
 		this.price = price;
 	}
 	
@@ -48,15 +48,15 @@ public class CustomerMedicine {
 	 * @return The ID of the customer's purchase.
 	 */
 	public int getId() {
-		return id;
+		return customerMedicineId;
 	}
 	
 	/**
 	 * Sets the ID of the customer's purchase.
-	 * @param id The ID of the customer's purchase.
+	 * @param customerMedicineId The ID of the customer's purchase.
 	 */
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int customerMedicineId) {
+		this.customerMedicineId = customerMedicineId;
 	}
 	
 	/**
@@ -128,15 +128,15 @@ public class CustomerMedicine {
 	 * @return The name of the medicine purchased by the customer.
 	 */
 	public String getName() {
-		return name;
+		return medicineName;
 	}
 	
 	/**
 	 * Sets the name of the medicine purchased by the customer.
-	 * @param name The name of the medicine purchased by the customer.
+	 * @param medicineName The name of the medicine purchased by the customer.
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String medicineName) {
+		this.medicineName = medicineName;
 	}
 	
 	/**

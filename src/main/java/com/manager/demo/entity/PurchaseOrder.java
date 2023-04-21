@@ -23,19 +23,19 @@ public class PurchaseOrder {
 
 	@Id
 	@GeneratedValue
-	int id;
-	Date date;
+	int purchaseId;
+	Date purchaseDate;
 	
 	@OneToMany(targetEntity = Manufacturer.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "purchase_order_fk", referencedColumnName = "id")
+	@JoinColumn(name = "purchase_order_fk", referencedColumnName = "purchaseId")
 	List<Manufacturer> manufacturer;
 	
-	Date expected_delivery_date;
-	BigDecimal total_cost;
-	String created_by;
-	String modified_by;
-	Date created_ts;
-	Date modified_ts;
+	Date expectedDeliveryDate;
+	BigDecimal totalCost;
+	String createdBy;
+	String modifiedBy;
+	Date createdTimestamp;
+	Date modifiedTimestamp;
 	
 	/**
 	 * Default constructor for Purchase_Order.
@@ -47,25 +47,25 @@ public class PurchaseOrder {
 	 * @param id the ID of the purchase order.
 	 * @param date the date of the purchase order.
 	 * @param manufacturer the list of manufacturers associated with the purchase order.
-	 * @param expected_delivery_date the expected delivery date of the purchase order.
-	 * @param total_cost the total cost of the purchase order.
-	 * @param created_by the user who created the purchase order.
-	 * @param modified_by the user who last modified the purchase order.
-	 * @param created_ts the timestamp when the purchase order was created.
-	 * @param modified_ts the timestamp when the purchase order was last modified.
+	 * @param expectedDeliveryDate the expected delivery date of the purchase order.
+	 * @param totalCost the total cost of the purchase order.
+	 * @param createdBy the user who created the purchase order.
+	 * @param modifiedBy the user who last modified the purchase order.
+	 * @param createdTimestamp the timestamp when the purchase order was created.
+	 * @param modifiedTimestamp the timestamp when the purchase order was last modified.
 	 */
-	public PurchaseOrder(int id, Date date, List<Manufacturer> manufacturer, Date expected_delivery_date,
-						 BigDecimal total_cost, String created_by, String modified_by, Date created_ts, Date modified_ts) {
+	public PurchaseOrder(int id, Date date, List<Manufacturer> manufacturer, Date expectedDeliveryDate,
+						 BigDecimal totalCost, String createdBy, String modifiedBy, Date createdTimestamp, Date modifiedTimestamp) {
 		super();
-		this.id = id;
-		this.date = date;
+		this.purchaseId = id;
+		this.purchaseDate = date;
 		this.manufacturer = manufacturer;
-		this.expected_delivery_date = expected_delivery_date;
-		this.total_cost = total_cost;
-		this.created_by = created_by;
-		this.modified_by = modified_by;
-		this.created_ts = created_ts;
-		this.modified_ts = modified_ts;
+		this.expectedDeliveryDate = expectedDeliveryDate;
+		this.totalCost = totalCost;
+		this.createdBy = createdBy;
+		this.modifiedBy = modifiedBy;
+		this.createdTimestamp = createdTimestamp;
+		this.modifiedTimestamp = modifiedTimestamp;
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class PurchaseOrder {
 	 * @return the ID of the purchase order.
 	 */
 	public int getId() {
-		return id;
+		return purchaseId;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class PurchaseOrder {
 	 * @param id the ID to be set for the purchase order.
 	 */
 	public void setId(int id) {
-		this.id = id;
+		this.purchaseId = id;
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class PurchaseOrder {
 	 * @return the date of the purchase order.
 	 */
 	public Date getDate() {
-		return date;
+		return purchaseDate;
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class PurchaseOrder {
 	 * @param date the date to be set for the purchase order.
 	 */
 	public void setDate(Date date) {
-		this.date = date;
+		this.purchaseDate = date;
 	}
 
 	/**
@@ -120,96 +120,96 @@ public class PurchaseOrder {
 	 * Returns the expected delivery date of the purchase order.
 	 * @return the expected delivery date of the purchase order.
 	 */
-	public Date getExpected_delivery_date() {
-		return expected_delivery_date;
+	public Date getExpectedDeliveryDate() {
+		return expectedDeliveryDate;
 	}
 
 	/**
 	 * Sets the expected delivery date of the purchase order.
-	 * @param expected_delivery_date the expected delivery date to be set for the purchase order.
+	 * @param expectedDeliveryDate the expected delivery date to be set for the purchase order.
 	 */
-	public void setExpected_delivery_date(Date expected_delivery_date) {
-		this.expected_delivery_date = expected_delivery_date;
+	public void setExpectedDeliveryDate(Date expectedDeliveryDate) {
+		this.expectedDeliveryDate = expectedDeliveryDate;
 	}
 
 	/**
 	 * Returns the total cost of the purchase order.
 	 * @return the total cost of the purchase
 	 */
-	public BigDecimal getTotal_cost() {
-		return total_cost;
+	public BigDecimal getTotalCost() {
+		return totalCost;
 	}
 
 	/**
 	 * Sets the total cost of this Purchase_Order entity.
-	 * @param total_cost the total cost to be set for this Purchase_Order entity.
+	 * @param totalCost the total cost to be set for this Purchase_Order entity.
 	 */
-	public void setTotal_cost(BigDecimal total_cost) {
-	    this.total_cost = total_cost;
+	public void setTotalCost(BigDecimal totalCost) {
+	    this.totalCost = totalCost;
 	}
 
 	/**
 	 * Returns the created by value of this Purchase_Order entity.
 	 * @return the created by value of this Purchase_Order entity.
 	 */
-	public String getCreated_by() {
-	    return created_by;
+	public String getCreatedBy() {
+	    return createdBy;
 	}
 
 	/**
 	 * Sets the created by value of this Purchase_Order entity.
-	 * @param created_by the created by value to be set for this Purchase_Order entity.
+	 * @param createdBy the created by value to be set for this Purchase_Order entity.
 	 */
-	public void setCreated_by(String created_by) {
-	    this.created_by = created_by;
+	public void setCreatedBy(String createdBy) {
+	    this.createdBy = createdBy;
 	}
 
 	/**
 	 * Returns the modified by value of this Purchase_Order entity.
 	 * @return the modified by value of this Purchase_Order entity.
 	 */
-	public String getModified_by() {
-	    return modified_by;
+	public String getModifiedBy() {
+	    return modifiedBy;
 	}
 
 	/**
 	 * Sets the modified by value of this Purchase_Order entity.
-	 * @param modified_by the modified by value to be set for this Purchase_Order entity.
+	 * @param modifiedBy the modified by value to be set for this Purchase_Order entity.
 	 */
-	public void setModified_by(String modified_by) {
-	    this.modified_by = modified_by;
+	public void setModifiedBy(String modifiedBy) {
+	    this.modifiedBy = modifiedBy;
 	}
 
 	/**
 	 * Returns the created timestamp of this Purchase_Order entity.
 	 * @return the created timestamp of this Purchase_Order entity.
 	 */
-	public Date getCreated_ts() {
-	    return created_ts;
+	public Date getCreatedTimestamp() {
+	    return createdTimestamp;
 	}
 
 	/**
 	 * Sets the created timestamp of this Purchase_Order entity.
-	 * @param created_ts the created timestamp to be set for this Purchase_Order entity.
+	 * @param createdTimestamp the created timestamp to be set for this Purchase_Order entity.
 	 */
-	public void setCreated_ts(Date created_ts) {
-	    this.created_ts = created_ts;
+	public void setCreatedTimestamp(Date createdTimestamp) {
+	    this.createdTimestamp = createdTimestamp;
 	}
 
 	/**
 	 * Returns the modified timestamp of this Purchase_Order entity.
 	 * @return the modified timestamp of this Purchase_Order entity.
 	 */
-	public Date getModified_ts() {
-	    return modified_ts;
+	public Date getModifiedTimestamp() {
+	    return modifiedTimestamp;
 	}
 
 	/**
 	 * Sets the modified timestamp of this Purchase_Order entity.
-	 * @param modified_ts the modified timestamp to be set for this Purchase_Order entity.
+	 * @param modifiedTimestamp the modified timestamp to be set for this Purchase_Order entity.
 	 */
-	public void setModified_ts(Date modified_ts) {
-	    this.modified_ts = modified_ts;
+	public void setModifiedTimestamp(Date modifiedTimestamp) {
+	    this.modifiedTimestamp = modifiedTimestamp;
 	}
 
 	/**
@@ -218,9 +218,9 @@ public class PurchaseOrder {
 	 */
 	@Override
 	public String toString() {
-	    return "Purchase_Order [id=" + id + ", date=" + date + ", manufacturer=" + manufacturer
-	            + ", expected_delivery_date=" + expected_delivery_date + ", total_cost=" + total_cost + ", created_by="
-	            + created_by + ", modified_by=" + modified_by + ", created_ts=" + created_ts + ", modified_ts="
-	            + modified_ts + "]";
+	    return "Purchase_Order [id=" + purchaseId + ", date=" + purchaseDate + ", manufacturer=" + manufacturer
+	            + ", expectedDeliveryDate=" + expectedDeliveryDate + ", totalCost=" + totalCost + ", createdBy="
+	            + createdBy + ", modifiedBy=" + modifiedBy + ", createdTimestamp=" + createdTimestamp + ", modifiedTimestamp="
+	            + modifiedTimestamp + "]";
 	}
 }

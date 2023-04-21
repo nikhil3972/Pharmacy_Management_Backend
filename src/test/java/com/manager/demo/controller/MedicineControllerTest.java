@@ -51,9 +51,9 @@ public class MedicineControllerTest {
     MedicineController medicineController;
 
     // Sample Medicine instances for testing
-    Medicine medicine_1 = new Medicine(23, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45),
+    Medicine medicineOne = new Medicine(23, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45),
             new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
-    Medicine medicine_2 = new Medicine(24, "Paracetomol", "Painkiller", "2 times a day", BigDecimal.valueOf(45.37),
+    Medicine medicineTwo = new Medicine(24, "Paracetomol", "Painkiller", "2 times a day", BigDecimal.valueOf(45.37),
             new Date(2000-01-01), new Date(2001-03-10), 40, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
     /**
@@ -74,7 +74,7 @@ public class MedicineControllerTest {
     @Test
     public void getAllMedicines() throws Exception{
         // Mocking the behavior of MedicineRepository.findAll() method to return a list of medicines
-        List<Medicine> medicines = new ArrayList<>(Arrays.asList(medicine_1, medicine_2));
+        List<Medicine> medicines = new ArrayList<>(Arrays.asList(medicineOne, medicineTwo));
         Mockito.when(medicineRepository.findAll()).thenReturn(medicines);
 
         // Performing a GET request to /getAllMedicine and expecting HTTP status 200 (OK) with a JSON response
@@ -94,18 +94,18 @@ public class MedicineControllerTest {
     public void addMedicine() throws Exception {
         // Create a Medicine object to be added
         Medicine medicine = Medicine.builder()
-                .id(25)
-                .name("Inhalor")
+                .medicineId(25)
+                .medicineName("Inhalor")
                 .description("For cold")
                 .dosage("any time")
                 .price(BigDecimal.valueOf(13.45))
-                .manufacture_date(new Date(2000-01-01))
-                .expiry_date(new Date(2000-01-01))
-                .current_stock(60)
-                .created_by("Harshal")
-                .modified_by("Amit")
-                .created_ts(new Date(2000-01-01))
-                .modified_ts(new Date(2000-01-01))
+                .manufactureDate(new Date(2000-01-01))
+                .expiryDate(new Date(2000-01-01))
+                .currentStock(60)
+                .createdBy("Harshal")
+                .modifiedBy("Amit")
+                .createdTimestamp(new Date(2000-01-01))
+                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         // Convert Medicine object to JSON content
@@ -131,22 +131,22 @@ public class MedicineControllerTest {
     public void updateMedicine() throws Exception {
         // Create a Medicine object to be updated
         Medicine medicineUpdate = Medicine.builder()
-                .id(24)
-                .name("Dolo-650")
+                .medicineId(24)
+                .medicineName("Dolo-650")
                 .description("Dolo-650 instead of paracetomol")
                 .dosage("2 times a day")
                 .price(BigDecimal.valueOf(29.45))
-                .manufacture_date(new Date(2000-01-01))
-                .expiry_date(new Date(2000-01-01))
-                .current_stock(60)
-                .created_by("Harshal")
-                .modified_by("Amit")
-                .created_ts(new Date(2000-01-01))
-                .modified_ts(new Date(2000-01-01))
+                .manufactureDate(new Date(2000-01-01))
+                .expiryDate(new Date(2000-01-01))
+                .currentStock(60)
+                .createdBy("Harshal")
+                .modifiedBy("Amit")
+                .createdTimestamp(new Date(2000-01-01))
+                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         // Mock the findById() method of medicineRepository to return the existing medicine
-        Mockito.when(medicineRepository.findById(medicine_2.getId())).thenReturn(java.util.Optional.ofNullable(medicine_2));
+        Mockito.when(medicineRepository.findById(medicineTwo.getId())).thenReturn(java.util.Optional.ofNullable(medicineTwo));
 
         // Convert Medicine object to JSON content
         String upContent = objectWriter.writeValueAsString(medicineUpdate);

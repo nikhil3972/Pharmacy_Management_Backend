@@ -19,6 +19,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 	 * It returns a list of objects of type CustomerMedicine that contains the required data.
 	 * @return A list of CustomerMedicine objects containing the required data.
 	 */
-	@Query("SELECT new com.manager.demo.entity.CustomerMedicine(c.id, c.firstName, c.lastName, c.email, c.contact, m.name, m.price) FROM Customer c JOIN c.medicine m")
+	@Query("SELECT new com.manager.demo.entity.CustomerMedicine(c.customerId, c.firstName, c.lastName, c.email, c.contact, m.medicineName, m.price) FROM Customer c JOIN c.medicine m")
 	public List<CustomerMedicine> getMedicineWithCustomer();
 }

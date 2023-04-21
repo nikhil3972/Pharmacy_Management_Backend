@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,23 +59,21 @@ public class SalesController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateSales")
-	public Sales updateSales(@RequestBody Sales obj) {
+	public Sales updateSales(@RequestBody Sales obj) throws ChangeSetPersister.NotFoundException {
 		Optional<Sales> sale = saleRepo.findById(obj.getId());
-		
-		//		if(!=cus.isPresent()) {
-//
-//			throw new NotFoundException("Medicine id " + obj.getId() + "does not exist");
-////			return "Record Updated Successfully";
-//		}
+
+		if (!sale.isPresent()) {
+			throw new ChangeSetPersister.NotFoundException();
+		}
 
 			Sales saleUpd = sale.get();
 			saleUpd.setDate(obj.getDate());
 			saleUpd.setCustomer(obj.getCustomer());
-			saleUpd.setTotal_cost(obj.getTotal_cost());
-			saleUpd.setCreated_by(obj.getCreated_by());
-			saleUpd.setModified_by(obj.getModified_by());
-			saleUpd.setCreated_ts(obj.getCreated_ts());
-			saleUpd.setModified_ts(obj.getModified_ts());
+		saleUpd.setTotalCost(obj.getTotalCost());
+		saleUpd.setCreatedBy(obj.getCreatedBy());
+		saleUpd.setModifiedBy(obj.getModifiedBy());
+		saleUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
+		saleUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
 			System.out.println("Received Data in PutMapping :" + obj);
 			return saleRepo.save(obj);
 	}

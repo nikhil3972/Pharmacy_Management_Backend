@@ -61,27 +61,25 @@ public class MedicineController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping (path="/updateMedicine")
-	public Medicine updateData(@RequestBody Medicine obj) {
+	public Medicine updateData(@RequestBody Medicine obj) throws NotFoundException {
 		Optional<Medicine> med = medRepo.findById(obj.getId());
-		
-//		if(!med.isPresent()) {
-//
-//			throw new NotFoundException("Medicine id " + obj.getId() + "does not exist");
-////			return "Record Updated Successfully";
-//		}
+
+		if (!med.isPresent()) {
+			throw new ChangeSetPersister.NotFoundException();
+		}
 
 		Medicine medUpd = med.get();
 		medUpd.setName(obj.getName());
 		medUpd.setDescription(obj.getDescription());
 		medUpd.setDosage(obj.getDosage());
 		medUpd.setPrice(obj.getPrice());
-		medUpd.setManufacture_date(obj.getManufacture_date());
-		medUpd.setExpiry_date(obj.getExpiry_date());
-		medUpd.setCurrent_stock(obj.getCurrent_stock());
-		medUpd.setCreated_by(obj.getCreated_by());
-		medUpd.setModified_by(obj.getModified_by());
-		medUpd.setCreated_ts(obj.getCreated_ts());
-		medUpd.setModified_ts(obj.getModified_ts());
+		medUpd.setManufactureDate(obj.getManufactureDate());
+		medUpd.setExpiryDate(obj.getExpiryDate());
+		medUpd.setCurrentStock(obj.getCurrentStock());
+		medUpd.setCreatedBy(obj.getCreatedBy());
+		medUpd.setModifiedBy(obj.getModifiedBy());
+		medUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
+		medUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
 		System.out.println("Received Data in PutMapping :" + obj);
 		return medRepo.save(obj);
 
