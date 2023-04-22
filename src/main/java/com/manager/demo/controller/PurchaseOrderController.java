@@ -3,6 +3,7 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,7 +47,7 @@ public class PurchaseOrderController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertPurchaseOrder")
-	public PurchaseOrder insertPurchaseOrder(@RequestBody PurchaseOrder obj) {
+	public PurchaseOrder insertPurchaseOrder(@Valid @RequestBody PurchaseOrder obj) {
 		System.out.println("Received data : " + obj);
 		return purOrRepo.save(obj);
 //		return "Record Inserted Successfully";

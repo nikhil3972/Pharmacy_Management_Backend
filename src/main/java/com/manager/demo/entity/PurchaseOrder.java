@@ -11,6 +11,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Builder;
 
 /**
@@ -24,13 +26,20 @@ public class PurchaseOrder {
 	@Id
 	@GeneratedValue
 	int purchaseId;
+
+	@NotNull(message = "Purchase Date is Mandatory")
 	Date purchaseDate;
-	
+
+	@NotNull(message = "Purchase Order details is Mandatory")
 	@OneToMany(targetEntity = Manufacturer.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "purchase_order_fk", referencedColumnName = "purchaseId")
 	List<Manufacturer> manufacturer;
-	
+
+	@NotNull(message = "Expected Delivery Date is Mandatory")
 	Date expectedDeliveryDate;
+
+	@NotNull(message = "Price is Mandatory")
+	@Positive(message = "Value must be greater than 0")
 	BigDecimal totalCost;
 	String createdBy;
 	String modifiedBy;
