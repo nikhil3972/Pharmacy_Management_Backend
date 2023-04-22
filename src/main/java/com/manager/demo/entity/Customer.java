@@ -3,12 +3,9 @@ package com.manager.demo.entity;
 import java.sql.Date;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 /**
@@ -22,18 +19,29 @@ import lombok.Builder;
 public class Customer {
 
 	@Id
-	// @GeneratedValue
+	@GeneratedValue
 	int customerId;
+
+	@NotBlank(message = "FirstName is Mandatory")
 	String firstName;
+
+	@NotBlank(message = "LastName is Mandatory")
 	String lastName;
+
+	@NotBlank(message = "Contact is Mandatory")
 	String contact;
+
+	@NotBlank(message = "Email is Mandatory")
 	String email;
-	
+
+	@NotNull(message = "Medicine details is Mandatory")
 	@OneToMany(targetEntity = Medicine.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_fk", referencedColumnName = "customerId")
 	List<Medicine> medicine;
-	
+
+	@NotNull(message = "Date of Birth is Mandatory")
 	Date dob;
+
 	String createdBy;
 	String modifiedBy;
 	Date createdTimestamp;

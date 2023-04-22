@@ -4,6 +4,7 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,7 +47,7 @@ public class CustomerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertCustomer")
-	public Customer insertCustomer(@RequestBody Customer obj) {
+	public Customer insertCustomer(@Valid @RequestBody Customer obj) {
 		System.out.println("Received data : " + obj);
 		return cusRepo.save(obj);
 	}
