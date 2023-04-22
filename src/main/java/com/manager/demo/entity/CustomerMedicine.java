@@ -1,5 +1,11 @@
 package com.manager.demo.entity;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,12 +13,27 @@ import java.math.BigDecimal;
  */
 public class CustomerMedicine {
 
+	@Id
+	@GeneratedValue
 	private int customerMedicineId;
+
+	@NotBlank(message = "FirstName is Mandatory")
 	private String firstName;
+
+	@NotBlank(message = "LastName name is Mandatory")
 	private String lastName;
+
+	@NotBlank(message = "Email is Mandatory")
 	private String email;
+
+	@NotBlank(message = "Contact is Mandatory")
 	private String contact;
+
+	@NotBlank(message = "Medicine name is Mandatory")
 	private String medicineName;
+
+	@NotNull(message = "Price is Mandatory")
+	@Positive(message = "Value must be greater than 0")
 	public BigDecimal price;
 	
 	/**
