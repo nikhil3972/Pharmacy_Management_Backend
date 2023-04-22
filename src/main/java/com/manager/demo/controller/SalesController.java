@@ -4,6 +4,7 @@
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,7 +47,7 @@ public class SalesController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertSales")
-	public Sales insertSales(@RequestBody Sales obj) {
+	public Sales insertSales(@Valid @RequestBody Sales obj) {
 		System.out.println("Received data : " + obj);
 		return saleRepo.save(obj);
 //		return "Record Inserted Successfully";
