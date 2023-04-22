@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 /**
@@ -31,11 +33,13 @@ public class DiseaseType {
 	/**
 	 * The type of the disease.
 	 */
+	@NotBlank(message = "Disease Type is Mandatory")
 	String type;
 	
 	/**
 	 * The list of medicines associated with the disease type.
 	 */
+	@NotNull(message = "Disease Type details is Mandatory")
 	@OneToMany(targetEntity = Medicine.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "disease_type_fk", referencedColumnName = "diseaseTypeId")
 	List<Medicine> medicine;
