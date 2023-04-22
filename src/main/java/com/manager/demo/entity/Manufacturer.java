@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 /**
@@ -22,9 +24,12 @@ public class Manufacturer {
     @Id
     @GeneratedValue
     int manufacturerId;
+    @NotBlank(message = "Manufacturer name is Mandatory")
     String manufacturerName;
+    @NotBlank(message = "Contact is Mandatory")
     String contact;
 
+    @NotNull(message = "Manufacturer details is Mandatory")
     @OneToMany(targetEntity = Medicine.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "manu_fk", referencedColumnName = "manufacturerId")
     List<Medicine> medicine;
