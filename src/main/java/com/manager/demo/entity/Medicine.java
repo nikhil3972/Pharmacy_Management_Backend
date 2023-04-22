@@ -7,7 +7,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
+import org.hibernate.validator.constraints.Range;
+
 
 @Entity
 @Table(name="Medicine")
@@ -16,13 +19,30 @@ public class Medicine {
 	@Id
 	@GeneratedValue
 	int medicineId;
+
+	@NotBlank(message = "Name is Mandatory")
 	String medicineName;
+
+	@NotBlank(message = "Description is Mandatory")
 	String description;
+
+	@NotBlank(message = "Dosage is Mandatory")
 	String dosage;
+
+	@NotNull(message = "Price is Mandatory")
+	@Positive(message = "Value must be greater than 0")
 	BigDecimal price;
+
+	@NotNull(message = "Manufacture Date is Mandatory")
 	Date manufactureDate;
+
+	@NotNull(message = "Expiry Date is Mandatory")
 	Date expiryDate;
+
+	@Range(min = 1, message= "Current Stock may not be empty or null")
+	@Positive(message = "Value must be greater than 0")
 	int currentStock;
+
 	String createdBy;
 	String modifiedBy;
 	Date createdTimestamp;
@@ -37,7 +57,7 @@ public class Medicine {
 	/**
 	 * Constructor for Medicine with specified parameters.
 	 * @param id The ID of the medicine.
-	 * @param name The name of the medicine.
+	 * @param medicineName The name of the medicine.
 	 * @param description The description of the medicine.
 	 * @param dosage The dosage of the medicine.
 	 * @param price The price of the medicine.
@@ -49,12 +69,12 @@ public class Medicine {
 	 * @param createdTimestamp The timestamp when the medicine was created.
 	 * @param modifiedTimestamp The timestamp when the medicine was last modified.
 	 */
-	public Medicine(int id, String name, String description, String dosage, BigDecimal price, Date manufactureDate,
+	public Medicine(int id, String medicineName, String description, String dosage, BigDecimal price, Date manufactureDate,
 					Date expiryDate, int currentStock, String createdBy, String modifiedBy, Date createdTimestamp,
 					Date modifiedTimestamp) {
 		super();
 		this.medicineId = id;
-		this.medicineName = name;
+		this.medicineName = medicineName;
 		this.description = description;
 		this.dosage = dosage;
 		this.price = price;
@@ -74,11 +94,11 @@ public class Medicine {
 	public void setId(int medicineId) {
 		this.medicineId = medicineId;
 	}
-	public String getName() {
+	public String getMedicineName() {
 		return medicineName;
 	}
-	public void setName(String name) {
-		this.medicineName = name;
+	public void setMedicineName(String medicineName) {
+		this.medicineName = medicineName;
 	}
 	public String getDescription() {
 		return description;
@@ -140,12 +160,12 @@ public class Medicine {
 	public void setModifiedTimestamp(Date modifiedTimestamp) {
 		this.modifiedTimestamp = modifiedTimestamp;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Medicine [medicineId=" + medicineId + ", medicineName=" + medicineName + ", description=" + description + ", dosage=" + dosage
 				+ ", price=" + price + ", manufactureDate=" + manufactureDate + ", expiryDate=" + expiryDate
 				+ ", currentStock=" + currentStock + ", createdBy=" + createdBy + ", modifiedBy=" + modifiedBy
 				+ ", createdTimestamp=" + createdTimestamp + ", modifiedTimestamp=" + modifiedTimestamp + "]";
-	}	
+	}
 }

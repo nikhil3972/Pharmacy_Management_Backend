@@ -3,6 +3,7 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
@@ -48,7 +49,7 @@ public class MedicineController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertMedicine")
-	public Medicine insertMedicine(@RequestBody Medicine obj) {
+	public Medicine insertMedicine(@Valid @RequestBody Medicine obj) {
 		System.out.println("Received data : " + obj);
 		return medRepo.save(obj);
 //		return "Record Inserted Successfully";
@@ -69,7 +70,7 @@ public class MedicineController {
 		}
 
 		Medicine medUpd = med.get();
-		medUpd.setName(obj.getName());
+		medUpd.setMedicineName(obj.getMedicineName());
 		medUpd.setDescription(obj.getDescription());
 		medUpd.setDosage(obj.getDosage());
 		medUpd.setPrice(obj.getPrice());
