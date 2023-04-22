@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
 
 
@@ -25,18 +26,40 @@ public class Sales {
 
 	@Id
 	@GeneratedValue
-	int id;
-	String date;
-	
+	int saleId;
+	@NotBlank(message = "Sales Date is Mandatory")
+	@Past(message = "Manufacture Date must be in the past and date format")
+	Date saleDate;
+
+	@NotNull(message = "Customer details is Mandatory")
+	@Size(min = 1, max = 12, message = "List must contain between 1 and 12 elements")
 	@OneToMany(targetEntity = Customer.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "sales_fk", referencedColumnName = "id")
+	@JoinColumn(name = "sales_fk", referencedColumnName = "saleId")
 	List<Customer> customer;
-	
-	BigDecimal total_cost;
-	String created_by;
-	String modified_by;
-	Date created_ts;
-	Date modified_ts;
+
+	@NotNull(message = "Total Cost is Mandatory")
+	@Positive(message = "Value must be greater than 0")
+	@Digits(integer = 4, fraction = 2, message = "The field must be a number with up to 4 digits before and 2 digits after the decimal point")
+	BigDecimal totalCost;
+	@NotBlank(message = "CreatedBy is Mandatory")
+	@Size(min = 3, message = "CreatedBy should have at least 3 characters")
+	@Size(max = 10, message = "CreatedBy should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
+	String createdBy;
+
+	@NotBlank(message = "ModifiedBy is Mandatory")
+	@Size(min = 3, message = "ModifiedBy should have at least 3 characters")
+	@Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
+	String modifiedBy;
+
+	@NotNull(message = "CreatedTimestamp is Mandatory")
+	@Past(message = "CreatedTimestamp must be in the past and date format")
+	Date createdTimestamp;
+
+	@NotNull(message = "ModifiedTimestamp is Mandatory")
+	@Past(message = "ModifiedTimestamp must be in the past and date format")
+	Date modifiedTimestamp;
 	
 	/**
 	 * Default constructor for Sales entity.
@@ -49,23 +72,23 @@ public class Sales {
 	 * @param id The id of the sales.
 	 * @param date The date of the sales.
 	 * @param customer The list of customers associated with the sales.
-	 * @param total_cost The total cost of the sales.
-	 * @param created_by The name of the user who created the sales.
-	 * @param modified_by The name of the user who modified the sales.
-	 * @param created_ts The timestamp when the sales was created.
-	 * @param modified_ts The timestamp when the sales was last modified.
+	 * @param totalCost The total cost of the sales.
+	 * @param createdBy The name of the user who created the sales.
+	 * @param modifiedBy The name of the user who modified the sales.
+	 * @param createdTimestamp The timestamp when the sales was created.
+	 * @param modifiedTimestamp The timestamp when the sales was last modified.
 	 */
-	public Sales(int id, String date, List<Customer> customer, BigDecimal total_cost, String created_by,
-			String modified_by, Date created_ts, Date modified_ts) {
+	public Sales(int id, Date date, List<Customer> customer, BigDecimal totalCost, String createdBy,
+			String modifiedBy, Date createdTimestamp, Date modifiedTimestamp) {
 		super();
-		this.id = id;
-		this.date = date;
+		this.saleId = id;
+		this.saleDate = date;
 		this.customer = customer;
-		this.total_cost = total_cost;
-		this.created_by = created_by;
-		this.modified_by = modified_by;
-		this.created_ts = created_ts;
-		this.modified_ts = modified_ts;
+		this.totalCost = totalCost;
+		this.createdBy = createdBy;
+		this.modifiedBy = modifiedBy;
+		this.createdTimestamp = createdTimestamp;
+		this.modifiedTimestamp = modifiedTimestamp;
 	}
 
 	/**
@@ -73,7 +96,7 @@ public class Sales {
 	 * @return The sales id.
 	 */
 	public int getId() {
-		return id;
+		return saleId;
 	}
 
 	/**
@@ -81,23 +104,23 @@ public class Sales {
 	 * @param id The sales id.
 	 */
 	public void setId(int id) {
-		this.id = id;
+		this.saleId = id;
 	}
 
 	/**
 	 * Get the date of the sales.
 	 * @return The date of the sales.
 	 */
-	public String getDate() {
-		return date;
+	public Date getDate() {
+		return saleDate;
 	}
 
 	/**
 	 * Set the date of the sales.
 	 * @param date The date of the sales.
 	 */
-	public void setDate(String date) {
-		this.date = date;
+	public void setDate(Date date) {
+		this.saleDate = date;
 	}
 
 	/**
@@ -120,16 +143,16 @@ public class Sales {
 	 * Get the total cost of the sales.
 	 * @return The total cost of the sales.
 	 */
-	public BigDecimal getTotal_cost() {
-		return total_cost;
+	public BigDecimal getTotalCost() {
+		return totalCost;
 	}
 
 	/**
 	 * Set the total cost of the sales.
-	 * @param total_cost The total cost of the sales.
+	 * @param totalCost The total cost of the sales.
 	 */
-	public void setTotal_cost(BigDecimal total_cost) {
-		this.total_cost = total_cost;
+	public void setTotalCost(BigDecimal totalCost) {
+		this.totalCost = totalCost;
 	}
 
 	
@@ -138,64 +161,64 @@ public class Sales {
 	 * Get the created by value of this Sales entity.
 	 * @return the created by value of this Sales entity.
 	 */
-	public String getCreated_by() {
-	    return created_by;
+	public String getCreatedBy() {
+	    return createdBy;
 	}
 
 	/**
 	 * Sets the created by value of this Sales entity.
-	 * @param created_by the created by value to be set for this Sales entity.
+	 * @param createdBy the created by value to be set for this Sales entity.
 	 */
-	public void setCreated_by(String created_by) {
-	    this.created_by = created_by;
+	public void setCreatedBy(String createdBy) {
+	    this.createdBy = createdBy;
 	}
 
 	/**
 	 * Get the modified by value of this Sales entity.
 	 * @return the modified by value of this Sales entity.
 	 */
-	public String getModified_by() {
-	    return modified_by;
+	public String getModifiedBy() {
+	    return modifiedBy;
 	}
 
 	/**
 	 * Sets the modified by value of this Sales entity.
-	 * @param modified_by the modified by value to be set for this Sales entity.
+	 * @param modifiedBy the modified by value to be set for this Sales entity.
 	 */
-	public void setModified_by(String modified_by) {
-	    this.modified_by = modified_by;
+	public void setModifiedBy(String modifiedBy) {
+	    this.modifiedBy = modifiedBy;
 	}
 
 	/**
 	 * Get the created timestamp of this Sales entity.
 	 * @return the created timestamp of this Sales entity.
 	 */
-	public Date getCreated_ts() {
-	    return created_ts;
+	public Date getCreatedTimestamp() {
+	    return createdTimestamp;
 	}
 
 	/**
 	 * Sets the created timestamp of this Sales entity.
-	 * @param created_ts the created timestamp to be set for this Sales entity.
+	 * @param createdTimestamp the created timestamp to be set for this Sales entity.
 	 */
-	public void setCreated_ts(Date created_ts) {
-	    this.created_ts = created_ts;
+	public void setCreatedTimestamp(Date createdTimestamp) {
+	    this.createdTimestamp = createdTimestamp;
 	}
 
 	/**
 	 * Get the modified timestamp of this Sales entity.
 	 * @return the modified timestamp of this Sales entity.
 	 */
-	public Date getModified_ts() {
-	    return modified_ts;
+	public Date getModifiedTimestamp() {
+	    return modifiedTimestamp;
 	}
 
 	/**
 	 * Sets the modified timestamp of this Sales entity.
-	 * @param modified_ts the modified timestamp to be set for this Sales entity.
+	 * @param modifiedTimestamp the modified timestamp to be set for this Sales entity.
 	 */
-	public void setModified_ts(Date modified_ts) {
-	    this.modified_ts = modified_ts;
+	public void setModifiedTimestamp(Date modifiedTimestamp) {
+	    this.modifiedTimestamp = modifiedTimestamp;
 	}
 
 	/**
@@ -204,8 +227,8 @@ public class Sales {
 	 */
 	@Override
 	public String toString() {
-	    return "Sales [id=" + id + ", date=" + date + ", customer=" + customer + ", total_cost=" + total_cost
-	            + ", created_by=" + created_by + ", modified_by=" + modified_by + ", created_ts=" + created_ts
-	            + ", modified_ts=" + modified_ts + "]";
+	    return "Sales [saleId=" + saleId + ", saleDate=" + saleDate + ", customer=" + customer + ", totalCost=" + totalCost
+	            + ", createdBy=" + createdBy + ", modifiedBy=" + modifiedBy + ", createdTimestamp=" + createdTimestamp
+	            + ", modifiedTimestamp=" + modifiedTimestamp + "]";
 	}
 }

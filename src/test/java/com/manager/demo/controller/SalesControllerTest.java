@@ -50,19 +50,19 @@ public class SalesControllerTest {
     List<Medicine> medicines = new ArrayList<>();
     Medicine medicine = new Medicine(40, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    List<Medicine> medicines_1 = new ArrayList<>();
-    Medicine medicine_1 = new Medicine(41, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    List<Medicine> medicinesOne = new ArrayList<>();
+    Medicine medicineOne = new Medicine(41, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
 
     List<Customer> customers = new ArrayList<>();
-    Customer customer_1 = new Customer(90, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Customer customerOne = new Customer(90, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    List<Customer> customers_1 = new ArrayList<>();
-    Customer customer_2 = new Customer(91, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    List<Customer> customersOne = new ArrayList<>();
+    Customer customerTwo = new Customer(91, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    Sales sales_1 = new Sales(3, "2023-06-04", customers, BigDecimal.valueOf(400.25), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Sales salesOne = new Sales(3, new Date(2000-01-01), customers, BigDecimal.valueOf(400.25), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    Sales sales_2 = new Sales(4, "2023-01-04", customers_1, BigDecimal.valueOf(300.14), "Harshal", "Ramesh", new Date(2000-01-01), new Date(2000-01-01));
+    Sales salesTwo = new Sales(4, new Date(2000-01-01), customersOne, BigDecimal.valueOf(300.14), "Harshal", "Ramesh", new Date(2000-01-01), new Date(2000-01-01));
 
     /**
      * Set up method to initialize mock objects and create the mockMvc instance for testing the salesController.
@@ -80,7 +80,7 @@ public class SalesControllerTest {
     @Test
     public void getAllSales() throws Exception{
         //Arrange
-        List<Sales> sales = new ArrayList<>(Arrays.asList(sales_1, sales_2));
+        List<Sales> sales = new ArrayList<>(Arrays.asList(salesOne, salesTwo));
         Mockito.when(salesRepository.findAll()).thenReturn(sales);
 
         //Act and Assert
@@ -99,14 +99,14 @@ public class SalesControllerTest {
     public void addSale() throws Exception{
         //Arrange
         Sales sales = Sales.builder()
-                .id(5)
-                .date("2023-01-01")
-                .customer((List<Customer>) customers_1)
-                .total_cost(BigDecimal.valueOf(300.14))
-                .created_by("Harshal")
-                .modified_by("Amit")
-                .created_ts(new Date(2000-01-01))
-                .modified_ts(new Date(2000-01-01))
+                .saleId(5)
+                .saleDate(new Date(2000-01-01))
+                .customer((List<Customer>) customersOne)
+                .totalCost(BigDecimal.valueOf(300.14))
+                .createdBy("Harshal")
+                .modifiedBy("Amit")
+                .createdTimestamp(new Date(2000-01-01))
+                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         String content = objectWriter.writeValueAsString(sales);
@@ -129,17 +129,17 @@ public class SalesControllerTest {
     public void updateSales() throws Exception{
         //Arrange
         Sales salesUpdate = Sales.builder()
-                .id(4)
-                .date("2022-04-01")
-                .customer((List<Customer>) customers_1)
-                .total_cost(BigDecimal.valueOf(300.14))
-                .created_by("Harshal")
-                .modified_by("Amit")
-                .created_ts(new Date(2000-01-01))
-                .modified_ts(new Date(2000-01-01))
+                .saleId(4)
+                .saleDate(new Date(2000-01-01))
+                .customer((List<Customer>) customersOne)
+                .totalCost(BigDecimal.valueOf(300.14))
+                .createdBy("Harshal")
+                .modifiedBy("Amit")
+                .createdTimestamp(new Date(2000-01-01))
+                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
-        Mockito.when(salesRepository.findById(sales_2.getId())).thenReturn(java.util.Optional.ofNullable(sales_2));
+        Mockito.when(salesRepository.findById(salesTwo.getId())).thenReturn(java.util.Optional.ofNullable(salesTwo));
 
         String upContent = objectWriter.writeValueAsString(salesUpdate);
 

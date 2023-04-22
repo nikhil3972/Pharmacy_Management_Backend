@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
 
 /**
@@ -26,39 +27,44 @@ public class DiseaseType {
 	 */
 	@Id
 	@GeneratedValue
-	int id;
+	int diseaseTypeId;
 	
 	/**
 	 * The type of the disease.
 	 */
+	@NotBlank(message = "Disease Type is Mandatory")
+	@Size(min = 3, message = "Disease Type should have at least 3 characters")
+	@Size(max = 20, message = "Disease Type should not have more than 20 characters")
 	String type;
 	
 	/**
 	 * The list of medicines associated with the disease type.
 	 */
+	@NotNull(message = "Disease Type details is Mandatory")
+	@Size(min = 1, max = 12, message = "List must contain between 1 and 12 elements")
 	@OneToMany(targetEntity = Medicine.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "disease_type_fk", referencedColumnName = "id")
+	@JoinColumn(name = "disease_type_fk", referencedColumnName = "diseaseTypeId")
 	List<Medicine> medicine;
-	
-	/**
-	 * The name of the user who created the disease type record.
-	 */
-	String created_by;
-	
-	/**
-	 * The name of the user who last modified the disease type record.
-	 */
-	String modified_by;
-	
-	/**
-	 * The timestamp when the disease type record was created.
-	 */
-	Date created_ts;
-	
-	/**
-	 * The timestamp when the disease type record was last modified.
-	 */
-	Date modified_ts;
+
+	@NotBlank(message = "CreatedBy is Mandatory")
+	@Size(min = 3, message = "CreatedBy should have at least 3 characters")
+	@Size(max = 10, message = "CreatedBy should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
+	String createdBy;
+
+	@NotBlank(message = "ModifiedBy is Mandatory")
+	@Size(min = 3, message = "ModifiedBy should have at least 3 characters")
+	@Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
+	String modifiedBy;
+
+	@NotNull(message = "CreatedTimestamp is Mandatory")
+	@Past(message = "CreatedTimestamp must be in the past and date format")
+	Date createdTimestamp;
+
+	@NotNull(message = "ModifiedTimestamp is Mandatory")
+	@Past(message = "ModifiedTimestamp must be in the past and date format")
+	Date modifiedTimestamp;
 
 	/**
 	 * Default constructor for DiseaseType.
@@ -67,23 +73,23 @@ public class DiseaseType {
 
 	/**
 	 * Constructor for DiseaseType with specified parameters.
-	 * @param id The ID of the disease type.
+	 * @param diseaseTypeId The ID of the disease type.
 	 * @param type The type of the disease.
 	 * @param medicine The list of medicines associated with the disease type.
-	 * @param created_by The user who created the disease type.
-	 * @param modified_by The user who last modified the disease type.
-	 * @param created_ts The timestamp when the disease type was created.
-	 * @param modified_ts The timestamp when the disease type was last modified.
+	 * @param createdBy The user who created the disease type.
+	 * @param modifiedBy The user who last modified the disease type.
+	 * @param createdTimestamp The timestamp when the disease type was created.
+	 * @param modifiedTimestamp The timestamp when the disease type was last modified.
 	 */
-	public DiseaseType(int id, String type, List<Medicine> medicine, String created_by, String modified_by, Date created_ts, Date modified_ts){
+	public DiseaseType(int diseaseTypeId, String type, List<Medicine> medicine, String createdBy, String modifiedBy, Date createdTimestamp, Date modifiedTimestamp){
 		super();
-		this.id = id;
+		this.diseaseTypeId = diseaseTypeId;
 		this.type = type;
 		this.medicine = medicine;
-		this.created_by = created_by;
-		this.modified_by = modified_by;
-		this.created_ts = created_ts;
-		this.modified_ts = modified_ts;
+		this.createdBy = createdBy;
+		this.modifiedBy = DiseaseType.this.modifiedBy;
+		this.createdTimestamp = createdTimestamp;
+		this.modifiedTimestamp = modifiedTimestamp;
 	}
 
 	/**
@@ -91,7 +97,7 @@ public class DiseaseType {
 	 * @return The ID of the disease type.
 	 */
 	public int getId() {
-		return id;
+		return diseaseTypeId;
 	}
 	
 	/**
@@ -99,7 +105,7 @@ public class DiseaseType {
 	 * @param id The ID of the disease type.
 	 */
 	public void setId(int id) {
-		this.id = id;
+		this.diseaseTypeId = id;
 	}
 	
 	/**
@@ -138,32 +144,32 @@ public class DiseaseType {
 	 * Gets the name of the user who created the disease type record.
 	 * @return The name of the user who created the disease type record.
 	 */
-	public String getCreated_by() {
-		return created_by;
+	public String getCreatedBy() {
+		return createdBy;
 	}
 	
 	/**
 	 * Sets the name of the user who created the disease type record.
-	 * @param created_by The name of the user who created the disease type record.
+	 * @param createdBy The name of the user who created the disease type record.
 	 */
-	public void setCreated_by(String created_by) {
-		this.created_by = created_by;
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 	
 	/**
 	 * Gets the name of the user who last modified the disease type record.
 	 * @return The name of the user who last modified the disease type record.
 	 */
-	public String getModified_by() {
-		return modified_by;
+	public String getModifiedBy() {
+		return modifiedBy;
 	}
 	
 	/**
 	 * Sets the name of the user who last modified the disease type record.
-	 * @param modified_by The name of the user who last modified the disease type record.
+	 * @param modifiedBy The name of the user who last modified the disease type record.
 	 */
-	public void setModified_by(String modified_by) {
-		this.modified_by = modified_by;
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = DiseaseType.this.modifiedBy;
 	}
 	
 	/**
@@ -174,32 +180,32 @@ public class DiseaseType {
 	 * Returns the created timestamp of this Disease_Type entity.
 	 * @return the created timestamp of this Disease_Type entity.
 	 */
-	public Date getCreated_ts() {
-	    return created_ts;
+	public Date getCreatedTimestamp() {
+	    return createdTimestamp;
 	}
 
 	/**
 	 * Sets the created timestamp of this Disease_Type entity.
-	 * @param created_ts the created timestamp to be set for this Disease_Type entity.
+	 * @param createdTimestamp the created timestamp to be set for this Disease_Type entity.
 	 */
-	public void setCreated_ts(Date created_ts) {
-	    this.created_ts = created_ts;
+	public void setCreatedTimestamp(Date createdTimestamp) {
+	    this.createdTimestamp = createdTimestamp;
 	}
 
 	/** 
 	 * Returns the modified timestamp of this Disease_Type entity.
 	 * @return the modified timestamp of this Disease_Type entity.
 	 */
-	public Date getModified_ts() {
-	    return modified_ts;
+	public Date getModifiedTimestamp() {
+	    return modifiedTimestamp;
 	}
 
 	/**
 	 * Sets the modified timestamp of this Disease_Type entity.
-	 * @param modified_ts the modified timestamp to be set for this Disease_Type entity.
+	 * @param modifiedTimestamp the modified timestamp to be set for this Disease_Type entity.
 	 */
-	public void setModified_ts(Date modified_ts) {
-	    this.modified_ts = modified_ts;
+	public void setModifiedTimestamp(Date modifiedTimestamp) {
+	    this.modifiedTimestamp = modifiedTimestamp;
 	}
 
 	/**
@@ -208,7 +214,7 @@ public class DiseaseType {
 	 */
 	@Override
 	public String toString() {
-	    return "Disease_Type [id=" + id + ", type=" + type + ", medicine=" + medicine + ", created_by=" + created_by
-	            + ", modified_by=" + modified_by + ", created_ts=" + created_ts + ", modified_ts=" + modified_ts + "]";
+	    return "Disease_Type [id=" + diseaseTypeId + ", type=" + type + ", medicine=" + medicine + ", createdBy=" + createdBy
+	            + ", modifiedBy=" + modifiedBy + ", createdTimestamp=" + createdTimestamp + ", modifiedTimestamp=" + modifiedTimestamp + "]";
 	}
 }

@@ -3,7 +3,9 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +47,7 @@ public class DiseaseTypeController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertDiseaseType")
-	public DiseaseType insertManufacturer(@RequestBody DiseaseType obj) {
+	public DiseaseType insertManufacturer(@Valid @RequestBody DiseaseType obj) {
 		System.out.println("Received data : " + obj);
 		return disTypeRepo.save(obj);
 //		return "Record Inserted Successfully";
@@ -58,21 +60,19 @@ public class DiseaseTypeController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateDiseaseType")
-	public DiseaseType updateDiseaseType(@RequestBody DiseaseType obj) {
+	public DiseaseType updateDiseaseType(@Valid @RequestBody DiseaseType obj) throws ChangeSetPersister.NotFoundException {
 		Optional<DiseaseType> disTy = disTypeRepo.findById(obj.getId());
 
-//		if(!=disTy.isPresent()) {
-//
-//			throw new NotFoundException("DiseaseType id " + obj.getId() + "does not exist");
-////			return "Record Updated Successfully";
-//		}
+		if (!disTy.isPresent()) {
+			throw new ChangeSetPersister.NotFoundException();
+		}
 			DiseaseType disTyUpd = disTy.get();
 			disTyUpd.setType(obj.getType());
 			disTyUpd.setMedicine(obj.getMedicine());
-			disTyUpd.setCreated_by(obj.getCreated_by());
-			disTyUpd.setModified_by(obj.getModified_by());
-			disTyUpd.setCreated_ts(obj.getCreated_ts());
-			disTyUpd.setModified_ts(obj.getModified_ts());
+		disTyUpd.setCreatedBy(obj.getCreatedBy());
+		disTyUpd.setModifiedBy(obj.getModifiedBy());
+		disTyUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
+		disTyUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
 			System.out.println("Received Data in PutMapping :" + obj);
 			return disTypeRepo.save(obj);
 	}

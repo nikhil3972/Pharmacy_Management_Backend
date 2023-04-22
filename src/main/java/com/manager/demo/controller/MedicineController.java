@@ -3,6 +3,7 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
@@ -48,7 +49,7 @@ public class MedicineController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertMedicine")
-	public Medicine insertMedicine(@RequestBody Medicine obj) {
+	public Medicine insertMedicine(@Valid @RequestBody Medicine obj) {
 		System.out.println("Received data : " + obj);
 		return medRepo.save(obj);
 //		return "Record Inserted Successfully";
@@ -61,27 +62,25 @@ public class MedicineController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping (path="/updateMedicine")
-	public Medicine updateData(@RequestBody Medicine obj) {
+	public Medicine updateData(@Valid @RequestBody Medicine obj) throws NotFoundException {
 		Optional<Medicine> med = medRepo.findById(obj.getId());
-		
-//		if(!med.isPresent()) {
-//
-//			throw new NotFoundException("Medicine id " + obj.getId() + "does not exist");
-////			return "Record Updated Successfully";
-//		}
+
+		if (!med.isPresent()) {
+			throw new ChangeSetPersister.NotFoundException();
+		}
 
 		Medicine medUpd = med.get();
-		medUpd.setName(obj.getName());
+		medUpd.setMedicineName(obj.getMedicineName());
 		medUpd.setDescription(obj.getDescription());
 		medUpd.setDosage(obj.getDosage());
 		medUpd.setPrice(obj.getPrice());
-		medUpd.setManufacture_date(obj.getManufacture_date());
-		medUpd.setExpiry_date(obj.getExpiry_date());
-		medUpd.setCurrent_stock(obj.getCurrent_stock());
-		medUpd.setCreated_by(obj.getCreated_by());
-		medUpd.setModified_by(obj.getModified_by());
-		medUpd.setCreated_ts(obj.getCreated_ts());
-		medUpd.setModified_ts(obj.getModified_ts());
+		medUpd.setManufactureDate(obj.getManufactureDate());
+		medUpd.setExpiryDate(obj.getExpiryDate());
+		medUpd.setCurrentStock(obj.getCurrentStock());
+		medUpd.setCreatedBy(obj.getCreatedBy());
+		medUpd.setModifiedBy(obj.getModifiedBy());
+		medUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
+		medUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
 		System.out.println("Received Data in PutMapping :" + obj);
 		return medRepo.save(obj);
 

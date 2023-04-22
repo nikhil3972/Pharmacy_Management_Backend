@@ -10,7 +10,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
+import org.hibernate.validator.constraints.Range;
 
 /**
  * Represents a Manufacturer entity in the system.
@@ -21,18 +23,42 @@ import lombok.Builder;
 public class Manufacturer {
     @Id
     @GeneratedValue
-    int id;
-    String name;
+    int manufacturerId;
+    @NotBlank(message = "Manufacturer name is Mandatory")
+    @Size(min = 3, message = "Manufacturer name should have at least 3 characters")
+    @Size(max = 20, message = "Manufacturer name should not have more than 20 characters")
+    @Pattern(regexp = "^[^0-9]*$", message = "Manufacturer name only contain character")
+    String manufacturerName;
+    @NotBlank(message = "Contact is Mandatory")
+    @Range(min = 7, max = 12, message = "Contact size is must between range of 7 & 12")
+    @Pattern(regexp = "^[0-9]+$", message = "Contact must contain only integer")
     String contact;
 
+    @NotNull(message = "Medicine details is Mandatory")
+    @Size(min = 1, max = 12, message = "List must contain between 1 and 12 elements")
     @OneToMany(targetEntity = Medicine.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "manu_fk", referencedColumnName = "id")
+    @JoinColumn(name = "manu_fk", referencedColumnName = "manufacturerId")
     List<Medicine> medicine;
 
-    String created_by;
-    String modified_by;
-    Date created_ts;
-    Date modified_ts;
+    @NotBlank(message = "CreatedBy is Mandatory")
+    @Size(min = 3, message = "CreatedBy should have at least 3 characters")
+    @Size(max = 10, message = "CreatedBy should not have more than 10 characters")
+    @Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
+    String createdBy;
+
+    @NotBlank(message = "ModifiedBy is Mandatory")
+    @Size(min = 3, message = "ModifiedBy should have at least 3 characters")
+    @Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
+    @Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
+    String modifiedBy;
+
+    @NotNull(message = "CreatedTimestamp is Mandatory")
+    @Past(message = "CreatedTimestamp must be in the past and date format")
+    Date createdTimestamp;
+
+    @NotNull(message = "ModifiedTimestamp is Mandatory")
+    @Past(message = "ModifiedTimestamp must be in the past and date format")
+    Date modifiedTimestamp;
 
     /**
      * Default constructor for the Manufacturer class.
@@ -41,25 +67,25 @@ public class Manufacturer {
 
     /**
      * Constructor for the Manufacturer class with parameters.
-     * @param id the ID of the manufacturer
-     * @param name the name of the manufacturer
+     * @param manufacturerId the ID of the manufacturer
+     * @param manufacturerName the name of the manufacturer
      * @param contact the contact information of the manufacturer
      * @param medicine the list of medicines associated with the manufacturer
-     * @param created_by the username of the user who created the manufacturer entity
-     * @param modified_by the username of the user who last modified the manufacturer entity
-     * @param created_ts the timestamp when the manufacturer entity was created
-     * @param modified_ts the timestamp when the manufacturer entity was last modified
+     * @param createdBy the username of the user who created the manufacturer entity
+     * @param modifiedBy the username of the user who last modified the manufacturer entity
+     * @param createdTimestamp the timestamp when the manufacturer entity was created
+     * @param modifiedTimestamp the timestamp when the manufacturer entity was last modified
      */
-    public Manufacturer(int id, String name, String contact, List<Medicine> medicine, String created_by, String modified_by, Date created_ts, Date modified_ts) {
+    public Manufacturer(int manufacturerId, String manufacturerName, String contact, List<Medicine> medicine, String createdBy, String modifiedBy, Date createdTimestamp, Date modifiedTimestamp) {
         super();
-        this.id = id;
-        this.name = name;
+        this.manufacturerId = manufacturerId;
+        this.manufacturerName = manufacturerName;
         this.contact = contact;
         this.medicine = medicine;
-        this.created_by = created_by;
-        this.modified_by = modified_by;
-        this.created_ts = created_ts;
-        this.modified_ts = modified_ts;
+        this.createdBy = Manufacturer.this.createdBy;
+        this.modifiedBy = Manufacturer.this.modifiedBy;
+        this.createdTimestamp = createdTimestamp;
+        this.modifiedTimestamp = modifiedTimestamp;
     }
 
     /**
@@ -67,15 +93,15 @@ public class Manufacturer {
      * @return the ID of the manufacturer
      */
     public int getId() {
-        return id;
+        return manufacturerId;
     }
 
     /**
      * Sets the ID of the manufacturer.
-     * @param id the ID to be set for the manufacturer
+     * @param manufacturerId the ID to be set for the manufacturer
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int manufacturerId) {
+        this.manufacturerId = manufacturerId;
     }
 
     /**
@@ -83,15 +109,15 @@ public class Manufacturer {
      * @return the name of the manufacturer
      */
     public String getName() {
-        return name;
+        return manufacturerName;
     }
 
     /**
      * Sets the name of the manufacturer.
-     * @param name the name to be set for the manufacturer
+     * @param manufacturerName the name to be set for the manufacturer
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String manufacturerName) {
+        this.manufacturerName = manufacturerName;
     }
 
     /**
@@ -130,64 +156,64 @@ public class Manufacturer {
      * Returns the username of the user who created the manufacturer entity.
      * @return the username of the user who created the manufacturer entity
      */
-    public String getCreated_by() {
-        return created_by;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
     /** 
      * Sets the creator of this Manufacturer entity.
-     * @param created_by the creator to be set for this Manufacturer entity.
+     * @param createdBy the creator to be set for this Manufacturer entity.
      */
-    public void setCreated_by(String created_by) {
-        this.created_by = created_by;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = Manufacturer.this.createdBy;
     }
 
     /** 
      * Returns the modifier of this Manufacturer entity.
      * @return the modifier of this Manufacturer entity.
      */
-    public String getModified_by() {
-        return modified_by;
+    public String getModifiedBy() {
+        return modifiedBy;
     }
 
     /**
      * Sets the modifier of this Manufacturer entity.
-     * @param modified_by the modifier to be set for this Manufacturer entity.
+     * @param modifiedBy the modifier to be set for this Manufacturer entity.
      */
-    public void setModified_by(String modified_by) {
-        this.modified_by = modified_by;
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = Manufacturer.this.modifiedBy;
     }
 
     /**
      * Returns the created timestamp of this Manufacturer entity.
      * @return the created timestamp of this Manufacturer entity.
      */
-    public Date getCreated_ts() {
-        return created_ts;
+    public Date getCreatedTimestamp() {
+        return createdTimestamp;
     }
 
     /**
      * Sets the created timestamp of this Manufacturer entity.
-     * @param created_ts the created timestamp to be set for this Manufacturer entity.
+     * @param createdTimestamp the created timestamp to be set for this Manufacturer entity.
      */
-    public void setCreated_ts(Date created_ts) {
-        this.created_ts = created_ts;
+    public void setCreatedTimestamp(Date createdTimestamp) {
+        this.createdTimestamp = createdTimestamp;
     }
 
     /**
      * Returns the modified timestamp of this Manufacturer entity.
      * @return the modified timestamp of this Manufacturer entity.
      */
-    public Date getModified_ts() {
-        return modified_ts;
+    public Date getModifiedTimestamp() {
+        return modifiedTimestamp;
     }
 
     /**
      * Sets the modified timestamp of this Manufacturer entity.
-     * @param modified_ts the modified timestamp to be set for this Manufacturer entity.
+     * @param modifiedTimestamp the modified timestamp to be set for this Manufacturer entity.
      */
-    public void setModified_ts(Date modified_ts) {
-        this.modified_ts = modified_ts;
+    public void setModifiedTimestamp(Date modifiedTimestamp) {
+        this.modifiedTimestamp = modifiedTimestamp;
     }
 
     /**
@@ -196,8 +222,8 @@ public class Manufacturer {
      */
     @Override
     public String toString() {
-        return "Manufacturer [id=" + id + ", name=" + name + ", contact=" + contact + ", medicine=" + medicine
-                + ", created_by=" + created_by + ", modified_by=" + modified_by + ", created_ts=" + created_ts
-                + ", modified_ts=" + modified_ts + "]";
+        return "Manufacturer [manufacturerId=" + manufacturerId + ", manufacturerName=" + manufacturerName + ", contact=" + contact + ", medicine=" + medicine
+                + ", createdBy=" + createdBy + ", modifiedBy=" + modifiedBy + ", createdTimestamp=" + createdTimestamp
+                + ", modifiedTimestamp=" + modifiedTimestamp + "]";
     }
 }

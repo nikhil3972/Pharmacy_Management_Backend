@@ -4,7 +4,9 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,8 +38,6 @@ public class CustomerController {
 	@GetMapping(path="/getAllCustomer")
 	public List<Customer> getAllCustomer() {
 		return cusRepo.findAll();
-//		System.out.println("Get list of all Customer successfully");
-//		return cus;
 	}
 	
 	/**
@@ -47,10 +47,9 @@ public class CustomerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertCustomer")
-	public Customer insertCustomer(@RequestBody Customer obj) {
+	public Customer insertCustomer(@Valid @RequestBody Customer obj) {
 		System.out.println("Received data : " + obj);
 		return cusRepo.save(obj);
-//		return "Record Inserted Successfully";
 	}
 	
 	/**
@@ -60,14 +59,12 @@ public class CustomerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateCustomer")
-	public Customer updateCustomer(@RequestBody Customer obj) {
+	public Customer updateCustomer(@Valid @RequestBody Customer obj) throws Exception {
 		Optional<Customer> cus = cusRepo.findById(obj.getId());
 
-//		if(!=cus.isPresent()) {
-//
-//			throw new NotFoundException("Medicine id " + obj.getId() + "does not exist");
-////			return "Record Updated Successfully";
-//		}
+		if (!cus.isPresent()) {
+			throw new ChangeSetPersister.NotFoundException();
+		}
 			Customer cusUpd = cus.get();
 			cusUpd.setFirstName(obj.getFirstName());
 			cusUpd.setLastName(obj.getLastName());
@@ -75,10 +72,10 @@ public class CustomerController {
 			cusUpd.setEmail(obj.getEmail());
 			cusUpd.setMedicine(obj.getMedicine());
 			cusUpd.setDob(obj.getDob());
-			cusUpd.setCreated_by(obj.getCreated_by());
-			cusUpd.setModified_by(obj.getModified_by());
-			cusUpd.setCreated_ts(obj.getCreated_ts());
-			cusUpd.setModified_ts(obj.getModified_ts());
+			cusUpd.setCreatedBy(obj.getCreatedBy());
+			cusUpd.setModifiedBy(obj.getModifiedBy());
+			cusUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
+			cusUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
 			System.out.println("Received Data in PutMapping :" + obj);
 			return cusRepo.save(obj);
 
@@ -99,7 +96,7 @@ public class CustomerController {
 	
 	/**
 	 * Retrieves a list of CustomerMedicine entities from the CustomerRepository.
-	 * @return A list of of CustomerMedicine object containing the details of Customers along with the Medicines they have purchased.
+	 * @return A list of CustomerMedicine object containing the details of Customers along with the Medicines they have purchased.
 	*/
 	@GetMapping(path="/getMedicineWithCustomer")
 	public List<CustomerMedicine> getMedicineWithCustomer() {

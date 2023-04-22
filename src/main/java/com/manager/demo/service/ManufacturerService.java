@@ -17,7 +17,7 @@ public class  ManufacturerService {
 		return manufacture;
 	}
 
-	public List< Manufacturer>getmanufacture(){
+	public List< Manufacturer>getManufacture(){
 		return manufactureList;
 	}
 	public 	 Manufacturer getCustomer(int manufactureId) {

@@ -24,13 +24,13 @@ public class MedicineService {
 	public  Medicine updateMedicine(int medicineId,Medicine medicine) {
 		medicineList.stream().forEach(c->{
 			if(c.getId()== medicineId) {
-				c.setName(medicine.getName());
+				c.setMedicineName(medicine.getMedicineName());
 				c.setDescription(medicine.getDescription());
 				c.setDosage(medicine.getDosage());
 				c.setPrice(medicine.getPrice());
-				c.setManufacture_date(medicine.getManufacture_date());
-				c.setExpiry_date(medicine.getExpiry_date());
-				c.setCurrent_stock(medicine.getCurrent_stock());
+				c.setManufactureDate(medicine.getManufactureDate());
+				c.setExpiryDate(medicine.getExpiryDate());
+				c.setCurrentStock(medicine.getCurrentStock());
 				
 				
 			}

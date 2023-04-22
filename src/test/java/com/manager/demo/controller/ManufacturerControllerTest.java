@@ -51,12 +51,12 @@ public class ManufacturerControllerTest {
     List<Medicine> medicines = new ArrayList<>();
     Medicine medicine = new Medicine(35, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    List<Medicine> medicines_1 = new ArrayList<>();
-    Medicine medicine_1 = new Medicine(36, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    List<Medicine> medicinesOne = new ArrayList<>();
+    Medicine medicineOne = new Medicine(36, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    Manufacturer manufacturer_1 = new Manufacturer(10, "Tesla", "8543643478", medicines, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Manufacturer manufacturerOne = new Manufacturer(10, "Tesla", "8543643478", medicines, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    Manufacturer manufacturer_2 = new Manufacturer(11, "Cisco", "7478287379", medicines_1, "Nagesh", "Rahul", new Date(2000-01-01), new Date(2000-01-01));
+    Manufacturer manufacturerTwo = new Manufacturer(11, "Cisco", "7478287379", medicinesOne, "Nagesh", "Rahul", new Date(2000-01-01), new Date(2000-01-01));
 
 
     /**
@@ -75,7 +75,7 @@ public class ManufacturerControllerTest {
      */
     @Test
     public void getAllManufacturers() throws Exception{
-        List<Manufacturer> manufacturers = new ArrayList<>(Arrays.asList(manufacturer_1, manufacturer_2));
+        List<Manufacturer> manufacturers = new ArrayList<>(Arrays.asList(manufacturerOne, manufacturerTwo));
         Mockito.when(manufacturerRepository.findAll()).thenReturn(manufacturers);
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/getAllManufacturer")
@@ -91,17 +91,16 @@ public class ManufacturerControllerTest {
     @Test
     public void addManufacturer() throws Exception{
         Manufacturer manufacturer = Manufacturer.builder()
-                .id(12)
-                .name("Cipla")
+                .manufacturerId(12)
+                .manufacturerName("Cipla")
                 .contact("8328528894")
                 .medicine((List<Medicine>) medicines)
-                .created_by("Harshal")
-                .modified_by("Amit")
-                .created_ts(new Date(2000-01-01))
-                .modified_ts(new Date(2000-01-01))
+                .createdBy("Harshal")
+                .modifiedBy("Amit")
+                .createdTimestamp(new Date(2000-01-01))
+                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
-//        Mockito.when(manufacturerRepository.save(manufacturer)).thenReturn(manufacturer);
         String content = objectWriter.writeValueAsString(manufacturer);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/insertManufacturer")
@@ -111,7 +110,6 @@ public class ManufacturerControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
     /**
@@ -121,18 +119,17 @@ public class ManufacturerControllerTest {
     @Test
     public void updateManufacturer() throws Exception{
         Manufacturer manufacturerUpdate = Manufacturer.builder()
-                .id(11)
-                .name("CiscoTrack")
+                .manufacturerId(11)
+                .manufacturerName("CiscoTrack")
                 .contact("4328324848")
                 .medicine((List<Medicine>) medicines)
-                .created_by("Mahesh")
-                .modified_by("Amit")
-                .created_ts(new Date(2000-01-01))
-                .modified_ts(new Date(2000-01-01))
+                .createdBy("Mahesh")
+                .modifiedBy("Amit")
+                .createdTimestamp(new Date(2000-01-01))
+                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
-        Mockito.when(manufacturerRepository.findById(manufacturer_2.getId())).thenReturn(java.util.Optional.ofNullable(manufacturer_2));
-//        Mockito.when(manufacturerRepository.save(manufacturerUpdate)).thenReturn(manufacturerUpdate);
+        Mockito.when(manufacturerRepository.findById(manufacturerTwo.getId())).thenReturn(java.util.Optional.ofNullable(manufacturerTwo));
 
         String upContent = objectWriter.writeValueAsString(manufacturerUpdate);
 
@@ -143,7 +140,6 @@ public class ManufacturerControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
     /**
@@ -152,7 +148,6 @@ public class ManufacturerControllerTest {
      */
     @Test
     public void deleteManufacturer() throws Exception{
-//        Mockito.when(manufacturerRepository.findById(manufacturer_2.getId())).thenReturn(Optional.of(manufacturer_2));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/deleteManufacturer/11")

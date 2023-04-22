@@ -45,10 +45,10 @@ public class DiseaseTypeControllerTest {
     @InjectMocks DiseaseTypeController diseaseTypeController;
     List<Medicine> medicines = new ArrayList<>();
     Medicine medicine = new Medicine(93, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
-    List<Medicine> medicines_1 = new ArrayList<>();
-    Medicine medicine_1 = new Medicine(94, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
-    DiseaseType diseaseType_1 = new DiseaseType(17, "Viral", medicines, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
-    DiseaseType diseaseType_2 = new DiseaseType(18, "Viral", medicines_1, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    List<Medicine> medicinesOne = new ArrayList<>();
+    Medicine medicineOne = new Medicine(94, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    DiseaseType diseaseTypeOne = new DiseaseType(17, "Viral", medicines, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    DiseaseType diseaseTypeTwo = new DiseaseType(18, "Viral", medicinesOne, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
     /**
      * Sets up the test environment before each test case by initializing the MockMvc object
@@ -66,7 +66,7 @@ public class DiseaseTypeControllerTest {
      */
     @Test
     public void getAllDiseaseType() throws Exception{
-        List<DiseaseType> diseaseType = new ArrayList<>(Arrays.asList(diseaseType_1, diseaseType_2));
+        List<DiseaseType> diseaseType = new ArrayList<>(Arrays.asList(diseaseTypeOne, diseaseTypeTwo));
         Mockito.when(diseaseTypeRepository.findAll()).thenReturn(diseaseType);
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/getAllDiseaseType")
@@ -82,13 +82,13 @@ public class DiseaseTypeControllerTest {
     @Test
     public void addDiseaseType() throws Exception{
         DiseaseType diseaseType = DiseaseType.builder()
-                .id(19)
+                .diseaseTypeId(19)
                 .type("Non Viral")
                 .medicine((List<Medicine>) medicines)
-                .created_by("Harshal")
-                .modified_by("Amit")
-                .created_ts(new Date(2000-01-01))
-                .modified_ts(new Date(2000-01-01))
+                .createdBy("Harshal")
+                .modifiedBy("Amit")
+                .createdTimestamp(new Date(2000-01-01))
+                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         String content = objectWriter.writeValueAsString(diseaseType);
@@ -100,7 +100,6 @@ public class DiseaseTypeControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
-//                .andExpect(MockMvcResultMatchers.jsonPath("$", notNullValue()));
     }
 
     /**
@@ -112,16 +111,16 @@ public class DiseaseTypeControllerTest {
     @Test
     public void updateDiseaseType() throws Exception{
         DiseaseType diseaseTypeUpdate = DiseaseType.builder()
-                .id(18)
+                .diseaseTypeId(18)
                 .type("Non Viral")
-                .medicine((List<Medicine>) medicines_1)
-                .created_by("Harshal")
-                .modified_by("Amit")
-                .created_ts(new Date(2000-01-01))
-                .modified_ts(new Date(2000-01-01))
+                .medicine((List<Medicine>) medicinesOne)
+                .createdBy("Harshal")
+                .modifiedBy("Amit")
+                .createdTimestamp(new Date(2000-01-01))
+                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
-        Mockito.when(diseaseTypeRepository.findById(diseaseType_2.getId())).thenReturn(java.util.Optional.ofNullable(diseaseType_2));
+        Mockito.when(diseaseTypeRepository.findById(diseaseTypeTwo.getId())).thenReturn(java.util.Optional.ofNullable(diseaseTypeTwo));
 
         String upContent = objectWriter.writeValueAsString(diseaseTypeUpdate);
 
@@ -140,7 +139,6 @@ public class DiseaseTypeControllerTest {
      */
     @Test
     public void deleteDiseaseType() throws Exception{
-        // Mockito.when(diseaseTypeRepository.findById(diseaseType_2.getId())).thenReturn(Optional.of(diseaseType_2));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/deleteDiseaseType/18")

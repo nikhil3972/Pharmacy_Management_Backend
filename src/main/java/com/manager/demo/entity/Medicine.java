@@ -7,7 +7,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
+import org.hibernate.validator.constraints.Range;
+
 
 @Entity
 @Table(name="Medicine")
@@ -15,18 +18,57 @@ import lombok.Builder;
 public class Medicine {
 	@Id
 	@GeneratedValue
-	int id;
-	String name;
+	int medicineId;
+
+	@NotBlank(message = "Medicine name is Mandatory")
+	@Size(min = 3, message = "Medicine name should have at least 3 characters")
+	@Size(max = 20, message = "Medicine name should not have more than 20 characters")
+	String medicineName;
+
+	@NotBlank(message = "Description is Mandatory")
+	@Size(min = 3, message = "Description should have at least 3 characters")
 	String description;
+
+	@NotBlank(message = "Dosage is Mandatory")
+	@Size(min = 3, message = "Dosage should have at least 3 characters")
 	String dosage;
+
+	@NotNull(message = "Price is Mandatory")
+	@Positive(message = "Value must be greater than 0")
+	@Digits(integer = 4, fraction = 2, message = "The field must be a number with up to 4 digits before and 2 digits after the decimal point")
 	BigDecimal price;
-	Date manufacture_date;
-	Date expiry_date;
-	int current_stock;
-	String created_by;
-	String modified_by;
-	Date created_ts;
-	Date modified_ts;
+
+	@NotNull(message = "Manufacture Date is Mandatory")
+	@Past(message = "Manufacture Date must be in the past and date format")
+	Date manufactureDate;
+
+	@NotNull(message = "Expiry Date is Mandatory")
+	@Past(message = "Expiry Date must be in the past and date format")
+	Date expiryDate;
+
+	@Range(min = 1, message= "Current Stock may not be empty or null")
+	@Positive(message = "Value must be greater than 0")
+	int currentStock;
+
+	@NotBlank(message = "CreatedBy is Mandatory")
+	@Size(min = 3, message = "CreatedBy should have at least 3 characters")
+	@Size(max = 10, message = "CreatedBy should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
+	String createdBy;
+
+	@NotBlank(message = "ModifiedBy is Mandatory")
+	@Size(min = 3, message = "ModifiedBy should have at least 3 characters")
+	@Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
+	String modifiedBy;
+
+	@NotNull(message = "CreatedTimestamp is Mandatory")
+	@Past(message = "CreatedTimestamp must be in the past and date format")
+	Date createdTimestamp;
+
+	@NotNull(message = "ModifiedTimestamp is Mandatory")
+	@Past(message = "ModifiedTimestamp must be in the past and date format")
+	Date modifiedTimestamp;
 
 
 	/**
@@ -37,48 +79,48 @@ public class Medicine {
 	/**
 	 * Constructor for Medicine with specified parameters.
 	 * @param id The ID of the medicine.
-	 * @param name The name of the medicine.
+	 * @param medicineName The name of the medicine.
 	 * @param description The description of the medicine.
 	 * @param dosage The dosage of the medicine.
 	 * @param price The price of the medicine.
-	 * @param manufacture_date The manufacture date of the medicine.
-	 * @param expiry_date The expiry date of the medicine.
-	 * @param current_stock The current stock of the medicine.
-	 * @param created_by The user who created the medicine.
-	 * @param modified_by The user who last modified the medicine.
-	 * @param created_ts The timestamp when the medicine was created.
-	 * @param modified_ts The timestamp when the medicine was last modified.
+	 * @param manufactureDate The manufacture date of the medicine.
+	 * @param expiryDate The expiry date of the medicine.
+	 * @param currentStock The current stock of the medicine.
+	 * @param createdBy The user who created the medicine.
+	 * @param modifiedBy The user who last modified the medicine.
+	 * @param createdTimestamp The timestamp when the medicine was created.
+	 * @param modifiedTimestamp The timestamp when the medicine was last modified.
 	 */
-	public Medicine(int id, String name, String description, String dosage, BigDecimal price, Date manufacture_date,
-					Date expiry_date, int current_stock, String created_by, String modified_by, Date created_ts,
-					Date modified_ts) {
+	public Medicine(int id, String medicineName, String description, String dosage, BigDecimal price, Date manufactureDate,
+					Date expiryDate, int currentStock, String createdBy, String modifiedBy, Date createdTimestamp,
+					Date modifiedTimestamp) {
 		super();
-		this.id = id;
-		this.name = name;
+		this.medicineId = id;
+		this.medicineName = medicineName;
 		this.description = description;
 		this.dosage = dosage;
 		this.price = price;
-		this.manufacture_date = manufacture_date;
-		this.expiry_date = expiry_date;
-		this.current_stock = current_stock;
-		this.created_by = created_by;
-		this.modified_by = modified_by;
-		this.created_ts = created_ts;
-		this.modified_ts = modified_ts;
+		this.manufactureDate = manufactureDate;
+		this.expiryDate = expiryDate;
+		this.currentStock = currentStock;
+		this.createdBy = createdBy;
+		this.modifiedBy = modifiedBy;
+		this.createdTimestamp = createdTimestamp;
+		this.modifiedTimestamp = modifiedTimestamp;
 	}
 
 
 	public int getId() {
-		return id;
+		return medicineId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int medicineId) {
+		this.medicineId = medicineId;
 	}
-	public String getName() {
-		return name;
+	public String getMedicineName() {
+		return medicineName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setMedicineName(String medicineName) {
+		this.medicineName = medicineName;
 	}
 	public String getDescription() {
 		return description;
@@ -98,54 +140,54 @@ public class Medicine {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	public Date getManufacture_date() {
-		return manufacture_date;
+	public Date getManufactureDate() {
+		return manufactureDate;
 	}
-	public void setManufacture_date(Date manufacture_date) {
-		this.manufacture_date = manufacture_date;
+	public void setManufactureDate(Date manufactureDate) {
+		this.manufactureDate = manufactureDate;
 	}
-	public Date getExpiry_date() {
-		return expiry_date;
+	public Date getExpiryDate() {
+		return expiryDate;
 	}
-	public void setExpiry_date(Date expiry_date) {
-		this.expiry_date = expiry_date;
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
 	}
-	public int getCurrent_stock() {
-		return current_stock;
+	public int getCurrentStock() {
+		return currentStock;
 	}
-	public void setCurrent_stock(int current_stock) {
-		this.current_stock = current_stock;
+	public void setCurrentStock(int currentStock) {
+		this.currentStock = currentStock;
 	}
-	public String getCreated_by() {
-		return created_by;
+	public String getCreatedBy() {
+		return createdBy;
 	}
-	public void setCreated_by(String created_by) {
-		this.created_by = created_by;
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
-	public String getModified_by() {
-		return modified_by;
+	public String getModifiedBy() {
+		return modifiedBy;
 	}
-	public void setModified_by(String modified_by) {
-		this.modified_by = modified_by;
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
-	public Date getCreated_ts() {
-		return created_ts;
+	public Date getCreatedTimestamp() {
+		return createdTimestamp;
 	}
-	public void setCreated_ts(Date created_ts) {
-		this.created_ts = created_ts;
+	public void setCreatedTimestamp(Date createdTimestamp) {
+		this.createdTimestamp = createdTimestamp;
 	}
-	public Date getModified_ts() {
-		return modified_ts;
+	public Date getModifiedTimestamp() {
+		return modifiedTimestamp;
 	}
-	public void setModified_ts(Date modified_ts) {
-		this.modified_ts = modified_ts;
+	public void setModifiedTimestamp(Date modifiedTimestamp) {
+		this.modifiedTimestamp = modifiedTimestamp;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Medicine [id=" + id + ", name=" + name + ", description=" + description + ", dosage=" + dosage
-				+ ", price=" + price + ", manufacture_date=" + manufacture_date + ", expiry_date=" + expiry_date
-				+ ", current_stock=" + current_stock + ", created_by=" + created_by + ", modified_by=" + modified_by
-				+ ", created_ts=" + created_ts + ", modified_ts=" + modified_ts + "]";
-	}	
+		return "Medicine [medicineId=" + medicineId + ", medicineName=" + medicineName + ", description=" + description + ", dosage=" + dosage
+				+ ", price=" + price + ", manufactureDate=" + manufactureDate + ", expiryDate=" + expiryDate
+				+ ", currentStock=" + currentStock + ", createdBy=" + createdBy + ", modifiedBy=" + modifiedBy
+				+ ", createdTimestamp=" + createdTimestamp + ", modifiedTimestamp=" + modifiedTimestamp + "]";
+	}
 }
