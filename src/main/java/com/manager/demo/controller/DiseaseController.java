@@ -3,6 +3,7 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -50,7 +51,7 @@ public class DiseaseController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertDisease")
-	public Disease insertDisease(@RequestBody Disease obj) {
+	public Disease insertDisease(@Valid @RequestBody Disease obj) {
 		System.out.println("Received data : " + obj);
 		return disRepo.save(obj);
 	}

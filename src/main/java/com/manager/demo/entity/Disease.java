@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 /**
@@ -23,9 +25,14 @@ public class Disease {
 	@Id
 	@GeneratedValue
 	int diseaseId;
+
+	@NotBlank(message = "Disease name is Mandatory")
 	String diseaseName;
+
+	@NotBlank(message = "Disease information is Mandatory")
 	String diseaseInfo;
-	
+
+	@NotNull(message = "Disease details is Mandatory")
 	@OneToMany(targetEntity = DiseaseType.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "disease_fk", referencedColumnName = "diseaseId")
 	List<DiseaseType> diseaseType;

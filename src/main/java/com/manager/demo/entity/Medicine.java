@@ -20,7 +20,7 @@ public class Medicine {
 	@GeneratedValue
 	int medicineId;
 
-	@NotBlank(message = "Name is Mandatory")
+	@NotBlank(message = "Medicine name is Mandatory")
 	String medicineName;
 
 	@NotBlank(message = "Description is Mandatory")
