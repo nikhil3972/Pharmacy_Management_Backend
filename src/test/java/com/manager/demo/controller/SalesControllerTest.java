@@ -60,9 +60,9 @@ public class SalesControllerTest {
     List<Customer> customersOne = new ArrayList<>();
     Customer customerTwo = new Customer(91, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    Sales salesOne = new Sales(3, "2023-06-04", customers, BigDecimal.valueOf(400.25), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Sales salesOne = new Sales(3, new Date(2000-01-01), customers, BigDecimal.valueOf(400.25), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
 
-    Sales salesTwo = new Sales(4, "2023-01-04", customersOne, BigDecimal.valueOf(300.14), "Harshal", "Ramesh", new Date(2000-01-01), new Date(2000-01-01));
+    Sales salesTwo = new Sales(4, new Date(2000-01-01), customersOne, BigDecimal.valueOf(300.14), "Harshal", "Ramesh", new Date(2000-01-01), new Date(2000-01-01));
 
     /**
      * Set up method to initialize mock objects and create the mockMvc instance for testing the salesController.
@@ -100,7 +100,7 @@ public class SalesControllerTest {
         //Arrange
         Sales sales = Sales.builder()
                 .saleId(5)
-                .saleDate("2023-01-01")
+                .saleDate(new Date(2000-01-01))
                 .customer((List<Customer>) customersOne)
                 .totalCost(BigDecimal.valueOf(300.14))
                 .createdBy("Harshal")
@@ -130,7 +130,7 @@ public class SalesControllerTest {
         //Arrange
         Sales salesUpdate = Sales.builder()
                 .saleId(4)
-                .saleDate("2022-04-01")
+                .saleDate(new Date(2000-01-01))
                 .customer((List<Customer>) customersOne)
                 .totalCost(BigDecimal.valueOf(300.14))
                 .createdBy("Harshal")

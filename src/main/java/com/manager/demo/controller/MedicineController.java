@@ -62,7 +62,7 @@ public class MedicineController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping (path="/updateMedicine")
-	public Medicine updateData(@RequestBody Medicine obj) throws NotFoundException {
+	public Medicine updateData(@Valid @RequestBody Medicine obj) throws NotFoundException {
 		Optional<Medicine> med = medRepo.findById(obj.getId());
 
 		if (!med.isPresent()) {

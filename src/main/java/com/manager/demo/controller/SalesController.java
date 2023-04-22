@@ -60,7 +60,7 @@ public class SalesController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateSales")
-	public Sales updateSales(@RequestBody Sales obj) throws ChangeSetPersister.NotFoundException {
+	public Sales updateSales(@Valid @RequestBody Sales obj) throws ChangeSetPersister.NotFoundException {
 		Optional<Sales> sale = saleRepo.findById(obj.getId());
 
 		if (!sale.isPresent()) {

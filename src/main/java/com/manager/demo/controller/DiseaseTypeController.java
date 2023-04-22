@@ -60,7 +60,7 @@ public class DiseaseTypeController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateDiseaseType")
-	public DiseaseType updateDiseaseType(@RequestBody DiseaseType obj) throws ChangeSetPersister.NotFoundException {
+	public DiseaseType updateDiseaseType(@Valid @RequestBody DiseaseType obj) throws ChangeSetPersister.NotFoundException {
 		Optional<DiseaseType> disTy = disTypeRepo.findById(obj.getId());
 
 		if (!disTy.isPresent()) {

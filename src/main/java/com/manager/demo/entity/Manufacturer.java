@@ -10,9 +10,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
+import org.hibernate.validator.constraints.Range;
 
 /**
  * Represents a Manufacturer entity in the system.
@@ -25,18 +25,39 @@ public class Manufacturer {
     @GeneratedValue
     int manufacturerId;
     @NotBlank(message = "Manufacturer name is Mandatory")
+    @Size(min = 3, message = "Manufacturer name should have at least 3 characters")
+    @Size(max = 20, message = "Manufacturer name should not have more than 20 characters")
+    @Pattern(regexp = "^[^0-9]*$", message = "Manufacturer name only contain character")
     String manufacturerName;
     @NotBlank(message = "Contact is Mandatory")
+    @Range(min = 7, max = 12, message = "Contact size is must between range of 7 & 12")
+    @Pattern(regexp = "^[0-9]+$", message = "Contact must contain only integer")
     String contact;
 
-    @NotNull(message = "Manufacturer details is Mandatory")
+    @NotNull(message = "Medicine details is Mandatory")
+    @Size(min = 1, max = 12, message = "List must contain between 1 and 12 elements")
     @OneToMany(targetEntity = Medicine.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "manu_fk", referencedColumnName = "manufacturerId")
     List<Medicine> medicine;
 
+    @NotBlank(message = "CreatedBy is Mandatory")
+    @Size(min = 3, message = "CreatedBy should have at least 3 characters")
+    @Size(max = 10, message = "CreatedBy should not have more than 10 characters")
+    @Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
     String createdBy;
+
+    @NotBlank(message = "ModifiedBy is Mandatory")
+    @Size(min = 3, message = "ModifiedBy should have at least 3 characters")
+    @Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
+    @Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
     String modifiedBy;
+
+    @NotNull(message = "CreatedTimestamp is Mandatory")
+    @Past(message = "CreatedTimestamp must be in the past and date format")
     Date createdTimestamp;
+
+    @NotNull(message = "ModifiedTimestamp is Mandatory")
+    @Past(message = "ModifiedTimestamp must be in the past and date format")
     Date modifiedTimestamp;
 
     /**

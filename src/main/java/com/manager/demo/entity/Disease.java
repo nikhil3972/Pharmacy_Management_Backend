@@ -10,8 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
 
 /**
@@ -27,19 +26,39 @@ public class Disease {
 	int diseaseId;
 
 	@NotBlank(message = "Disease name is Mandatory")
+	@Size(min = 3, message = "Disease name should have at least 3 characters")
+	@Size(max = 20, message = "Disease name should not have more than 20 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "Disease name only contain character")
 	String diseaseName;
 
 	@NotBlank(message = "Disease information is Mandatory")
+	@Size(min = 3, message = "Disease information should have at least 3 characters")
 	String diseaseInfo;
 
-	@NotNull(message = "Disease details is Mandatory")
+	@NotNull(message = "Disease Type details is Mandatory")
+	@Size(min = 1, max = 12, message = "List must contain between 1 and 12 elements")
 	@OneToMany(targetEntity = DiseaseType.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "disease_fk", referencedColumnName = "diseaseId")
 	List<DiseaseType> diseaseType;
-	
+
+	@NotBlank(message = "CreatedBy is Mandatory")
+	@Size(min = 3, message = "CreatedBy should have at least 3 characters")
+	@Size(max = 10, message = "CreatedBy should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
 	String createdBy;
+
+	@NotBlank(message = "ModifiedBy is Mandatory")
+	@Size(min = 3, message = "ModifiedBy should have at least 3 characters")
+	@Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
 	String modifiedBy;
+
+	@NotNull(message = "CreatedTimestamp is Mandatory")
+	@Past(message = "CreatedTimestamp must be in the past and date format")
 	Date createdTimestamp;
+
+	@NotNull(message = "ModifiedTimestamp is Mandatory")
+	@Past(message = "ModifiedTimestamp must be in the past and date format")
 	Date modifiedTimestamp;
 
 	/**

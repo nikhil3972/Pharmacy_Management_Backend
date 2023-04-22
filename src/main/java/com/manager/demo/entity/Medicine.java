@@ -21,31 +21,53 @@ public class Medicine {
 	int medicineId;
 
 	@NotBlank(message = "Medicine name is Mandatory")
+	@Size(min = 3, message = "Medicine name should have at least 3 characters")
+	@Size(max = 20, message = "Medicine name should not have more than 20 characters")
 	String medicineName;
 
 	@NotBlank(message = "Description is Mandatory")
+	@Size(min = 3, message = "Description should have at least 3 characters")
 	String description;
 
 	@NotBlank(message = "Dosage is Mandatory")
+	@Size(min = 3, message = "Dosage should have at least 3 characters")
 	String dosage;
 
 	@NotNull(message = "Price is Mandatory")
 	@Positive(message = "Value must be greater than 0")
+	@Digits(integer = 4, fraction = 2, message = "The field must be a number with up to 4 digits before and 2 digits after the decimal point")
 	BigDecimal price;
 
 	@NotNull(message = "Manufacture Date is Mandatory")
+	@Past(message = "Manufacture Date must be in the past and date format")
 	Date manufactureDate;
 
 	@NotNull(message = "Expiry Date is Mandatory")
+	@Past(message = "Expiry Date must be in the past and date format")
 	Date expiryDate;
 
 	@Range(min = 1, message= "Current Stock may not be empty or null")
 	@Positive(message = "Value must be greater than 0")
 	int currentStock;
 
+	@NotBlank(message = "CreatedBy is Mandatory")
+	@Size(min = 3, message = "CreatedBy should have at least 3 characters")
+	@Size(max = 10, message = "CreatedBy should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
 	String createdBy;
+
+	@NotBlank(message = "ModifiedBy is Mandatory")
+	@Size(min = 3, message = "ModifiedBy should have at least 3 characters")
+	@Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
 	String modifiedBy;
+
+	@NotNull(message = "CreatedTimestamp is Mandatory")
+	@Past(message = "CreatedTimestamp must be in the past and date format")
 	Date createdTimestamp;
+
+	@NotNull(message = "ModifiedTimestamp is Mandatory")
+	@Past(message = "ModifiedTimestamp must be in the past and date format")
 	Date modifiedTimestamp;
 
 

@@ -2,9 +2,8 @@ package com.manager.demo.entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
+import org.hibernate.validator.constraints.Range;
 
 import java.math.BigDecimal;
 
@@ -18,22 +17,35 @@ public class CustomerMedicine {
 	private int customerMedicineId;
 
 	@NotBlank(message = "FirstName is Mandatory")
+	@Size(min = 3, message = "FirstName should have at least 3 characters")
+	@Size(max = 10, message = "FirstName should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "FirstName only contain character")
 	private String firstName;
 
 	@NotBlank(message = "LastName name is Mandatory")
+	@Size(min = 3, message = "LastName should have at least 3 characters")
+	@Size(max = 10, message = "LastName should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "LastName only contain character")
 	private String lastName;
 
 	@NotBlank(message = "Email is Mandatory")
+	@Email(message = "Email must have in their proper format")
 	private String email;
 
 	@NotBlank(message = "Contact is Mandatory")
+	@Range(min = 7, max = 12, message = "Contact size is must between range of 7 & 12")
+	@Pattern(regexp = "^[0-9]+$", message = "Contact must contain only integer")
 	private String contact;
 
 	@NotBlank(message = "Medicine name is Mandatory")
+	@Size(min = 3, message = "Medicine name should have at least 3 characters")
+	@Size(max = 20, message = "Medicine name should not have more than 20 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "Medicine name only contain character")
 	private String medicineName;
 
 	@NotNull(message = "Price is Mandatory")
 	@Positive(message = "Value must be greater than 0")
+	@Digits(integer = 4, fraction = 2, message = "The field must be a number with up to 4 digits before and 2 digits after the decimal point")
 	public BigDecimal price;
 	
 	/**

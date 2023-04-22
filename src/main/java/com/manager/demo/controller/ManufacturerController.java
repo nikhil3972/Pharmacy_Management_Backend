@@ -67,7 +67,7 @@ public class ManufacturerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateManufacturer")
-	public Manufacturer updateManufacturer(@RequestBody Manufacturer obj) throws ChangeSetPersister.NotFoundException {
+	public Manufacturer updateManufacturer(@Valid @RequestBody Manufacturer obj) throws ChangeSetPersister.NotFoundException {
 		Optional<Manufacturer> man = manRepo.findById(obj.getId());
 
 		if (!man.isPresent()) {

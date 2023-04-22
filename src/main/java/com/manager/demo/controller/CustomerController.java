@@ -59,7 +59,7 @@ public class CustomerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateCustomer")
-	public Customer updateCustomer(@RequestBody Customer obj) throws Exception {
+	public Customer updateCustomer(@Valid @RequestBody Customer obj) throws Exception {
 		Optional<Customer> cus = cusRepo.findById(obj.getId());
 
 		if (!cus.isPresent()) {

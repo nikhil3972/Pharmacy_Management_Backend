@@ -10,8 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
 
 /**
@@ -34,34 +33,37 @@ public class DiseaseType {
 	 * The type of the disease.
 	 */
 	@NotBlank(message = "Disease Type is Mandatory")
+	@Size(min = 3, message = "Disease Type should have at least 3 characters")
+	@Size(max = 20, message = "Disease Type should not have more than 20 characters")
 	String type;
 	
 	/**
 	 * The list of medicines associated with the disease type.
 	 */
 	@NotNull(message = "Disease Type details is Mandatory")
+	@Size(min = 1, max = 12, message = "List must contain between 1 and 12 elements")
 	@OneToMany(targetEntity = Medicine.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "disease_type_fk", referencedColumnName = "diseaseTypeId")
 	List<Medicine> medicine;
-	
-	/**
-	 * The name of the user who created the disease type record.
-	 */
+
+	@NotBlank(message = "CreatedBy is Mandatory")
+	@Size(min = 3, message = "CreatedBy should have at least 3 characters")
+	@Size(max = 10, message = "CreatedBy should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
 	String createdBy;
-	
-	/**
-	 * The name of the user who last modified the disease type record.
-	 */
+
+	@NotBlank(message = "ModifiedBy is Mandatory")
+	@Size(min = 3, message = "ModifiedBy should have at least 3 characters")
+	@Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
+	@Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
 	String modifiedBy;
-	
-	/**
-	 * The timestamp when the disease type record was created.
-	 */
+
+	@NotNull(message = "CreatedTimestamp is Mandatory")
+	@Past(message = "CreatedTimestamp must be in the past and date format")
 	Date createdTimestamp;
-	
-	/**
-	 * The timestamp when the disease type record was last modified.
-	 */
+
+	@NotNull(message = "ModifiedTimestamp is Mandatory")
+	@Past(message = "ModifiedTimestamp must be in the past and date format")
 	Date modifiedTimestamp;
 
 	/**

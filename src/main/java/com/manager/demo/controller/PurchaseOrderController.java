@@ -60,7 +60,7 @@ public class PurchaseOrderController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updatePurchaseOrder")
-	public PurchaseOrder updatePurchaseOrder(@RequestBody PurchaseOrder obj) throws ChangeSetPersister.NotFoundException {
+	public PurchaseOrder updatePurchaseOrder(@Valid @RequestBody PurchaseOrder obj) throws ChangeSetPersister.NotFoundException {
 		Optional<PurchaseOrder> purOr = purOrRepo.findById(obj.getId());
 
 		if (!purOr.isPresent()) {
