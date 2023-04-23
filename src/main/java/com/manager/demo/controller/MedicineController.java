@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -97,5 +98,12 @@ public class MedicineController {
 		System.out.println("Medicine record deleted. Given id : " + id);
 		medRepo.deleteById(id);
 		return "Record Deleted Successfully";
-	}	
+	}
+
+	@CrossOrigin("http://localhost:4200")
+	@GetMapping(path="/getAllMedicineSorted")
+	public List<Medicine> getMedicineInSortedOrder(){
+		Sort sort = Sort.by(Sort.Direction.ASC, "medicineName").and(Sort.by(Sort.Direction.ASC, "description")).and(Sort.by(Sort.Direction.ASC, "dosage")).and(Sort.by(Sort.Direction.ASC, "price")).and(Sort.by(Sort.Direction.ASC, "currentStock"));
+		return medRepo.findAll(sort);
+	}
 }

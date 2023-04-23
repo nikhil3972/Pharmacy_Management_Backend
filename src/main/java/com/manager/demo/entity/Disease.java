@@ -25,9 +25,7 @@ public class Disease {
 	@GeneratedValue
 	int diseaseId;
 
-<<<<<<< HEAD
 
-=======
 	@NotBlank(message = "Disease name is Mandatory")
 	@Size(min = 3, message = "Disease name should have at least 3 characters")
 	@Size(max = 20, message = "Disease name should not have more than 20 characters")
@@ -63,7 +61,6 @@ public class Disease {
 	@NotNull(message = "ModifiedTimestamp is Mandatory")
 	@Past(message = "ModifiedTimestamp must be in the past and date format")
 	Date modifiedTimestamp;
->>>>>>> 80f10e8b414bcecae0b8ca66c2ee9734a9aef266
 
 	/**
 	 * Default constructor for Disease.
@@ -81,22 +78,10 @@ public class Disease {
 	 * @param createdTimestamp The timestamp when the disease was created.
 	 * @param modifiedTimestamp The timestamp when the disease was last modified.
 	 */
-<<<<<<< HEAD
-	
 
 	
 
-	public Disease(int id, String name, String info, List<DiseaseType> disease_type, String created_by, String modified_by, Date created_ts, Date modified_ts){
 
-		this.id = id;
-		this.name = name;
-		this.info = info;
-		this.disease_type = disease_type;
-		this.created_by = created_by;
-		this.modified_by = modified_by;
-		this.created_ts = created_ts;
-		this.modified_ts = modified_ts;
-=======
 
 	public Disease(int diseaseId, String diseaseName, String diseaseInfo, List<DiseaseType> diseaseType, String createdBy, String modifiedBy, Date createdTimestamp, Date modifiedTimestamp){
 		this.diseaseId = diseaseId;
@@ -107,7 +92,6 @@ public class Disease {
 		this.modifiedBy = modifiedBy;
 		this.createdTimestamp = createdTimestamp;
 		this.modifiedTimestamp = modifiedTimestamp;
->>>>>>> 80f10e8b414bcecae0b8ca66c2ee9734a9aef266
 	}
 
 	/**
