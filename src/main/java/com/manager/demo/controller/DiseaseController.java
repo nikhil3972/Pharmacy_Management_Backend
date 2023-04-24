@@ -74,10 +74,6 @@ public class DiseaseController {
 			disUpd.setName(obj.getName());
 			disUpd.setInfo(obj.getInfo());
 			disUpd.setDiseaseType(obj.getDiseaseType());
-		disUpd.setCreatedBy(obj.getCreatedBy());
-		disUpd.setModifiedBy(obj.getModifiedBy());
-		disUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
-		disUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
 			System.out.println("Received Data in PutMapping :" + obj);
 			return disRepo.save(obj);
 	}

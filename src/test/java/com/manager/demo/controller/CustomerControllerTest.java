@@ -47,13 +47,13 @@ public class CustomerControllerTest {
     CustomerController customerController;
 
     List<Medicine> medicines = new ArrayList<>();
-    Medicine medicine = new Medicine(35, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Medicine medicine = new Medicine(35, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
 
     List<Medicine> medicinesOne = new ArrayList<>();
-    Medicine medicineOne = new Medicine(36, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Medicine medicineOne = new Medicine(36, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
 
-    Customer customerOne = new Customer(15, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
-    Customer customerTwo = new Customer(16, "Amit", "Shinde", "9766107234", "ams941@gmail.com", medicinesOne, new Date(2001-06-04), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Customer customerOne = new Customer(15, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04));
+    Customer customerTwo = new Customer(16, "Amit", "Shinde", "9766107234", "ams941@gmail.com", medicinesOne, new Date(2001-06-04));
 
     /**
      * Set up method to initialize the mock objects and the MockMvc instance.
@@ -93,10 +93,6 @@ public class CustomerControllerTest {
                 .email("ganesh123@gmail.com")
                 .medicine((List<Medicine>) medicines)
                 .dob(new Date(2000-01-01))
-                .createdBy("Harshal")
-                .modifiedBy("Amit")
-                .createdTimestamp(new Date(2000-01-01))
-                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         String content = objectWriter.writeValueAsString(customer);
@@ -124,10 +120,6 @@ public class CustomerControllerTest {
                 .email("ganesh123@gmail.com")
                 .medicine((List<Medicine>) medicines)
                 .dob(new Date(2000-01-01))
-                .createdBy("Harshal")
-                .modifiedBy("Amit")
-                .createdTimestamp(new Date(2000-01-01))
-                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         Mockito.when(customerRepository.findById(customerTwo.getId())).thenReturn(java.util.Optional.ofNullable(customerTwo));

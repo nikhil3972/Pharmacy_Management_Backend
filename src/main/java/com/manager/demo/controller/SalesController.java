@@ -71,10 +71,6 @@ public class SalesController {
 			saleUpd.setDate(obj.getDate());
 			saleUpd.setCustomer(obj.getCustomer());
 		saleUpd.setTotalCost(obj.getTotalCost());
-		saleUpd.setCreatedBy(obj.getCreatedBy());
-		saleUpd.setModifiedBy(obj.getModifiedBy());
-		saleUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
-		saleUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
 			System.out.println("Received Data in PutMapping :" + obj);
 			return saleRepo.save(obj);
 	}

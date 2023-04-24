@@ -42,26 +42,6 @@ public class Disease {
 	@JoinColumn(name = "disease_fk", referencedColumnName = "diseaseId")
 	List<DiseaseType> diseaseType;
 
-	@NotBlank(message = "CreatedBy is Mandatory")
-	@Size(min = 3, message = "CreatedBy should have at least 3 characters")
-	@Size(max = 10, message = "CreatedBy should not have more than 10 characters")
-	@Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
-	String createdBy;
-
-	@NotBlank(message = "ModifiedBy is Mandatory")
-	@Size(min = 3, message = "ModifiedBy should have at least 3 characters")
-	@Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
-	@Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
-	String modifiedBy;
-
-	@NotNull(message = "CreatedTimestamp is Mandatory")
-	@Past(message = "CreatedTimestamp must be in the past and date format")
-	Date createdTimestamp;
-
-	@NotNull(message = "ModifiedTimestamp is Mandatory")
-	@Past(message = "ModifiedTimestamp must be in the past and date format")
-	Date modifiedTimestamp;
-
 	/**
 	 * Default constructor for Disease.
 	 */
@@ -73,25 +53,17 @@ public class Disease {
 	 * @param diseaseName The name of the disease.
 	 * @param diseaseInfo The information about the disease.
 	 * @param diseaseType The list of disease types associated with the disease.
-	 * @param createdBy The user who created the disease.
-	 * @param modifiedBy The user who last modified the disease.
-	 * @param createdTimestamp The timestamp when the disease was created.
-	 * @param modifiedTimestamp The timestamp when the disease was last modified.
 	 */
 
 	
 
 
 
-	public Disease(int diseaseId, String diseaseName, String diseaseInfo, List<DiseaseType> diseaseType, String createdBy, String modifiedBy, Date createdTimestamp, Date modifiedTimestamp){
+	public Disease(int diseaseId, String diseaseName, String diseaseInfo, List<DiseaseType> diseaseType){
 		this.diseaseId = diseaseId;
 		this.diseaseName = diseaseName;
 		this.diseaseInfo = diseaseInfo;
 		this.diseaseType = diseaseType;
-		this.createdBy = createdBy;
-		this.modifiedBy = modifiedBy;
-		this.createdTimestamp = createdTimestamp;
-		this.modifiedTimestamp = modifiedTimestamp;
 	}
 
 	/**
@@ -157,69 +129,6 @@ public class Disease {
 	public void setDiseaseType(List<DiseaseType> diseaseType) {
 		this.diseaseType = diseaseType;
 	}
-	
-	/**
-	 * Gets the name of the user who created the Disease.
-	 * @return String value of the user name.
-	 */
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	
-	/**
-	 * Sets the name of the user who created the Disease.
-	 * @param createdBy the String value of the user name to be set.
-	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-	
-	/**
-	 * Gets the name of the user who last modified the Disease.
-	 * @return String value of the user name.
-	 */
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-	
-	/**
-	 * Sets the name of the user who last modified the Disease.
-	 * @param modifiedBy the String value of the user name to be set.
-	 */
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-	
-	/**
-	 * Gets the timestamp of when the Disease was created.
-	 * @return Date object representing the timestamp.
-	 */
-	public Date getCreatedTimestamp() {
-		return createdTimestamp;
-	}
-	
-	/**
-	 * Sets the timestamp of when the Disease was created.
-	 * @param createdTimestamp the Date object representing the timestamp to be set.
-	 */
-	public void setCreatedTimestamp(Date createdTimestamp) {
-		this.createdTimestamp = createdTimestamp;
-	}
-	
-	/**
-	 * Gets the timestamp of when the Disease was last modified.
-	 * @return Date object representing the timestamp.
-	 */
-	public Date getModifiedTimestamp() {
-		return modifiedTimestamp;
-	}
-	/**
-	 * Sets the modified timestamp of this Disease object.
-	 * @param modifiedTimestamp the modified timestamp to be set
-	 */
-	public void setModifiedTimestamp(Date modifiedTimestamp) {
-		this.modifiedTimestamp = modifiedTimestamp;
-	}
 
 	/**
 	 * Returns a string representation of this Disease object.
@@ -228,8 +137,7 @@ public class Disease {
 	@Override
 	public String toString() {
 		return "Disease [diseaseId=" + diseaseId + ", diseaseName=" + diseaseName + ", diseaseInfo=" + diseaseInfo + ", diseaseType=" + diseaseType
-				+ ", createdBy=" + createdBy + ", modifiedBy=" + modifiedBy + ", createdTimestamp=" + createdTimestamp
-				+ ", modifiedTimestamp=" + modifiedTimestamp + "]";
+				+ "]";
 	}
 }
 

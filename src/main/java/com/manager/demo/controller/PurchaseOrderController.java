@@ -71,10 +71,6 @@ public class PurchaseOrderController {
 			purOrUpd.setManufacturer(obj.getManufacturer());
 			purOrUpd.setExpectedDeliveryDate(obj.getExpectedDeliveryDate());
 			purOrUpd.setTotalCost(obj.getTotalCost());
-		purOrUpd.setCreatedBy(obj.getCreatedBy());
-		purOrUpd.setModifiedBy(obj.getModifiedBy());
-		purOrUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
-		purOrUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
 			System.out.println("Received Data in PutMapping :" + obj);
 			return purOrRepo.save(obj);
 	}

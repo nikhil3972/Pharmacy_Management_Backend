@@ -35,7 +35,8 @@ public class Customer {
 	String lastName;
 
 	@NotBlank(message = "Contact is Mandatory")
-	@Range(min = 7, max = 12, message = "Contact size is must between range of 7 & 12")
+	@Size(min = 7, message = "Contact should have at least 3 characters")
+	@Size(max = 12, message = "Contact should not have more than 12 characters")
 	@Pattern(regexp = "^[0-9]+$", message = "Contact must contain only integer")
 	String contact;
 
@@ -52,26 +53,6 @@ public class Customer {
 	@NotNull(message = "Date of Birth is Mandatory")
 	@Past(message = "Date of birth must be in the past and date format")
 	Date dob;
-
-	@NotBlank(message = "CreatedBy is Mandatory")
-	@Size(min = 3, message = "CreatedBy should have at least 3 characters")
-	@Size(max = 10, message = "CreatedBy should not have more than 10 characters")
-	@Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
-	String createdBy;
-
-	@NotBlank(message = "ModifiedBy is Mandatory")
-	@Size(min = 3, message = "ModifiedBy should have at least 3 characters")
-	@Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
-	@Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
-	String modifiedBy;
-
-	@NotNull(message = "CreatedTimestamp is Mandatory")
-	@Past(message = "CreatedTimestamp must be in the past and date format")
-	Date createdTimestamp;
-
-	@NotNull(message = "ModifiedTimestamp is Mandatory")
-	@Past(message = "ModifiedTimestamp must be in the past and date format")
-	Date modifiedTimestamp;
 	
 	/**
 	 * Default constructor for Customer class.
@@ -87,13 +68,9 @@ public class Customer {
 	 * @param email The email address of the customer.
 	 * @param medicine The list of medicine prescriptions associated with the customer.
 	 * @param dob The date of birth for the customer.
-	 * @param createdBy The username of the user who created the customer record.
-	 * @param modifiedBy The username of the user who last modified the customer record.
-	 * @param createdTimestamp The timestamp for when the customer record was created.
-	 * @param modifiedTimestamp The timestamp for when the customer record was last modified.
 	 */
 	public Customer(int customerId, String firstName, String lastName, String contact, String email, List<Medicine> medicine,
-			Date dob, String createdBy, String modifiedBy, Date createdTimestamp, Date modifiedTimestamp) {
+			Date dob) {
 		super();
 		this.customerId = customerId;
 		this.firstName = firstName;
@@ -102,10 +79,6 @@ public class Customer {
 		this.email = email;
 		this.medicine = medicine;
 		this.dob = dob;
-		this.createdBy = createdBy;
-		this.modifiedBy = modifiedBy;
-		this.createdTimestamp = createdTimestamp;
-		this.modifiedTimestamp = modifiedTimestamp;
 	}
 
 	/**
@@ -221,78 +194,12 @@ public class Customer {
 	}
 
 	/**
-	 * Getter method for database created by whom.
-	 * @return The name of person who has create the database.
-	 */
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	/**
-	 * Setter method for the database created.
-	 * @param createdBy The contact information for the customer.
-	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	
-	/**
-	 * Retrieves the username of the user who last modified this customer's details.
-	 * @return The username of the user who last modified this customer's details.
-	 */
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-
-	/**
-	 * Sets the username of the user who last modified this customer's details.
-	 * @param modifiedBy The username of the user who last modified this customer's details.
-	 */
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-
-	/**
-	 * Retrieves the timestamp when this customer was created.
-	 * @return The timestamp when this customer was created.
-	 */
-	public Date getCreatedTimestamp() {
-		return createdTimestamp;
-	}
-
-	/**
-	 * Sets the timestamp when this customer was created.
-	 * @param createdTimestamp The timestamp when this customer was created.
-	 */
-	public void setCreatedTimestamp(Date createdTimestamp) {
-		this.createdTimestamp = createdTimestamp;
-	}
-
-	/**
-	 * Retrieves the timestamp when this customer was last modified.
-	 * @return The timestamp when this customer was last modified.
-	 */
-	public Date getModifiedTimestamp() {
-		return modifiedTimestamp;
-	}
-
-	/**
-	 * Sets the timestamp when this customer was last modified.
-	 * @param modifiedTimestamp The timestamp when this customer was last modified.
-	 */
-	public void setModifiedTimestamp(Date modifiedTimestamp) {
-		this.modifiedTimestamp = modifiedTimestamp;
-	}
-
-	/**
 	 * Returns a string representation of this customer, including all of their details.
 	 * @return A string representation of this customer, including all of their details.
 	 */
 	@Override
 	public String toString() {
 		return "Customer [id=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName + ", contact=" + contact
-				+ ", email=" + email + ", medicine=" + medicine + ", dob=" + dob + ", created_by=" + createdBy
-				+ ", modified_by=" + modifiedBy + ", created_ts=" + createdTimestamp + ", modified_ts=" + modifiedTimestamp + "]";
+				+ ", email=" + email + ", medicine=" + medicine + ", dob=" + dob + "]";
 	}	
 }

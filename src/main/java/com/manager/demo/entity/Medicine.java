@@ -43,32 +43,14 @@ public class Medicine {
 	Date manufactureDate;
 
 	@NotNull(message = "Expiry Date is Mandatory")
-	@Past(message = "Expiry Date must be in the past and date format")
+	@Future(message = "Expiry Date must be in the future and date format")
 	Date expiryDate;
 
 	@Range(min = 1, message= "Current Stock may not be empty or null")
 	@Positive(message = "Value must be greater than 0")
 	int currentStock;
 
-	@NotBlank(message = "CreatedBy is Mandatory")
-	@Size(min = 3, message = "CreatedBy should have at least 3 characters")
-	@Size(max = 10, message = "CreatedBy should not have more than 10 characters")
-	@Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
-	String createdBy;
 
-	@NotBlank(message = "ModifiedBy is Mandatory")
-	@Size(min = 3, message = "ModifiedBy should have at least 3 characters")
-	@Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
-	@Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
-	String modifiedBy;
-
-	@NotNull(message = "CreatedTimestamp is Mandatory")
-	@Past(message = "CreatedTimestamp must be in the past and date format")
-	Date createdTimestamp;
-
-	@NotNull(message = "ModifiedTimestamp is Mandatory")
-	@Past(message = "ModifiedTimestamp must be in the past and date format")
-	Date modifiedTimestamp;
 
 
 	/**
@@ -86,14 +68,9 @@ public class Medicine {
 	 * @param manufactureDate The manufacture date of the medicine.
 	 * @param expiryDate The expiry date of the medicine.
 	 * @param currentStock The current stock of the medicine.
-	 * @param createdBy The user who created the medicine.
-	 * @param modifiedBy The user who last modified the medicine.
-	 * @param createdTimestamp The timestamp when the medicine was created.
-	 * @param modifiedTimestamp The timestamp when the medicine was last modified.
 	 */
 	public Medicine(int id, String medicineName, String description, String dosage, BigDecimal price, Date manufactureDate,
-					Date expiryDate, int currentStock, String createdBy, String modifiedBy, Date createdTimestamp,
-					Date modifiedTimestamp) {
+					Date expiryDate, int currentStock) {
 		super();
 		this.medicineId = id;
 		this.medicineName = medicineName;
@@ -103,10 +80,7 @@ public class Medicine {
 		this.manufactureDate = manufactureDate;
 		this.expiryDate = expiryDate;
 		this.currentStock = currentStock;
-		this.createdBy = createdBy;
-		this.modifiedBy = modifiedBy;
-		this.createdTimestamp = createdTimestamp;
-		this.modifiedTimestamp = modifiedTimestamp;
+
 	}
 
 
@@ -158,36 +132,11 @@ public class Medicine {
 	public void setCurrentStock(int currentStock) {
 		this.currentStock = currentStock;
 	}
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-	public Date getCreatedTimestamp() {
-		return createdTimestamp;
-	}
-	public void setCreatedTimestamp(Date createdTimestamp) {
-		this.createdTimestamp = createdTimestamp;
-	}
-	public Date getModifiedTimestamp() {
-		return modifiedTimestamp;
-	}
-	public void setModifiedTimestamp(Date modifiedTimestamp) {
-		this.modifiedTimestamp = modifiedTimestamp;
-	}
 
 	@Override
 	public String toString() {
 		return "Medicine [medicineId=" + medicineId + ", medicineName=" + medicineName + ", description=" + description + ", dosage=" + dosage
 				+ ", price=" + price + ", manufactureDate=" + manufactureDate + ", expiryDate=" + expiryDate
-				+ ", currentStock=" + currentStock + ", createdBy=" + createdBy + ", modifiedBy=" + modifiedBy
-				+ ", createdTimestamp=" + createdTimestamp + ", modifiedTimestamp=" + modifiedTimestamp + "]";
+				+ ", currentStock=" + currentStock + "]";
 	}
 }

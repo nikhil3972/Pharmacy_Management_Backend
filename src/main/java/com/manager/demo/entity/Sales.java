@@ -41,25 +41,6 @@ public class Sales {
 	@Positive(message = "Value must be greater than 0")
 	@Digits(integer = 4, fraction = 2, message = "The field must be a number with up to 4 digits before and 2 digits after the decimal point")
 	BigDecimal totalCost;
-	@NotBlank(message = "CreatedBy is Mandatory")
-	@Size(min = 3, message = "CreatedBy should have at least 3 characters")
-	@Size(max = 10, message = "CreatedBy should not have more than 10 characters")
-	@Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
-	String createdBy;
-
-	@NotBlank(message = "ModifiedBy is Mandatory")
-	@Size(min = 3, message = "ModifiedBy should have at least 3 characters")
-	@Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
-	@Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
-	String modifiedBy;
-
-	@NotNull(message = "CreatedTimestamp is Mandatory")
-	@Past(message = "CreatedTimestamp must be in the past and date format")
-	Date createdTimestamp;
-
-	@NotNull(message = "ModifiedTimestamp is Mandatory")
-	@Past(message = "ModifiedTimestamp must be in the past and date format")
-	Date modifiedTimestamp;
 	
 	/**
 	 * Default constructor for Sales entity.
@@ -73,22 +54,13 @@ public class Sales {
 	 * @param date The date of the sales.
 	 * @param customer The list of customers associated with the sales.
 	 * @param totalCost The total cost of the sales.
-	 * @param createdBy The name of the user who created the sales.
-	 * @param modifiedBy The name of the user who modified the sales.
-	 * @param createdTimestamp The timestamp when the sales was created.
-	 * @param modifiedTimestamp The timestamp when the sales was last modified.
 	 */
-	public Sales(int id, Date date, List<Customer> customer, BigDecimal totalCost, String createdBy,
-			String modifiedBy, Date createdTimestamp, Date modifiedTimestamp) {
+	public Sales(int id, Date date, List<Customer> customer, BigDecimal totalCost) {
 		super();
 		this.saleId = id;
 		this.saleDate = date;
 		this.customer = customer;
 		this.totalCost = totalCost;
-		this.createdBy = createdBy;
-		this.modifiedBy = modifiedBy;
-		this.createdTimestamp = createdTimestamp;
-		this.modifiedTimestamp = modifiedTimestamp;
 	}
 
 	/**
@@ -155,72 +127,6 @@ public class Sales {
 		this.totalCost = totalCost;
 	}
 
-	
-
-	/**
-	 * Get the created by value of this Sales entity.
-	 * @return the created by value of this Sales entity.
-	 */
-	public String getCreatedBy() {
-	    return createdBy;
-	}
-
-	/**
-	 * Sets the created by value of this Sales entity.
-	 * @param createdBy the created by value to be set for this Sales entity.
-	 */
-	public void setCreatedBy(String createdBy) {
-	    this.createdBy = createdBy;
-	}
-
-	/**
-	 * Get the modified by value of this Sales entity.
-	 * @return the modified by value of this Sales entity.
-	 */
-	public String getModifiedBy() {
-	    return modifiedBy;
-	}
-
-	/**
-	 * Sets the modified by value of this Sales entity.
-	 * @param modifiedBy the modified by value to be set for this Sales entity.
-	 */
-	public void setModifiedBy(String modifiedBy) {
-	    this.modifiedBy = modifiedBy;
-	}
-
-	/**
-	 * Get the created timestamp of this Sales entity.
-	 * @return the created timestamp of this Sales entity.
-	 */
-	public Date getCreatedTimestamp() {
-	    return createdTimestamp;
-	}
-
-	/**
-	 * Sets the created timestamp of this Sales entity.
-	 * @param createdTimestamp the created timestamp to be set for this Sales entity.
-	 */
-	public void setCreatedTimestamp(Date createdTimestamp) {
-	    this.createdTimestamp = createdTimestamp;
-	}
-
-	/**
-	 * Get the modified timestamp of this Sales entity.
-	 * @return the modified timestamp of this Sales entity.
-	 */
-	public Date getModifiedTimestamp() {
-	    return modifiedTimestamp;
-	}
-
-	/**
-	 * Sets the modified timestamp of this Sales entity.
-	 * @param modifiedTimestamp the modified timestamp to be set for this Sales entity.
-	 */
-	public void setModifiedTimestamp(Date modifiedTimestamp) {
-	    this.modifiedTimestamp = modifiedTimestamp;
-	}
-
 	/**
 	 * Get the string representation of this Sales entity.
 	 * @return the string representation of this Sales entity.
@@ -228,7 +134,6 @@ public class Sales {
 	@Override
 	public String toString() {
 	    return "Sales [saleId=" + saleId + ", saleDate=" + saleDate + ", customer=" + customer + ", totalCost=" + totalCost
-	            + ", createdBy=" + createdBy + ", modifiedBy=" + modifiedBy + ", createdTimestamp=" + createdTimestamp
-	            + ", modifiedTimestamp=" + modifiedTimestamp + "]";
+	            + "]";
 	}
 }

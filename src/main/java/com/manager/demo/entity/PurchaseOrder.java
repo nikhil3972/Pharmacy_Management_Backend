@@ -44,25 +44,6 @@ public class PurchaseOrder {
 	@Positive(message = "Value must be greater than 0")
 	@Digits(integer = 4, fraction = 2, message = "The field must be a number with up to 4 digits before and 2 digits after the decimal point")
 	BigDecimal totalCost;
-	@NotBlank(message = "CreatedBy is Mandatory")
-	@Size(min = 3, message = "CreatedBy should have at least 3 characters")
-	@Size(max = 10, message = "CreatedBy should not have more than 10 characters")
-	@Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
-	String createdBy;
-
-	@NotBlank(message = "ModifiedBy is Mandatory")
-	@Size(min = 3, message = "ModifiedBy should have at least 3 characters")
-	@Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
-	@Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
-	String modifiedBy;
-
-	@NotNull(message = "CreatedTimestamp is Mandatory")
-	@Past(message = "CreatedTimestamp must be in the past and date format")
-	Date createdTimestamp;
-
-	@NotNull(message = "ModifiedTimestamp is Mandatory")
-	@Past(message = "ModifiedTimestamp must be in the past and date format")
-	Date modifiedTimestamp;
 	
 	/**
 	 * Default constructor for Purchase_Order.
@@ -76,23 +57,16 @@ public class PurchaseOrder {
 	 * @param manufacturer the list of manufacturers associated with the purchase order.
 	 * @param expectedDeliveryDate the expected delivery date of the purchase order.
 	 * @param totalCost the total cost of the purchase order.
-	 * @param createdBy the user who created the purchase order.
-	 * @param modifiedBy the user who last modified the purchase order.
-	 * @param createdTimestamp the timestamp when the purchase order was created.
-	 * @param modifiedTimestamp the timestamp when the purchase order was last modified.
+
 	 */
 	public PurchaseOrder(int id, Date date, List<Manufacturer> manufacturer, Date expectedDeliveryDate,
-						 BigDecimal totalCost, String createdBy, String modifiedBy, Date createdTimestamp, Date modifiedTimestamp) {
+						 BigDecimal totalCost) {
 		super();
 		this.purchaseId = id;
 		this.purchaseDate = date;
 		this.manufacturer = manufacturer;
 		this.expectedDeliveryDate = expectedDeliveryDate;
 		this.totalCost = totalCost;
-		this.createdBy = createdBy;
-		this.modifiedBy = modifiedBy;
-		this.createdTimestamp = createdTimestamp;
-		this.modifiedTimestamp = modifiedTimestamp;
 	}
 
 	/**
@@ -175,69 +149,6 @@ public class PurchaseOrder {
 	    this.totalCost = totalCost;
 	}
 
-	/**
-	 * Returns the created by value of this Purchase_Order entity.
-	 * @return the created by value of this Purchase_Order entity.
-	 */
-	public String getCreatedBy() {
-	    return createdBy;
-	}
-
-	/**
-	 * Sets the created by value of this Purchase_Order entity.
-	 * @param createdBy the created by value to be set for this Purchase_Order entity.
-	 */
-	public void setCreatedBy(String createdBy) {
-	    this.createdBy = createdBy;
-	}
-
-	/**
-	 * Returns the modified by value of this Purchase_Order entity.
-	 * @return the modified by value of this Purchase_Order entity.
-	 */
-	public String getModifiedBy() {
-	    return modifiedBy;
-	}
-
-	/**
-	 * Sets the modified by value of this Purchase_Order entity.
-	 * @param modifiedBy the modified by value to be set for this Purchase_Order entity.
-	 */
-	public void setModifiedBy(String modifiedBy) {
-	    this.modifiedBy = modifiedBy;
-	}
-
-	/**
-	 * Returns the created timestamp of this Purchase_Order entity.
-	 * @return the created timestamp of this Purchase_Order entity.
-	 */
-	public Date getCreatedTimestamp() {
-	    return createdTimestamp;
-	}
-
-	/**
-	 * Sets the created timestamp of this Purchase_Order entity.
-	 * @param createdTimestamp the created timestamp to be set for this Purchase_Order entity.
-	 */
-	public void setCreatedTimestamp(Date createdTimestamp) {
-	    this.createdTimestamp = createdTimestamp;
-	}
-
-	/**
-	 * Returns the modified timestamp of this Purchase_Order entity.
-	 * @return the modified timestamp of this Purchase_Order entity.
-	 */
-	public Date getModifiedTimestamp() {
-	    return modifiedTimestamp;
-	}
-
-	/**
-	 * Sets the modified timestamp of this Purchase_Order entity.
-	 * @param modifiedTimestamp the modified timestamp to be set for this Purchase_Order entity.
-	 */
-	public void setModifiedTimestamp(Date modifiedTimestamp) {
-	    this.modifiedTimestamp = modifiedTimestamp;
-	}
 
 	/**
 	 * Returns the string representation of this Purchase_Order entity.
@@ -246,8 +157,6 @@ public class PurchaseOrder {
 	@Override
 	public String toString() {
 	    return "Purchase_Order [id=" + purchaseId + ", date=" + purchaseDate + ", manufacturer=" + manufacturer
-	            + ", expectedDeliveryDate=" + expectedDeliveryDate + ", totalCost=" + totalCost + ", createdBy="
-	            + createdBy + ", modifiedBy=" + modifiedBy + ", createdTimestamp=" + createdTimestamp + ", modifiedTimestamp="
-	            + modifiedTimestamp + "]";
+	            + ", expectedDeliveryDate=" + expectedDeliveryDate + ", totalCost=" + totalCost + "]";
 	}
 }

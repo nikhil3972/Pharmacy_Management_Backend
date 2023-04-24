@@ -52,9 +52,9 @@ public class MedicineControllerTest {
 
     // Sample Medicine instances for testing
     Medicine medicineOne = new Medicine(23, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45),
-            new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+            new Date(2000-01-01), new Date(2001-03-10), 35);
     Medicine medicineTwo = new Medicine(24, "Paracetomol", "Painkiller", "2 times a day", BigDecimal.valueOf(45.37),
-            new Date(2000-01-01), new Date(2001-03-10), 40, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+            new Date(2000-01-01), new Date(2001-03-10), 40);
 
     /**
      * Set up method to initialize the mocks and MockMvc instance before each test.
@@ -102,10 +102,6 @@ public class MedicineControllerTest {
                 .manufactureDate(new Date(2000-01-01))
                 .expiryDate(new Date(2000-01-01))
                 .currentStock(60)
-                .createdBy("Harshal")
-                .modifiedBy("Amit")
-                .createdTimestamp(new Date(2000-01-01))
-                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         // Convert Medicine object to JSON content
@@ -139,10 +135,6 @@ public class MedicineControllerTest {
                 .manufactureDate(new Date(2000-01-01))
                 .expiryDate(new Date(2000-01-01))
                 .currentStock(60)
-                .createdBy("Harshal")
-                .modifiedBy("Amit")
-                .createdTimestamp(new Date(2000-01-01))
-                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         // Mock the findById() method of medicineRepository to return the existing medicine

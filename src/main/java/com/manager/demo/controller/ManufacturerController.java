@@ -77,10 +77,6 @@ public class ManufacturerController {
 			manUpd.setName(obj.getName());
 			manUpd.setContact(obj.getContact());
 			manUpd.setMedicine(obj.getMedicine());
-		manUpd.setCreatedBy(obj.getCreatedBy());
-		manUpd.setModifiedBy(obj.getModifiedBy());
-		manUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
-		manUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
 			System.out.println("Received Data in PutMapping :" + obj);
 			return manRepo.save(obj);
 	}

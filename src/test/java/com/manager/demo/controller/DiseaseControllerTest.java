@@ -46,20 +46,20 @@ public class DiseaseControllerTest {
     DiseaseController diseaseController;
 
     List<Medicine> medicines = new ArrayList<>();
-    Medicine medicine = new Medicine(49, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Medicine medicine = new Medicine(49, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
 
     List<Medicine> medicinesOne = new ArrayList<>();
-    Medicine medicineOne = new Medicine(50, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Medicine medicineOne = new Medicine(50, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
 
     List<DiseaseType> diseaseTypes = new ArrayList<>();
-    DiseaseType diseaseType = new DiseaseType(77, "Viral", medicines, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    DiseaseType diseaseType = new DiseaseType(77, "Viral", medicines);
 
     List<DiseaseType> diseaseTypesOne = new ArrayList<>();
-    DiseaseType diseaseTypeOne = new DiseaseType(78, "Viral", medicinesOne, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    DiseaseType diseaseTypeOne = new DiseaseType(78, "Viral", medicinesOne);
 
-    Disease diseaseOne = new Disease(13, "Fever", "Increased Body Temperature", diseaseTypes, "Nagesh", "Rahul", new Date(2000-01-01), new Date(2000-01-01));
+    Disease diseaseOne = new Disease(13, "Fever", "Increased Body Temperature", diseaseTypes);
 
-    Disease diseaseTwo = new Disease(14, "Cold", "Cough", diseaseTypesOne, "Nagesh", "Rahul", new Date(2000-01-01), new Date(2000-01-01));
+    Disease diseaseTwo = new Disease(14, "Cold", "Cough", diseaseTypesOne);
 
     @Before
     public void setUp(){
@@ -85,10 +85,6 @@ public class DiseaseControllerTest {
                 .diseaseName("Cold")
                 .diseaseInfo("Sneezing")
                 .diseaseType((List<DiseaseType>) diseaseTypesOne)
-                .createdBy("Harshal")
-                .modifiedBy("Amit")
-                .createdTimestamp(new Date(2000-01-01))
-                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         String content = objectWriter.writeValueAsString(disease);
@@ -109,10 +105,6 @@ public class DiseaseControllerTest {
                 .diseaseName("Cold")
                 .diseaseInfo("Cough")
                 .diseaseType((List<DiseaseType>) diseaseTypes)
-                .createdBy("Harshal")
-                .modifiedBy("Amit")
-                .createdTimestamp(new Date(2000-01-01))
-                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         Mockito.when(diseaseRepository.findById(diseaseTwo.getId())).thenReturn(java.util.Optional.ofNullable(diseaseTwo));

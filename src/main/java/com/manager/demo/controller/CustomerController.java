@@ -72,11 +72,6 @@ public class CustomerController {
 			cusUpd.setEmail(obj.getEmail());
 			cusUpd.setMedicine(obj.getMedicine());
 			cusUpd.setDob(obj.getDob());
-			cusUpd.setCreatedBy(obj.getCreatedBy());
-			cusUpd.setModifiedBy(obj.getModifiedBy());
-			cusUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
-			cusUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
-			System.out.println("Received Data in PutMapping :" + obj);
 			return cusRepo.save(obj);
 
 	}

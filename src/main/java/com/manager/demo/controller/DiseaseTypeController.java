@@ -69,10 +69,6 @@ public class DiseaseTypeController {
 			DiseaseType disTyUpd = disTy.get();
 			disTyUpd.setType(obj.getType());
 			disTyUpd.setMedicine(obj.getMedicine());
-		disTyUpd.setCreatedBy(obj.getCreatedBy());
-		disTyUpd.setModifiedBy(obj.getModifiedBy());
-		disTyUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
-		disTyUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
 			System.out.println("Received Data in PutMapping :" + obj);
 			return disTypeRepo.save(obj);
 	}

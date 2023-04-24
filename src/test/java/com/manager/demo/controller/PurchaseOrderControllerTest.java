@@ -48,20 +48,20 @@ public class PurchaseOrderControllerTest {
     PurchaseOrderController purchaseOrderController;
 
     List<Medicine> medicines = new ArrayList<>();
-    Medicine medicine = new Medicine(55, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Medicine medicine = new Medicine(55, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
 
     List<Medicine> medicinesOne = new ArrayList<>();
-    Medicine medicineOne = new Medicine(56, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Medicine medicineOne = new Medicine(56, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
 
     List<Manufacturer> manufacturers = new ArrayList<>();
-    Manufacturer manufacturer = new Manufacturer(61, "Tesla", "8543643478", medicines, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Manufacturer manufacturer = new Manufacturer(61, "Tesla", "8543643478", medicines);
 
     List<Manufacturer> manufacturersOne = new ArrayList<>();
-    Manufacturer manufacturerOne = new Manufacturer(62, "Cisco", "7478287379", medicinesOne, "Nagesh", "Rahul", new Date(2000-01-01), new Date(2000-01-01));
+    Manufacturer manufacturerOne = new Manufacturer(62, "Cisco", "7478287379", medicinesOne);
 
-    PurchaseOrder purchaseOrderOne = new PurchaseOrder(68, new Date(2000-01-01), manufacturers, new Date(2000-01-01), BigDecimal.valueOf(323.67), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    PurchaseOrder purchaseOrderOne = new PurchaseOrder(68, new Date(2000-01-01), manufacturers, new Date(2000-01-01), BigDecimal.valueOf(323.67));
 
-    PurchaseOrder purchaseOrderTwo = new PurchaseOrder(69, new Date(2010-01-01), manufacturersOne, new Date(2000-01-01), BigDecimal.valueOf(23.67), "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    PurchaseOrder purchaseOrderTwo = new PurchaseOrder(69, new Date(2010-01-01), manufacturersOne, new Date(2000-01-01), BigDecimal.valueOf(23.67));
 
     /**
      * Set up method to initialize mock objects and create the mockMvc instance for testing the PurchaseOrderController.
@@ -99,10 +99,6 @@ public class PurchaseOrderControllerTest {
                 .manufacturer((List<Manufacturer>) manufacturers)
                 .expectedDeliveryDate(new Date(2023-04-10))
                 .totalCost(BigDecimal.valueOf(339.67))
-                .createdBy("Harshal")
-                .modifiedBy("Amit")
-                .createdTimestamp(new Date(2000-01-01))
-                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         String content = objectWriter.writeValueAsString(purchaseOrder);
@@ -128,10 +124,6 @@ public class PurchaseOrderControllerTest {
                 .manufacturer((List<Manufacturer>) manufacturersOne)
                 .expectedDeliveryDate(new Date(2023-04-10))
                 .totalCost(BigDecimal.valueOf(249.67))
-                .createdBy("Harshal")
-                .modifiedBy("Amit")
-                .createdTimestamp(new Date(2000-01-01))
-                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         Mockito.when(purchaseOrderRepository.findById(purchaseOrderTwo.getId())).thenReturn(java.util.Optional.ofNullable(purchaseOrderTwo));

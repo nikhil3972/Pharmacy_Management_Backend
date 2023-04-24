@@ -44,11 +44,11 @@ public class DiseaseTypeControllerTest {
     @Mock DiseaseTypeRepository diseaseTypeRepository;
     @InjectMocks DiseaseTypeController diseaseTypeController;
     List<Medicine> medicines = new ArrayList<>();
-    Medicine medicine = new Medicine(93, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Medicine medicine = new Medicine(93, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
     List<Medicine> medicinesOne = new ArrayList<>();
-    Medicine medicineOne = new Medicine(94, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
-    DiseaseType diseaseTypeOne = new DiseaseType(17, "Viral", medicines, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
-    DiseaseType diseaseTypeTwo = new DiseaseType(18, "Viral", medicinesOne, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Medicine medicineOne = new Medicine(94, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+    DiseaseType diseaseTypeOne = new DiseaseType(17, "Viral", medicines);
+    DiseaseType diseaseTypeTwo = new DiseaseType(18, "Viral", medicinesOne);
 
     /**
      * Sets up the test environment before each test case by initializing the MockMvc object
@@ -85,10 +85,6 @@ public class DiseaseTypeControllerTest {
                 .diseaseTypeId(19)
                 .type("Non Viral")
                 .medicine((List<Medicine>) medicines)
-                .createdBy("Harshal")
-                .modifiedBy("Amit")
-                .createdTimestamp(new Date(2000-01-01))
-                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         String content = objectWriter.writeValueAsString(diseaseType);
@@ -114,10 +110,6 @@ public class DiseaseTypeControllerTest {
                 .diseaseTypeId(18)
                 .type("Non Viral")
                 .medicine((List<Medicine>) medicinesOne)
-                .createdBy("Harshal")
-                .modifiedBy("Amit")
-                .createdTimestamp(new Date(2000-01-01))
-                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         Mockito.when(diseaseTypeRepository.findById(diseaseTypeTwo.getId())).thenReturn(java.util.Optional.ofNullable(diseaseTypeTwo));

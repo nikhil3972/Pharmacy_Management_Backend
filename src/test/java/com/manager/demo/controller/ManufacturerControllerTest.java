@@ -49,14 +49,14 @@ public class ManufacturerControllerTest {
     ManufacturerController manufacturerController;
 
     List<Medicine> medicines = new ArrayList<>();
-    Medicine medicine = new Medicine(35, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Medicine medicine = new Medicine(35, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
 
     List<Medicine> medicinesOne = new ArrayList<>();
-    Medicine medicineOne = new Medicine(36, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Medicine medicineOne = new Medicine(36, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
 
-    Manufacturer manufacturerOne = new Manufacturer(10, "Tesla", "8543643478", medicines, "Nikhil", "Abhi", new Date(2000-01-01), new Date(2000-01-01));
+    Manufacturer manufacturerOne = new Manufacturer(10, "Tesla", "8543643478", medicines);
 
-    Manufacturer manufacturerTwo = new Manufacturer(11, "Cisco", "7478287379", medicinesOne, "Nagesh", "Rahul", new Date(2000-01-01), new Date(2000-01-01));
+    Manufacturer manufacturerTwo = new Manufacturer(11, "Cisco", "7478287379", medicinesOne);
 
 
     /**
@@ -95,10 +95,6 @@ public class ManufacturerControllerTest {
                 .manufacturerName("Cipla")
                 .contact("8328528894")
                 .medicine((List<Medicine>) medicines)
-                .createdBy("Harshal")
-                .modifiedBy("Amit")
-                .createdTimestamp(new Date(2000-01-01))
-                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         String content = objectWriter.writeValueAsString(manufacturer);
@@ -123,10 +119,6 @@ public class ManufacturerControllerTest {
                 .manufacturerName("CiscoTrack")
                 .contact("4328324848")
                 .medicine((List<Medicine>) medicines)
-                .createdBy("Mahesh")
-                .modifiedBy("Amit")
-                .createdTimestamp(new Date(2000-01-01))
-                .modifiedTimestamp(new Date(2000-01-01))
                 .build();
 
         Mockito.when(manufacturerRepository.findById(manufacturerTwo.getId())).thenReturn(java.util.Optional.ofNullable(manufacturerTwo));

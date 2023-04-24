@@ -46,26 +46,6 @@ public class DiseaseType {
 	@JoinColumn(name = "disease_type_fk", referencedColumnName = "diseaseTypeId")
 	List<Medicine> medicine;
 
-	@NotBlank(message = "CreatedBy is Mandatory")
-	@Size(min = 3, message = "CreatedBy should have at least 3 characters")
-	@Size(max = 10, message = "CreatedBy should not have more than 10 characters")
-	@Pattern(regexp = "^[^0-9]*$", message = "CreatedBy only contain character")
-	String createdBy;
-
-	@NotBlank(message = "ModifiedBy is Mandatory")
-	@Size(min = 3, message = "ModifiedBy should have at least 3 characters")
-	@Size(max = 10, message = "ModifiedBy should not have more than 10 characters")
-	@Pattern(regexp = "^[^0-9]*$", message = "ModifiedBy only contain character")
-	String modifiedBy;
-
-	@NotNull(message = "CreatedTimestamp is Mandatory")
-	@Past(message = "CreatedTimestamp must be in the past and date format")
-	Date createdTimestamp;
-
-	@NotNull(message = "ModifiedTimestamp is Mandatory")
-	@Past(message = "ModifiedTimestamp must be in the past and date format")
-	Date modifiedTimestamp;
-
 	/**
 	 * Default constructor for DiseaseType.
 	 */
@@ -76,20 +56,12 @@ public class DiseaseType {
 	 * @param diseaseTypeId The ID of the disease type.
 	 * @param type The type of the disease.
 	 * @param medicine The list of medicines associated with the disease type.
-	 * @param createdBy The user who created the disease type.
-	 * @param modifiedBy The user who last modified the disease type.
-	 * @param createdTimestamp The timestamp when the disease type was created.
-	 * @param modifiedTimestamp The timestamp when the disease type was last modified.
 	 */
-	public DiseaseType(int diseaseTypeId, String type, List<Medicine> medicine, String createdBy, String modifiedBy, Date createdTimestamp, Date modifiedTimestamp){
+	public DiseaseType(int diseaseTypeId, String type, List<Medicine> medicine){
 		super();
 		this.diseaseTypeId = diseaseTypeId;
 		this.type = type;
 		this.medicine = medicine;
-		this.createdBy = createdBy;
-		this.modifiedBy = DiseaseType.this.modifiedBy;
-		this.createdTimestamp = createdTimestamp;
-		this.modifiedTimestamp = modifiedTimestamp;
 	}
 
 	/**
@@ -139,74 +111,6 @@ public class DiseaseType {
 	public void setMedicine(List<Medicine> medicine) {
 		this.medicine = medicine;
 	}
-	
-	/**
-	 * Gets the name of the user who created the disease type record.
-	 * @return The name of the user who created the disease type record.
-	 */
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	
-	/**
-	 * Sets the name of the user who created the disease type record.
-	 * @param createdBy The name of the user who created the disease type record.
-	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-	
-	/**
-	 * Gets the name of the user who last modified the disease type record.
-	 * @return The name of the user who last modified the disease type record.
-	 */
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-	
-	/**
-	 * Sets the name of the user who last modified the disease type record.
-	 * @param modifiedBy The name of the user who last modified the disease type record.
-	 */
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = DiseaseType.this.modifiedBy;
-	}
-	
-	/**
-	 * Gets the timestamp when the disease type record was created.
-	 * @return The timestamp when the disease type record was created.
-	 */
-	/** 
-	 * Returns the created timestamp of this Disease_Type entity.
-	 * @return the created timestamp of this Disease_Type entity.
-	 */
-	public Date getCreatedTimestamp() {
-	    return createdTimestamp;
-	}
-
-	/**
-	 * Sets the created timestamp of this Disease_Type entity.
-	 * @param createdTimestamp the created timestamp to be set for this Disease_Type entity.
-	 */
-	public void setCreatedTimestamp(Date createdTimestamp) {
-	    this.createdTimestamp = createdTimestamp;
-	}
-
-	/** 
-	 * Returns the modified timestamp of this Disease_Type entity.
-	 * @return the modified timestamp of this Disease_Type entity.
-	 */
-	public Date getModifiedTimestamp() {
-	    return modifiedTimestamp;
-	}
-
-	/**
-	 * Sets the modified timestamp of this Disease_Type entity.
-	 * @param modifiedTimestamp the modified timestamp to be set for this Disease_Type entity.
-	 */
-	public void setModifiedTimestamp(Date modifiedTimestamp) {
-	    this.modifiedTimestamp = modifiedTimestamp;
-	}
 
 	/**
 	 * Returns the string representation of this Disease_Type entity.
@@ -214,7 +118,6 @@ public class DiseaseType {
 	 */
 	@Override
 	public String toString() {
-	    return "Disease_Type [id=" + diseaseTypeId + ", type=" + type + ", medicine=" + medicine + ", createdBy=" + createdBy
-	            + ", modifiedBy=" + modifiedBy + ", createdTimestamp=" + createdTimestamp + ", modifiedTimestamp=" + modifiedTimestamp + "]";
+	    return "Disease_Type [id=" + diseaseTypeId + ", type=" + type + ", medicine=" + medicine + "]";
 	}
 }

@@ -39,8 +39,6 @@ public class MedicineController {
 	@GetMapping(path="/getAllMedicine")
 	public List<Medicine> getAllMedicine() {
 		return medRepo.findAll();
-//		System.out.println("Get list of all medicines successfully");
-//		return med;
 	}
 	
 	/**
@@ -78,10 +76,6 @@ public class MedicineController {
 		medUpd.setManufactureDate(obj.getManufactureDate());
 		medUpd.setExpiryDate(obj.getExpiryDate());
 		medUpd.setCurrentStock(obj.getCurrentStock());
-		medUpd.setCreatedBy(obj.getCreatedBy());
-		medUpd.setModifiedBy(obj.getModifiedBy());
-		medUpd.setCreatedTimestamp(obj.getCreatedTimestamp());
-		medUpd.setModifiedTimestamp(obj.getModifiedTimestamp());
 		System.out.println("Received Data in PutMapping :" + obj);
 		return medRepo.save(obj);
 
