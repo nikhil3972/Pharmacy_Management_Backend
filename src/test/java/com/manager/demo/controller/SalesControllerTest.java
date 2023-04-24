@@ -48,21 +48,17 @@ public class SalesControllerTest {
     SalesController salesController;
 
     List<Medicine> medicines = new ArrayList<>();
-    Medicine medicine = new Medicine(40, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
-
-    List<Medicine> medicinesOne = new ArrayList<>();
-    Medicine medicineOne = new Medicine(41, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+    Medicine medicine = new Medicine(49, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+    Medicine medicineOne = new Medicine(50, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
 
 
     List<Customer> customers = new ArrayList<>();
     Customer customerOne = new Customer(90, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04));
-
-    List<Customer> customersOne = new ArrayList<>();
     Customer customerTwo = new Customer(91, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04));
 
     Sales salesOne = new Sales(3, new Date(2000-01-01), customers, BigDecimal.valueOf(400.25));
 
-    Sales salesTwo = new Sales(4, new Date(2000-01-01), customersOne, BigDecimal.valueOf(300.14));
+    Sales salesTwo = new Sales(4, new Date(2000-01-01), customers, BigDecimal.valueOf(300.14));
 
     /**
      * Set up method to initialize mock objects and create the mockMvc instance for testing the salesController.
@@ -97,15 +93,27 @@ public class SalesControllerTest {
      */
     @Test
     public void addSale() throws Exception{
+        List<Medicine> medicines = new ArrayList<>();
+        Medicine medicine = new Medicine(49, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+        Medicine medicineOne = new Medicine(50, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+        medicines.add(medicine);
+        medicines.add(medicineOne);
+
+        List<Customer> customers = new ArrayList<>();
+        Customer customerOne = new Customer(90, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04));
+        Customer customerTwo = new Customer(91, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04));
+        customers.add(customerOne);
+        customers.add(customerTwo);
+
         //Arrange
         Sales sales = Sales.builder()
                 .saleId(5)
                 .saleDate(new Date(2000-01-01))
-                .customer((List<Customer>) customersOne)
+                .customer((List<Customer>) customers)
                 .totalCost(BigDecimal.valueOf(300.14))
                 .build();
 
-        String content = objectWriter.writeValueAsString(sales);
+        String content = objectMapper.writeValueAsString(sales);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/insertSales")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -123,17 +131,29 @@ public class SalesControllerTest {
      */
     @Test
     public void updateSales() throws Exception{
+        List<Medicine> medicines = new ArrayList<>();
+        Medicine medicine = new Medicine(49, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+        Medicine medicineOne = new Medicine(50, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+        medicines.add(medicine);
+        medicines.add(medicineOne);
+
+        List<Customer> customers = new ArrayList<>();
+        Customer customerOne = new Customer(90, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04));
+        Customer customerTwo = new Customer(91, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04));
+        customers.add(customerOne);
+        customers.add(customerTwo);
+
         //Arrange
         Sales salesUpdate = Sales.builder()
                 .saleId(4)
                 .saleDate(new Date(2000-01-01))
-                .customer((List<Customer>) customersOne)
+                .customer((List<Customer>) customers)
                 .totalCost(BigDecimal.valueOf(300.14))
                 .build();
 
         Mockito.when(salesRepository.findById(salesTwo.getId())).thenReturn(java.util.Optional.ofNullable(salesTwo));
 
-        String upContent = objectWriter.writeValueAsString(salesUpdate);
+        String upContent = objectMapper.writeValueAsString(salesUpdate);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/updateSales")
                 .contentType(MediaType.APPLICATION_JSON)

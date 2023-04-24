@@ -52,9 +52,9 @@ public class MedicineControllerTest {
 
     // Sample Medicine instances for testing
     Medicine medicineOne = new Medicine(23, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45),
-            new Date(2000-01-01), new Date(2001-03-10), 35);
+            new Date(2000-01-01), new Date(2025-03-10), 35);
     Medicine medicineTwo = new Medicine(24, "Paracetomol", "Painkiller", "2 times a day", BigDecimal.valueOf(45.37),
-            new Date(2000-01-01), new Date(2001-03-10), 40);
+            new Date(2000-01-01), new Date(2026-03-10), 40);
 
     /**
      * Set up method to initialize the mocks and MockMvc instance before each test.
@@ -99,21 +99,22 @@ public class MedicineControllerTest {
                 .description("For cold")
                 .dosage("any time")
                 .price(BigDecimal.valueOf(13.45))
-                .manufactureDate(new Date(2000-01-01))
-                .expiryDate(new Date(2000-01-01))
+                .manufactureDate(Date.valueOf("1990-01-01"))
+                .expiryDate(Date.valueOf("2024-01-01"))
                 .currentStock(60)
                 .build();
 
+
         // Convert Medicine object to JSON content
-        String content = objectWriter.writeValueAsString(medicine);
+        String content = objectMapper.writeValueAsString(medicine);
 
         // Prepare the mock request to add the medicine
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/insertMedicine")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(content);
-
-        // Perform the mock request and assert the response status is OK
+//        System.out.println(content);
+//         Perform the mock request and assert the response status is OK
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
     }
@@ -132,8 +133,8 @@ public class MedicineControllerTest {
                 .description("Dolo-650 instead of paracetomol")
                 .dosage("2 times a day")
                 .price(BigDecimal.valueOf(29.45))
-                .manufactureDate(new Date(2000-01-01))
-                .expiryDate(new Date(2000-01-01))
+                .manufactureDate(Date.valueOf("2000-01-01"))
+                .expiryDate(Date.valueOf("2024-01-01"))
                 .currentStock(60)
                 .build();
 
@@ -141,7 +142,7 @@ public class MedicineControllerTest {
         Mockito.when(medicineRepository.findById(medicineTwo.getId())).thenReturn(java.util.Optional.ofNullable(medicineTwo));
 
         // Convert Medicine object to JSON content
-        String upContent = objectWriter.writeValueAsString(medicineUpdate);
+        String upContent = objectMapper.writeValueAsString(medicineUpdate);
 
         // Prepare the mock request to update the medicine
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/updateMedicine")

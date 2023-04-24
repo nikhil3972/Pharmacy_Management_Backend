@@ -47,19 +47,14 @@ public class DiseaseControllerTest {
 
     List<Medicine> medicines = new ArrayList<>();
     Medicine medicine = new Medicine(49, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
-
-    List<Medicine> medicinesOne = new ArrayList<>();
     Medicine medicineOne = new Medicine(50, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
 
     List<DiseaseType> diseaseTypes = new ArrayList<>();
     DiseaseType diseaseType = new DiseaseType(77, "Viral", medicines);
-
-    List<DiseaseType> diseaseTypesOne = new ArrayList<>();
-    DiseaseType diseaseTypeOne = new DiseaseType(78, "Viral", medicinesOne);
+    DiseaseType diseaseTypeOne = new DiseaseType(78, "Viral", medicines);
 
     Disease diseaseOne = new Disease(13, "Fever", "Increased Body Temperature", diseaseTypes);
-
-    Disease diseaseTwo = new Disease(14, "Cold", "Cough", diseaseTypesOne);
+    Disease diseaseTwo = new Disease(14, "Cold", "Cough", diseaseTypes);
 
     @Before
     public void setUp(){
@@ -80,19 +75,33 @@ public class DiseaseControllerTest {
 
     @Test
     public void addDisease() throws Exception{
+        List<Medicine> medicines = new ArrayList<>();
+        Medicine medicine = new Medicine(49, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+        Medicine medicineOne = new Medicine(50, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+        medicines.add(medicine);
+        medicines.add(medicineOne);
+
+        List<DiseaseType> diseaseTypes = new ArrayList<>();
+        DiseaseType diseaseType = new DiseaseType(77, "Viral", medicines);
+        DiseaseType diseaseTypeOne = new DiseaseType(78, "Viral", medicines);
+        diseaseTypes.add(diseaseType);
+        diseaseTypes.add(diseaseTypeOne);
+
         Disease disease = Disease.builder()
                 .diseaseId(15)
                 .diseaseName("Cold")
                 .diseaseInfo("Sneezing")
-                .diseaseType((List<DiseaseType>) diseaseTypesOne)
+                .diseaseType((List<DiseaseType>) diseaseTypes)
                 .build();
 
-        String content = objectWriter.writeValueAsString(disease);
+        String content = objectMapper.writeValueAsString(disease);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/insertDisease")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(content);
+
+        System.out.println(content);
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
@@ -100,6 +109,18 @@ public class DiseaseControllerTest {
 
     @Test
     public void updateDisease() throws Exception{
+        List<Medicine> medicines = new ArrayList<>();
+        Medicine medicine = new Medicine(49, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+        Medicine medicineOne = new Medicine(50, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+        medicines.add(medicine);
+        medicines.add(medicineOne);
+
+        List<DiseaseType> diseaseTypes = new ArrayList<>();
+        DiseaseType diseaseType = new DiseaseType(77, "Viral", medicines);
+        DiseaseType diseaseTypeOne = new DiseaseType(78, "Viral", medicines);
+        diseaseTypes.add(diseaseType);
+        diseaseTypes.add(diseaseTypeOne);
+
         Disease diseaseUpdate = Disease.builder()
                 .diseaseId(14)
                 .diseaseName("Cold")
@@ -109,7 +130,7 @@ public class DiseaseControllerTest {
 
         Mockito.when(diseaseRepository.findById(diseaseTwo.getId())).thenReturn(java.util.Optional.ofNullable(diseaseTwo));
 
-        String upContent = objectWriter.writeValueAsString(diseaseUpdate);
+        String upContent = objectMapper.writeValueAsString(diseaseUpdate);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/updateDisease")
                 .contentType(MediaType.APPLICATION_JSON)

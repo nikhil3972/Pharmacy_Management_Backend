@@ -60,7 +60,7 @@ public class Medicine {
 
 	/**
 	 * Constructor for Medicine with specified parameters.
-	 * @param id The ID of the medicine.
+	 * @param medicineId The ID of the medicine.
 	 * @param medicineName The name of the medicine.
 	 * @param description The description of the medicine.
 	 * @param dosage The dosage of the medicine.
@@ -69,10 +69,10 @@ public class Medicine {
 	 * @param expiryDate The expiry date of the medicine.
 	 * @param currentStock The current stock of the medicine.
 	 */
-	public Medicine(int id, String medicineName, String description, String dosage, BigDecimal price, Date manufactureDate,
+	public Medicine(int medicineId, String medicineName, String description, String dosage, BigDecimal price, Date manufactureDate,
 					Date expiryDate, int currentStock) {
 		super();
-		this.medicineId = id;
+		this.medicineId = medicineId;
 		this.medicineName = medicineName;
 		this.description = description;
 		this.dosage = dosage;

@@ -50,13 +50,10 @@ public class ManufacturerControllerTest {
 
     List<Medicine> medicines = new ArrayList<>();
     Medicine medicine = new Medicine(35, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
-
-    List<Medicine> medicinesOne = new ArrayList<>();
     Medicine medicineOne = new Medicine(36, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
 
     Manufacturer manufacturerOne = new Manufacturer(10, "Tesla", "8543643478", medicines);
-
-    Manufacturer manufacturerTwo = new Manufacturer(11, "Cisco", "7478287379", medicinesOne);
+    Manufacturer manufacturerTwo = new Manufacturer(11, "Cisco", "7478287379", medicines);
 
 
     /**
@@ -90,6 +87,9 @@ public class ManufacturerControllerTest {
      */
     @Test
     public void addManufacturer() throws Exception{
+        medicines.add(medicine);
+        medicines.add(medicineOne);
+
         Manufacturer manufacturer = Manufacturer.builder()
                 .manufacturerId(12)
                 .manufacturerName("Cipla")
@@ -97,7 +97,7 @@ public class ManufacturerControllerTest {
                 .medicine((List<Medicine>) medicines)
                 .build();
 
-        String content = objectWriter.writeValueAsString(manufacturer);
+        String content = objectMapper.writeValueAsString(manufacturer);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/insertManufacturer")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -114,6 +114,9 @@ public class ManufacturerControllerTest {
      */
     @Test
     public void updateManufacturer() throws Exception{
+        medicines.add(medicine);
+        medicines.add(medicineOne);
+
         Manufacturer manufacturerUpdate = Manufacturer.builder()
                 .manufacturerId(11)
                 .manufacturerName("CiscoTrack")
@@ -123,7 +126,7 @@ public class ManufacturerControllerTest {
 
         Mockito.when(manufacturerRepository.findById(manufacturerTwo.getId())).thenReturn(java.util.Optional.ofNullable(manufacturerTwo));
 
-        String upContent = objectWriter.writeValueAsString(manufacturerUpdate);
+        String upContent = objectMapper.writeValueAsString(manufacturerUpdate);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/updateManufacturer")
                 .contentType(MediaType.APPLICATION_JSON)

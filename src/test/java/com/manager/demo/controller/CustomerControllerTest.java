@@ -46,13 +46,16 @@ public class CustomerControllerTest {
     @InjectMocks
     CustomerController customerController;
 
-    List<Medicine> medicines = new ArrayList<>();
-    Medicine medicine = new Medicine(35, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+    ArrayList<Medicine> med = new ArrayList<Medicine>();
+    Medicine firstMedicine = new Medicine(35, "Vicks_1", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+    Medicine secondMedicine = new Medicine(36, "Vicks_2", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+    Medicine thirdMedicine = new Medicine(37, "Vicks_3", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+
 
     List<Medicine> medicinesOne = new ArrayList<>();
-    Medicine medicineOne = new Medicine(36, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
+    Medicine medicineOne = new Medicine(38, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
 
-    Customer customerOne = new Customer(15, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", medicines, new Date(2001-06-04));
+    Customer customerOne = new Customer(15, "Nikhil", "Dethe", "8888496629", "dethenikhil7578@gmail.com", med, new Date(2001-06-04));
     Customer customerTwo = new Customer(16, "Amit", "Shinde", "9766107234", "ams941@gmail.com", medicinesOne, new Date(2001-06-04));
 
     /**
@@ -85,23 +88,27 @@ public class CustomerControllerTest {
      */
     @Test
     public void addCustomer() throws Exception{
+        med.add(firstMedicine);
+        med.add(secondMedicine);
+        med.add(thirdMedicine);
+
         Customer customer = Customer.builder()
                 .customerId(17)
                 .firstName("Ganesh")
                 .lastName("Chormale")
                 .contact("8328528894")
                 .email("ganesh123@gmail.com")
-                .medicine((List<Medicine>) medicines)
-                .dob(new Date(2000-01-01))
+                .medicine((List<Medicine>) med)
+                .dob(Date.valueOf("2000-01-01"))
                 .build();
 
-        String content = objectWriter.writeValueAsString(customer);
+        String content = objectMapper.writeValueAsString(customer);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/insertCustomer")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(content);
-
+        System.out.println(content);
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
     }
@@ -112,19 +119,23 @@ public class CustomerControllerTest {
      */
     @Test
     public void updateCustomer() throws Exception{
+        med.add(firstMedicine);
+        med.add(secondMedicine);
+        med.add(thirdMedicine);
+
         Customer customerUpdate = Customer.builder()
                 .customerId(16)
                 .firstName("Amit")
                 .lastName("Jadhav")
                 .contact("8328528894")
                 .email("ganesh123@gmail.com")
-                .medicine((List<Medicine>) medicines)
+                .medicine((List<Medicine>) med)
                 .dob(new Date(2000-01-01))
                 .build();
 
         Mockito.when(customerRepository.findById(customerTwo.getId())).thenReturn(java.util.Optional.ofNullable(customerTwo));
 
-        String upContent = objectWriter.writeValueAsString(customerUpdate);
+        String upContent = objectMapper.writeValueAsString(customerUpdate);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/updateCustomer")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -140,7 +151,7 @@ public class CustomerControllerTest {
      * @throws Exception if there is an error performing the test
      */
     @Test
-    public void deleteCustomer() throws Exception{
+    public void deleteCustomer() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/deleteCustomer/16")
                         .contentType(MediaType.APPLICATION_JSON))

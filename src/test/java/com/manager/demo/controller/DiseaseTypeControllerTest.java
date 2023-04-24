@@ -45,10 +45,9 @@ public class DiseaseTypeControllerTest {
     @InjectMocks DiseaseTypeController diseaseTypeController;
     List<Medicine> medicines = new ArrayList<>();
     Medicine medicine = new Medicine(93, "Vicks", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
-    List<Medicine> medicinesOne = new ArrayList<>();
     Medicine medicineOne = new Medicine(94, "Capsol", "Cold", "3 times a day", BigDecimal.valueOf(13.45), new Date(2000-01-01), new Date(2001-03-10), 35);
     DiseaseType diseaseTypeOne = new DiseaseType(17, "Viral", medicines);
-    DiseaseType diseaseTypeTwo = new DiseaseType(18, "Viral", medicinesOne);
+    DiseaseType diseaseTypeTwo = new DiseaseType(18, "Viral", medicines);
 
     /**
      * Sets up the test environment before each test case by initializing the MockMvc object
@@ -81,13 +80,16 @@ public class DiseaseTypeControllerTest {
      */
     @Test
     public void addDiseaseType() throws Exception{
+        medicines.add(medicine);
+        medicines.add(medicineOne);
+
         DiseaseType diseaseType = DiseaseType.builder()
                 .diseaseTypeId(19)
                 .type("Non Viral")
                 .medicine((List<Medicine>) medicines)
                 .build();
 
-        String content = objectWriter.writeValueAsString(diseaseType);
+        String content = objectMapper.writeValueAsString(diseaseType);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/insertDiseaseType")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -106,15 +108,18 @@ public class DiseaseTypeControllerTest {
      */
     @Test
     public void updateDiseaseType() throws Exception{
+        medicines.add(medicine);
+        medicines.add(medicineOne);
+
         DiseaseType diseaseTypeUpdate = DiseaseType.builder()
                 .diseaseTypeId(18)
                 .type("Non Viral")
-                .medicine((List<Medicine>) medicinesOne)
+                .medicine((List<Medicine>) medicines)
                 .build();
 
         Mockito.when(diseaseTypeRepository.findById(diseaseTypeTwo.getId())).thenReturn(java.util.Optional.ofNullable(diseaseTypeTwo));
 
-        String upContent = objectWriter.writeValueAsString(diseaseTypeUpdate);
+        String upContent = objectMapper.writeValueAsString(diseaseTypeUpdate);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/updateDiseaseType")
                 .contentType(MediaType.APPLICATION_JSON)
