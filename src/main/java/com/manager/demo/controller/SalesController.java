@@ -68,7 +68,7 @@ public class SalesController {
 		}
 
 			Sales saleUpd = sale.get();
-			saleUpd.setDate(obj.getDate());
+			saleUpd.setSaleDate(obj.getSaleDate());
 			saleUpd.setCustomer(obj.getCustomer());
 		saleUpd.setTotalCost(obj.getTotalCost());
 			System.out.println("Received Data in PutMapping :" + obj);

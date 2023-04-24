@@ -22,7 +22,7 @@ public class PurchaseOrderService {
 	public  PurchaseOrder updatePurchaseOrder(int  purchaseOrderId,PurchaseOrder  purchaseOrder) {
 		 purchaseOrderList.stream().forEach(c->{
 			if(c.getId()==  purchaseOrderId) {
-				c.setDate( purchaseOrder.getDate());
+				c.setPurchaseDate( purchaseOrder.getPurchaseDate());
 				c.setExpectedDeliveryDate( purchaseOrder.getExpectedDeliveryDate());
 				c.setTotalCost( purchaseOrder.getTotalCost());
 				

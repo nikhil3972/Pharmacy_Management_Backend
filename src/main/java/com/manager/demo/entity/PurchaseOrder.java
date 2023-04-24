@@ -89,7 +89,7 @@ public class PurchaseOrder {
 	 * Returns the date of the purchase order.
 	 * @return the date of the purchase order.
 	 */
-	public Date getDate() {
+	public Date getPurchaseDate() {
 		return purchaseDate;
 	}
 
@@ -97,7 +97,7 @@ public class PurchaseOrder {
 	 * Sets the date of the purchase order.
 	 * @param date the date to be set for the purchase order.
 	 */
-	public void setDate(Date date) {
+	public void setPurchaseDate(Date date) {
 		this.purchaseDate = date;
 	}
 

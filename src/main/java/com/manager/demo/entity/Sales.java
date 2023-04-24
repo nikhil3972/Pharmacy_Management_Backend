@@ -27,8 +27,8 @@ public class Sales {
 	@Id
 	@GeneratedValue
 	int saleId;
-	@NotBlank(message = "Sales Date is Mandatory")
-	@Past(message = "Manufacture Date must be in the past and date format")
+	@NotNull(message = "Sale Date is Mandatory")
+	@Past(message = "Sale Date must be in the past and date format")
 	Date saleDate;
 
 	@NotNull(message = "Customer details is Mandatory")
@@ -83,7 +83,7 @@ public class Sales {
 	 * Get the date of the sales.
 	 * @return The date of the sales.
 	 */
-	public Date getDate() {
+	public Date getSaleDate() {
 		return saleDate;
 	}
 
@@ -91,7 +91,7 @@ public class Sales {
 	 * Set the date of the sales.
 	 * @param date The date of the sales.
 	 */
-	public void setDate(Date date) {
+	public void setSaleDate(Date date) {
 		this.saleDate = date;
 	}
 

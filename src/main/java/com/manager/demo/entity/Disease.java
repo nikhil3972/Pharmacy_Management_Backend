@@ -86,7 +86,7 @@ public class Disease {
 	 * Gets the name of the Disease.
 	 * @return String value of the name.
 	 */
-	public String getName() {
+	public String getDiseaseName() {
 		return diseaseName;
 	}
 	
@@ -94,7 +94,7 @@ public class Disease {
 	 * Sets the name of the Disease.
 	 * @param diseaseName the String value of the name to be set.
 	 */
-	public void setName(String diseaseName) {
+	public void setDiseaseName(String diseaseName) {
 		this.diseaseName = diseaseName;
 	}
 	
@@ -102,7 +102,7 @@ public class Disease {
 	 * Gets the information about the Disease.
 	 * @return String value of the information.
 	 */
-	public String getInfo() {
+	public String getDiseaseInfo() {
 		return diseaseInfo;
 	}
 	
@@ -110,7 +110,7 @@ public class Disease {
 	 * Sets the information about the Disease.
 	 * @param diseaseInfo the String value of the information to be set.
 	 */
-	public void setInfo(String diseaseInfo) {
+	public void setDiseaseInfo(String diseaseInfo) {
 		this.diseaseInfo = diseaseInfo;
 	}
 	

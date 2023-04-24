@@ -74,7 +74,7 @@ public class ManufacturerController {
 			throw new ChangeSetPersister.NotFoundException();
 		}
 			Manufacturer manUpd = man.get();
-			manUpd.setName(obj.getName());
+			manUpd.setManufacturerName(obj.getManufacturerName());
 			manUpd.setContact(obj.getContact());
 			manUpd.setMedicine(obj.getMedicine());
 			System.out.println("Received Data in PutMapping :" + obj);

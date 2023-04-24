@@ -30,7 +30,8 @@ public class Manufacturer {
     @Pattern(regexp = "^[^0-9]*$", message = "Manufacturer name only contain character")
     String manufacturerName;
     @NotBlank(message = "Contact is Mandatory")
-    @Range(min = 7, max = 12, message = "Contact size is must between range of 7 & 12")
+    @Size(min = 7, message = "Contact should have at least 3 characters")
+    @Size(max = 12, message = "Contact should not have more than 12 characters")
     @Pattern(regexp = "^[0-9]+$", message = "Contact must contain only integer")
     String contact;
 
@@ -80,7 +81,7 @@ public class Manufacturer {
      * Returns the name of the manufacturer.
      * @return the name of the manufacturer
      */
-    public String getName() {
+    public String getManufacturerName() {
         return manufacturerName;
     }
 
@@ -88,7 +89,7 @@ public class Manufacturer {
      * Sets the name of the manufacturer.
      * @param manufacturerName the name to be set for the manufacturer
      */
-    public void setName(String manufacturerName) {
+    public void setManufacturerName(String manufacturerName) {
         this.manufacturerName = manufacturerName;
     }
 

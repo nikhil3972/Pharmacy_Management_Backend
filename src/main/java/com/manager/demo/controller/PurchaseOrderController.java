@@ -67,7 +67,7 @@ public class PurchaseOrderController {
 			throw new ChangeSetPersister.NotFoundException();
 		}
 			PurchaseOrder purOrUpd = purOr.get();
-			purOrUpd.setDate(obj.getDate());
+			purOrUpd.setPurchaseDate(obj.getPurchaseDate());
 			purOrUpd.setManufacturer(obj.getManufacturer());
 			purOrUpd.setExpectedDeliveryDate(obj.getExpectedDeliveryDate());
 			purOrUpd.setTotalCost(obj.getTotalCost());

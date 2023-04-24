@@ -71,8 +71,8 @@ public class DiseaseController {
 			throw new ChangeSetPersister.NotFoundException();
 		}
 			Disease disUpd = dis.get();
-			disUpd.setName(obj.getName());
-			disUpd.setInfo(obj.getInfo());
+			disUpd.setDiseaseName(obj.getDiseaseName());
+			disUpd.setDiseaseInfo(obj.getDiseaseInfo());
 			disUpd.setDiseaseType(obj.getDiseaseType());
 			System.out.println("Received Data in PutMapping :" + obj);
 			return disRepo.save(obj);

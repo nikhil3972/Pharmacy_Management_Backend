@@ -27,7 +27,7 @@ public class  ManufacturerService {
 	public  Manufacturer updateManufacture(int manufactureId,	 Manufacturer manufacture) {
 		manufactureList.stream().forEach(c->{
 			if(c.getId()== manufactureId) {
-				c.setName(manufacture.getName());
+				c.setManufacturerName(manufacture.getManufacturerName());
 				
 				c.setMedicine(manufacture.getMedicine());
 				
