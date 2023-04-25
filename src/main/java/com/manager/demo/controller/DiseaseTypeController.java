@@ -46,7 +46,7 @@ public class DiseaseTypeController {
 	/**
 	 * Inserts a new record of disease_type.
 	 * @param obj Disease_Type object representing the new record.
-	 * @return String indicating success or failure message.
+	 * @return the saved DiseaseType object
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertDiseaseType")
@@ -57,9 +57,11 @@ public class DiseaseTypeController {
 	}
 
 	/**
-	 * Updates an existing record of disease_type.
-	 * @param obj Disease_Type object representing the updated record.
-	 * @return String indicating success or failure message.
+	 * Updates an existing disease type record in the repository with the given DiseaseType object.
+	 * @param obj the DiseaseType object containing the updated data for the disease type
+	 * @return the updated DiseaseType object saved in the repository
+	 * @throws ChangeSetPersister.NotFoundException if the disease type record to be updated is not found in the repository
+	 * @throws IllegalArgumentException if the DiseaseType object is invalid or does not contain a valid ID
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateDiseaseType")

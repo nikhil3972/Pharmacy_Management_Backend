@@ -45,8 +45,8 @@ public class PurchaseOrderController {
 
 	/**
 	 * This method inserts a new Purchase_Order entity into the database.
-	 * @param obj The Purchase_Order object to be inserted.
-	 * @return String message indicating success or failure of the operation.
+	 * @param obj The Purchase_Order object to be inserted, validated using @Valid annotation
+	 * @return the saved purchase order object
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertPurchaseOrder")
@@ -58,8 +58,9 @@ public class PurchaseOrderController {
 
 	/**
 	 * This method updates an existing Purchase_Order entity in the database.
-	 * @param obj The Purchase_Order object containing the updated data.
-	 * @return String message indicating success or failure of the operation.
+	 * @param obj The Purchase_Order object containing the updated data. Must be a valid object.
+	 * @return The updated PurchaseOrder object.
+	 * @throws ChangeSetPersister.NotFoundException if the PurchaseOrder object is not found in the database.
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updatePurchaseOrder")

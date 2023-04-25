@@ -177,7 +177,4 @@ public class SalesControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-
-
-
 }

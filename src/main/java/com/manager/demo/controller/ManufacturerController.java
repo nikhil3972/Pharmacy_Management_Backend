@@ -53,7 +53,6 @@ public class ManufacturerController {
 
 	/**
 	 * This method inserts a new Manufacturer record into the database.
-	 * 
 	 * @param obj - A Manufacturer object containing the details of the new record to be inserted.
 	 * @return a String indicating the success or failure of the operation.
 	 */
@@ -67,7 +66,6 @@ public class ManufacturerController {
 
 	/**
 	 * This method updates an existing Manufacturer record in the database.
-	 * 
 	 * @param obj - A Manufacturer object containing the details of the record to be updated.
 	 * @return a String indicating the success or failure of the operation.
 	 */
@@ -89,7 +87,6 @@ public class ManufacturerController {
 
 	/**
 	 * This method deletes an existing Manufacturer record from the database.
-	 * 
 	 * @param id - An integer representing the id of the record to be deleted.
 	 * @return a String indicating the success or failure of the operation.
 	 */

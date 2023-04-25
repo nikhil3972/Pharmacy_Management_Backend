@@ -55,10 +55,6 @@ public class Disease {
 	 * @param diseaseType The list of disease types associated with the disease.
 	 */
 
-	
-
-
-
 	public Disease(int diseaseId, String diseaseName, String diseaseInfo, List<DiseaseType> diseaseType){
 		this.diseaseId = diseaseId;
 		this.diseaseName = diseaseName;

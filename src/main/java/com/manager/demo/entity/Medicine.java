@@ -84,55 +84,139 @@ public class Medicine {
 	}
 
 
+	/**
+
+	 Retrieves the ID of the medicine.
+	 @return The ID of the medicine.
+	 */
 	public int getId() {
 		return medicineId;
 	}
+
+	/**
+	 * Sets the ID of the medicine.
+	 * @param medicineId The ID to set for the medicine.
+	 */
 	public void setId(int medicineId) {
 		this.medicineId = medicineId;
 	}
+
+	/**
+	 * Retrieves the name of the medicine.
+	 * @return The name of the medicine.
+	 */
 	public String getMedicineName() {
 		return medicineName;
 	}
+
+	/**
+	 * Sets the name of the medicine.
+	 * @param medicineName The name to set for the medicine.
+	 */
 	public void setMedicineName(String medicineName) {
 		this.medicineName = medicineName;
 	}
+
+	/**
+	 * Retrieves the description of the medicine.
+	 * @return The description of the medicine.
+	 */
 	public String getDescription() {
 		return description;
 	}
+
+	/**
+	 * Sets the description of the medicine.
+	 * @param description The description to set for the medicine.
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	/**
+	 * Retrieves the dosage instructions for the medicine.
+	 * @return The dosage instructions for the medicine.
+	 */
 	public String getDosage() {
 		return dosage;
 	}
+
+	/**
+	 * Sets the dosage instructions for the medicine.
+	 * @param dosage The dosage instructions to set for the medicine.
+	 */
 	public void setDosage(String dosage) {
 		this.dosage = dosage;
 	}
+
+	/**
+	 * Retrieves the price of the medicine.
+	 * @return The price of the medicine.
+	 */
 	public BigDecimal getPrice() {
 		return price;
 	}
+
+	/**
+	 * Sets the price of the medicine.
+	 * @param price The price to set for the medicine.
+	 */
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
+
+	/**
+	 * Retrieves the manufacture date of the medicine.
+	 * @return The manufacture date of the medicine.
+	 */
 	public Date getManufactureDate() {
 		return manufactureDate;
 	}
+
+	/**
+	 * Sets the manufacture date of the medicine.
+	 * @param manufactureDate The manufacture date to set for the medicine.
+	 */
 	public void setManufactureDate(Date manufactureDate) {
 		this.manufactureDate = manufactureDate;
 	}
+
+	/**
+	 * Retrieves the expiry date of the medicine.
+	 * @return The expiry date of the medicine.
+	 */
 	public Date getExpiryDate() {
 		return expiryDate;
 	}
+
+	/**
+	 * Sets the expiry date of the medicine.
+	 * @param expiryDate The expiry date to set for the medicine.
+	 */
 	public void setExpiryDate(Date expiryDate) {
 		this.expiryDate = expiryDate;
 	}
+
+	/**
+	 * Retrieves the current stock of the medicine.
+	 * @return The current stock of the medicine.
+	 */
 	public int getCurrentStock() {
 		return currentStock;
 	}
+	/**
+	 * Sets the current stock of the medicine.
+	 * @param currentStock The current stock to set for the medicine.
+	 */
 	public void setCurrentStock(int currentStock) {
 		this.currentStock = currentStock;
 	}
 
+	/**
+	 * Returns a string representation of the Medicine object, including its medicine ID, medicine name,
+	 * description, dosage, price, manufacture date, expiry date, and current stock.
+	 * @return A string representation of the Medicine object.
+	 */
 	@Override
 	public String toString() {
 		return "Medicine [medicineId=" + medicineId + ", medicineName=" + medicineName + ", description=" + description + ", dosage=" + dosage

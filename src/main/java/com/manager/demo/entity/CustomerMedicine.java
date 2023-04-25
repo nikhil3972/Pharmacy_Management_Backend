@@ -187,8 +187,4 @@ public class CustomerMedicine {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	
-	
-	
-	
 }
