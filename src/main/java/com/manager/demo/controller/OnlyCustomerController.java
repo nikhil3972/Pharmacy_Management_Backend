@@ -71,7 +71,9 @@ public class OnlyCustomerController {
         cusUpd.setContact(obj.getContact());
 
         cusUpd.setMedicineName(obj.getMedicineName());
-       cusUpd.setPrice(obj.getPrice());
+        cusUpd.setPrice(obj.getPrice());
+
+
         return customerService.updateCustomer(obj);
 
     }

@@ -21,12 +21,12 @@ public class onlyCustomer {
     @Column
     String medicineName;
     @Column
-    long price;
+   int price;
 
 
     onlyCustomer(){}
 
-    public onlyCustomer(int customerId, String firstName, String lastName, String contact, String medicineName,long price) {
+    public onlyCustomer(int customerId, String firstName, String lastName, String contact, String medicineName,int price) {
         super();
         this.Id = customerId;
         this.firstName = firstName;
@@ -65,15 +65,15 @@ public class onlyCustomer {
     public String getMedicineName(){
         return this.medicineName;
     }
-    public long getPrice(){
+    public int getPrice(){
         return this.price;
     }
-    public void setPrice(long price){
+    public void setPrice(int price){
         this.price=price;
     }
     @Override
     public String toString() {
-        return "Customer [id=" + Id + ", firstName=" + firstName + ", lastName=" + lastName + ", contact=" + contactNo
+        return "Customer [id=" + Id + ", firstName=" + firstName + ", lastName=" + lastName + ", contactNo=" + contactNo
                 + ", medicine=" + medicineName + ", price" + price + "]";
     }
 }

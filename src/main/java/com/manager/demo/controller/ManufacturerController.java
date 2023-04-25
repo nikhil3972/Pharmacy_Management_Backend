@@ -79,8 +79,10 @@ public class ManufacturerController {
 		}
 			Manufacturer manUpd = man.get();
 			manUpd.setManufacturerName(obj.getManufacturerName());
-			manUpd.setContact(obj.getContact());
-			manUpd.setMedicine(obj.getMedicine());
+		manUpd.setDelivaryDate(obj.getDelivaryDate());
+		manUpd.setQuantity(obj.getQuantity());
+		manUpd.setMedicineName(obj.getMedicineName());
+		manUpd.setTotalBill(obj.getTotalBill());
 			System.out.println("Received Data in PutMapping :" + obj);
 			return manufacturerService.updateManufacturer(manUpd);
 	}
