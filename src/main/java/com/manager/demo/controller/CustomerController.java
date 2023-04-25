@@ -4,6 +4,7 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.manager.demo.dao.CustomerMedicineDao;
 import com.manager.demo.dao.customerDao;
 import com.manager.demo.service.CustomerService;
 import jakarta.validation.Valid;
@@ -30,9 +31,14 @@ import com.manager.demo.repository.CustomerRepository;
 public class CustomerController {
 
 	@Autowired
+	CustomerRepository customerRepo;
+	@Autowired
 	private CustomerService customerService;
+	@Autowired
 	private customerDao dao;
-	private CustomerRepository customerRepo;
+	@Autowired
+	private CustomerMedicineDao cmDao;
+
 
 	/**
 	 * Retrieves a list of all customers from the CustomerRepository.
@@ -99,6 +105,7 @@ public class CustomerController {
 	 * Retrieves a list of CustomerMedicine entities from the CustomerRepository.
 	 * @return A list of CustomerMedicine object containing the details of Customers along with the Medicines they have purchased.
 	*/
+	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getMedicineWithCustomer")
 	public List<CustomerMedicine> getMedicineWithCustomer() {
 	List<CustomerMedicine> cus = customerRepo.getMedicineWithCustomer();
