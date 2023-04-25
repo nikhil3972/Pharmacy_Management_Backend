@@ -3,6 +3,8 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.manager.demo.dao.CustomerMedicineDao;
+import com.manager.demo.service.MedicineService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -29,7 +31,8 @@ import com.manager.demo.repository.MedicineRepository;
 public class MedicineController {
 	
 	@Autowired
-	MedicineRepository medRepo;
+	private MedicineService mService;
+	private CustomerMedicineDao dao;
 	
 	/**
 	 * Returns a list of all medicines.
@@ -38,7 +41,7 @@ public class MedicineController {
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllMedicine")
 	public List<Medicine> getAllMedicine() {
-		return medRepo.findAll();
+		return mService.getMedicine() ;
 	}
 	
 	/**
@@ -48,9 +51,9 @@ public class MedicineController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertMedicine")
-	public Medicine insertMedicine(@Valid @RequestBody Medicine obj) {
+	public String insertMedicine(@Valid @RequestBody Medicine obj) {
 		System.out.println("Received data : " + obj);
-		return medRepo.save(obj);
+		return mService.addMedicine(obj);
 //		return "Record Inserted Successfully";
 	}
 	
@@ -61,8 +64,8 @@ public class MedicineController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping (path="/updateMedicine")
-	public Medicine updateData(@Valid @RequestBody Medicine obj) throws NotFoundException {
-		Optional<Medicine> med = medRepo.findById(obj.getId());
+	public String updateData(@Valid @RequestBody Medicine obj) throws NotFoundException {
+		Optional<Medicine> med = dao.findById(obj.getId());
 
 		if (!med.isPresent()) {
 			throw new ChangeSetPersister.NotFoundException();
@@ -77,7 +80,7 @@ public class MedicineController {
 		medUpd.setExpiryDate(obj.getExpiryDate());
 		medUpd.setCurrentStock(obj.getCurrentStock());
 		System.out.println("Received Data in PutMapping :" + obj);
-		return medRepo.save(obj);
+		return mService.updateMedicine(medUpd);
 
 	}
 	
@@ -90,7 +93,7 @@ public class MedicineController {
 	@DeleteMapping (path="/deleteMedicine/{id}")
 	public String deleteMedicine(@PathVariable int id) {
 		System.out.println("Medicine record deleted. Given id : " + id);
-		medRepo.deleteById(id);
+		mService.deleteMedicine(id);
 		return "Record Deleted Successfully";
 	}
 
@@ -98,6 +101,6 @@ public class MedicineController {
 	@GetMapping(path="/getAllMedicineSorted")
 	public List<Medicine> getMedicineInSortedOrder(){
 		Sort sort = Sort.by(Sort.Direction.ASC, "medicineName").and(Sort.by(Sort.Direction.ASC, "description")).and(Sort.by(Sort.Direction.ASC, "dosage")).and(Sort.by(Sort.Direction.ASC, "price")).and(Sort.by(Sort.Direction.ASC, "currentStock"));
-		return medRepo.findAll(sort);
+		return dao.findAll(sort);
 	}
 }

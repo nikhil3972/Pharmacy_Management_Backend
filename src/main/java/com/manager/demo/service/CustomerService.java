@@ -7,6 +7,8 @@ import com.manager.demo.entity.CustomerMedicine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerService {
     @Autowired
@@ -23,5 +25,9 @@ public class CustomerService {
     public String updateCustomer(Customer customer){
         dao.save(customer);
         return "customer Updated";
+    }
+    public List<Customer> getCustomer(){
+       List<Customer> customers=dao.findAll();
+       return customers;
     }
 }

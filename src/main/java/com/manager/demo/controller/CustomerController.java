@@ -4,6 +4,8 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.manager.demo.dao.customerDao;
+import com.manager.demo.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -28,8 +30,10 @@ import com.manager.demo.repository.CustomerRepository;
 public class CustomerController {
 
 	@Autowired
-	CustomerRepository cusRepo;
-	
+	private CustomerService customerService;
+	private customerDao dao;
+	private CustomerRepository customerRepo;
+
 	/**
 	 * Retrieves a list of all customers from the CustomerRepository.
 	 * @return A list of Customer entities.
@@ -37,7 +41,7 @@ public class CustomerController {
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllCustomer")
 	public List<Customer> getAllCustomer() {
-		return cusRepo.findAll();
+		return customerService.getCustomer();
 	}
 	
 	/**
@@ -47,9 +51,9 @@ public class CustomerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertCustomer")
-	public Customer insertCustomer(@Valid @RequestBody Customer obj) {
+	public String insertCustomer(@Valid @RequestBody Customer obj) {
 		System.out.println("Received data : " + obj);
-		return cusRepo.save(obj);
+		return customerService.addCustomer(obj);
 	}
 	
 	/**
@@ -59,8 +63,8 @@ public class CustomerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateCustomer")
-	public Customer updateCustomer(@Valid @RequestBody Customer obj) throws Exception {
-		Optional<Customer> cus = cusRepo.findById(obj.getId());
+	public String updateCustomer(@Valid @RequestBody Customer obj) throws Exception {
+		Optional<Customer> cus = dao.findById(obj.getId());
 
 		if (!cus.isPresent()) {
 			throw new ChangeSetPersister.NotFoundException();
@@ -72,7 +76,7 @@ public class CustomerController {
 			cusUpd.setEmail(obj.getEmail());
 			cusUpd.setMedicine(obj.getMedicine());
 			cusUpd.setDob(obj.getDob());
-			return cusRepo.save(obj);
+			return customerService.updateCustomer(obj);
 
 	}
 	
@@ -85,7 +89,7 @@ public class CustomerController {
 	@DeleteMapping (path="/deleteCustomer/{id}")
 	public String deleteCustomer(@PathVariable int id) {
 		System.out.println("Customer record deleted. Given id : " + id);
-		cusRepo.deleteById(id);
+		customerService.deleteCustomer(id);
 		return "Record Deleted Successfully";
 	}
 	
@@ -95,7 +99,7 @@ public class CustomerController {
 	*/
 	@GetMapping(path="/getMedicineWithCustomer")
 	public List<CustomerMedicine> getMedicineWithCustomer() {
-	List<CustomerMedicine> cus = cusRepo.getMedicineWithCustomer();
+	List<CustomerMedicine> cus = customerRepo.getMedicineWithCustomer();
 	System.out.println("Get list of all CustomerMedicine successfully");
 	return cus;
 	}

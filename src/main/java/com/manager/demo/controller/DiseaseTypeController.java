@@ -3,6 +3,8 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.manager.demo.dao.DiseasesTypeDao;
+import com.manager.demo.service.DiseaseTypeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -26,7 +28,8 @@ import com.manager.demo.repository.DiseaseTypeRepository;
 @RestController
 public class DiseaseTypeController {
 	@Autowired
-	DiseaseTypeRepository disTypeRepo;
+	private DiseaseTypeService dTService;
+	private DiseasesTypeDao dao;
 
 	/**
 	 * Retrieves all the records of disease_type.
@@ -35,7 +38,7 @@ public class DiseaseTypeController {
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllDiseaseType")
 	public List<DiseaseType> getAllDiseaseType() {
-		return disTypeRepo.findAll();
+		return dTService.getDiseaseType();
 //		System.out.println("Get list of all disease_type successfully");
 //		return disTy;
 	}
@@ -47,9 +50,9 @@ public class DiseaseTypeController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertDiseaseType")
-	public DiseaseType insertManufacturer(@Valid @RequestBody DiseaseType obj) {
+	public String insertManufacturer(@Valid @RequestBody DiseaseType obj) {
 		System.out.println("Received data : " + obj);
-		return disTypeRepo.save(obj);
+		return dTService.addDiseaseType(obj);
 //		return "Record Inserted Successfully";
 	}
 
@@ -60,8 +63,8 @@ public class DiseaseTypeController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateDiseaseType")
-	public DiseaseType updateDiseaseType(@Valid @RequestBody DiseaseType obj) throws ChangeSetPersister.NotFoundException {
-		Optional<DiseaseType> disTy = disTypeRepo.findById(obj.getId());
+	public String updateDiseaseType(@Valid @RequestBody DiseaseType obj) throws ChangeSetPersister.NotFoundException {
+		Optional<DiseaseType> disTy = dao.findById(obj.getId());
 
 		if (!disTy.isPresent()) {
 			throw new ChangeSetPersister.NotFoundException();
@@ -70,7 +73,7 @@ public class DiseaseTypeController {
 			disTyUpd.setType(obj.getType());
 			disTyUpd.setMedicine(obj.getMedicine());
 			System.out.println("Received Data in PutMapping :" + obj);
-			return disTypeRepo.save(obj);
+			return dTService.updateDiseaseType(disTyUpd);
 	}
 
 	/**
@@ -82,7 +85,7 @@ public class DiseaseTypeController {
 	@DeleteMapping (path="/deleteDiseaseType/{id}")
 	public String deleteManufacturer(@PathVariable int id) {
 		System.out.println("Disease_type record deleted. Given id : " + id);
-		disTypeRepo.deleteById(id);
+		dTService.deleteDiseaseType(id);
 		return "Record Deleted Successfully";
 	}
 }

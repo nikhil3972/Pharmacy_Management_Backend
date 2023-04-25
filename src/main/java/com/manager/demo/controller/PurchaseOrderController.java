@@ -3,6 +3,8 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.manager.demo.dao.PurchasesOrderDao;
+import com.manager.demo.service.PurchaseOrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -26,7 +28,8 @@ import com.manager.demo.repository.PurchaseOrderRepository;
 @RestController
 public class PurchaseOrderController {
 	@Autowired
-    PurchaseOrderRepository purOrRepo;
+    private PurchaseOrderService poService;
+	private PurchasesOrderDao dao;
 
 	/**
 	 * This method retrieves a list of all Purchase_Order entities.
@@ -35,7 +38,7 @@ public class PurchaseOrderController {
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllPurchaseOrder")
 	public List<PurchaseOrder> getAllPurchaseOrder() {
-		return purOrRepo.findAll();
+		return poService.getPurchaseOrder();
 //		System.out.println("Get list of all Purchase_Order successfully");
 //		return purOr;
 	}
@@ -47,9 +50,9 @@ public class PurchaseOrderController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertPurchaseOrder")
-	public PurchaseOrder insertPurchaseOrder(@Valid @RequestBody PurchaseOrder obj) {
+	public String insertPurchaseOrder(@Valid @RequestBody PurchaseOrder obj) {
 		System.out.println("Received data : " + obj);
-		return purOrRepo.save(obj);
+		return poService.addPurchaseOrder(obj);
 //		return "Record Inserted Successfully";
 	}
 
@@ -60,8 +63,8 @@ public class PurchaseOrderController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updatePurchaseOrder")
-	public PurchaseOrder updatePurchaseOrder(@Valid @RequestBody PurchaseOrder obj) throws ChangeSetPersister.NotFoundException {
-		Optional<PurchaseOrder> purOr = purOrRepo.findById(obj.getId());
+	public String updatePurchaseOrder(@Valid @RequestBody PurchaseOrder obj) throws ChangeSetPersister.NotFoundException {
+		Optional<PurchaseOrder> purOr = dao.findById(obj.getId());
 
 		if (!purOr.isPresent()) {
 			throw new ChangeSetPersister.NotFoundException();
@@ -72,7 +75,7 @@ public class PurchaseOrderController {
 			purOrUpd.setExpectedDeliveryDate(obj.getExpectedDeliveryDate());
 			purOrUpd.setTotalCost(obj.getTotalCost());
 			System.out.println("Received Data in PutMapping :" + obj);
-			return purOrRepo.save(obj);
+			return poService.updatePurchaseOrder(purOrUpd);
 	}
 
 	/**
@@ -84,7 +87,7 @@ public class PurchaseOrderController {
 	@DeleteMapping (path="/deletePurchaseOrder/{id}")
 	public String deletePurchaseOrder(@PathVariable int id) {
 		System.out.println("Purchase_Order record deleted. Given id : " + id);
-		purOrRepo.deleteById(id);
+		poService.deletePurchaseOrder(id);
 		return "Record Deleted Successfully";
 	}
 }

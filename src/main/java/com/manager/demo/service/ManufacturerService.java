@@ -4,42 +4,34 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
+import com.manager.demo.dao.ManufacturerDao;
+import com.manager.demo.dao.customerDao;
+import com.manager.demo.entity.Customer;
 import com.manager.demo.entity.Manufacturer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 
 public class  ManufacturerService {
 
-	private int manufactureIdCount= 1;
-	private List< Manufacturer> manufactureList =new CopyOnWriteArrayList<>();
-	public   Manufacturer addManufacturer( Manufacturer manufacture) {
-		manufacture.setId(manufactureIdCount);
-		manufactureList.add(manufacture);
-		manufactureIdCount++;
-		return manufacture;
+	@Autowired
+	private ManufacturerDao dao;
+	public String addManufacturer( Manufacturer manufacturer){
+		dao.save(manufacturer);
+		return "CustomerMedicine added";
 	}
-
-	public List< Manufacturer>getManufacture(){
-		return manufactureList;
+	public String deleteManufacturer(int id){
+		Manufacturer manufacturer=dao.getById(id);
+		dao.delete(manufacturer);
+		return "Customer deleted "+id;
 	}
-	public 	 Manufacturer getCustomer(int manufactureId) {
-		return manufactureList.stream().filter(c -> c.getId()== manufactureId)
-				.findFirst().get();
+	public String updateManufacturer( Manufacturer manufacturer){
+		dao.save(manufacturer);
+		return "customer Updated";
 	}
-	public  Manufacturer updateManufacture(int manufactureId,	 Manufacturer manufacture) {
-		manufactureList.stream().forEach(c->{
-			if(c.getId()== manufactureId) {
-				c.setManufacturerName(manufacture.getManufacturerName());
-				
-				c.setMedicine(manufacture.getMedicine());
-				
-			}
-		});
-		return manufactureList.stream().filter(c->c.getId()== manufactureId).findFirst().get();
-	}
-	public void deleteManufacturer(int manufactureId) {
-		manufactureList.stream().forEach(c->{
-			if(c.getId()==manufactureId) {
-				manufactureList.remove(c);
-			}
-		});
+	public List< Manufacturer> getManufacturer(){
+		List< Manufacturer> manufacturer=dao.findAll();
+		return manufacturer;
 	}
 }

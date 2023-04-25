@@ -3,6 +3,8 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.manager.demo.dao.ManufacturerDao;
+import com.manager.demo.service.ManufacturerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -30,7 +32,11 @@ import com.manager.demo.repository.ManufacturerRepository;
 @RestController
 public class ManufacturerController {
 	@Autowired
-	ManufacturerRepository manRepo;
+	private ManufacturerService manufacturerService;
+	private ManufacturerDao dao;
+	private ManufacturerRepository manRepo;
+
+
 
 	/**
 	 * This method retrieves all the records of Manufacturer from the database.
@@ -40,7 +46,7 @@ public class ManufacturerController {
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllManufacturer")
 	public List<Manufacturer> getAllManufacturer() {
-		return manRepo.findAll();
+		return manufacturerService.getManufacturer();
 //		System.out.println("Get list of all manufacturer successfully");
 //		return med;
 	}
@@ -53,9 +59,9 @@ public class ManufacturerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertManufacturer")
-	public Manufacturer insertManufacturer(@Valid @RequestBody Manufacturer obj) {
+	public String insertManufacturer(@Valid @RequestBody Manufacturer obj) {
 		System.out.println("Received data : " + obj);
-		return manRepo.save(obj);
+		return manufacturerService.addManufacturer(obj);
 //		return "Record Inserted Successfully";
 	}
 
@@ -67,8 +73,8 @@ public class ManufacturerController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateManufacturer")
-	public Manufacturer updateManufacturer(@Valid @RequestBody Manufacturer obj) throws ChangeSetPersister.NotFoundException {
-		Optional<Manufacturer> man = manRepo.findById(obj.getId());
+	public String updateManufacturer(@Valid @RequestBody Manufacturer obj) throws ChangeSetPersister.NotFoundException {
+		Optional<Manufacturer> man = dao.findById(obj.getId());
 
 		if (!man.isPresent()) {
 			throw new ChangeSetPersister.NotFoundException();
@@ -78,7 +84,7 @@ public class ManufacturerController {
 			manUpd.setContact(obj.getContact());
 			manUpd.setMedicine(obj.getMedicine());
 			System.out.println("Received Data in PutMapping :" + obj);
-			return manRepo.save(obj);
+			return manufacturerService.updateManufacturer(manUpd);
 	}
 
 	/**
@@ -91,7 +97,7 @@ public class ManufacturerController {
 	@DeleteMapping (path="/deleteManufacturer/{id}")
 	public String deleteManufacturer(@PathVariable int id) {
 		System.out.println("Manufacturer record deleted. Given id : " + id);
-		manRepo.deleteById(id);
+		manufacturerService.deleteManufacturer(id);
 		return "Record Deleted Successfully";
 	}
 }

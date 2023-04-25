@@ -4,6 +4,8 @@
 import java.util.List;
 import java.util.Optional;
 
+import com.manager.demo.dao.SalesDao;
+import com.manager.demo.service.SalesService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -26,7 +28,10 @@ import com.manager.demo.repository.SalesRepository;
 @RestController
 public class SalesController {
 	@Autowired
-	SalesRepository saleRepo;
+	private SalesService saleService;
+
+	private SalesDao saleDao;
+
 
 	/**
 	 * Get a list of all Sales records
@@ -35,7 +40,7 @@ public class SalesController {
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllSales")
 	public List<Sales> getAllSales() {
-		return saleRepo.findAll();
+		return saleService.getSale();
 //		System.out.println("Get list of all Sales successfully");
 //		return sale;
 	}
@@ -47,9 +52,9 @@ public class SalesController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertSales")
-	public Sales insertSales(@Valid @RequestBody Sales obj) {
+	public String insertSales(@Valid @RequestBody Sales obj) {
 		System.out.println("Received data : " + obj);
-		return saleRepo.save(obj);
+		return saleService.addSales(obj);
 //		return "Record Inserted Successfully";
 	}
 
@@ -60,8 +65,8 @@ public class SalesController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateSales")
-	public Sales updateSales(@Valid @RequestBody Sales obj) throws ChangeSetPersister.NotFoundException {
-		Optional<Sales> sale = saleRepo.findById(obj.getId());
+	public String updateSales(@Valid @RequestBody Sales obj) throws ChangeSetPersister.NotFoundException {
+		Optional<Sales> sale = saleDao.findById(obj.getId());
 
 		if (!sale.isPresent()) {
 			throw new ChangeSetPersister.NotFoundException();
@@ -72,7 +77,7 @@ public class SalesController {
 			saleUpd.setCustomer(obj.getCustomer());
 		saleUpd.setTotalCost(obj.getTotalCost());
 			System.out.println("Received Data in PutMapping :" + obj);
-			return saleRepo.save(obj);
+			return saleService.updateSales(obj);
 	}
 
 	/**
@@ -84,7 +89,7 @@ public class SalesController {
 	@DeleteMapping (path="/deleteSales/{id}")
 	public String deleteSales(@PathVariable int id) {
 		System.out.println("Sales record deleted. Given id : " + id);
-		saleRepo.deleteById(id);
+		saleService.deleteSales(id);
 		return "Record Deleted Successfully";
 	}
 

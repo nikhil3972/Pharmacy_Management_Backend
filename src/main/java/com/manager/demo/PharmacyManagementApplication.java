@@ -31,7 +31,7 @@ public class PharmacyManagementApplication {
 	 * @param args The command line arguments to be passed to the application.
 	 */
 	public static void main(String[] args) {
-		SpringApplication.run(PharmacyManagementApplication.class, args);
+		SpringApplication.run(PharmacyManagementApplication .class, args);
 	}
 
 }

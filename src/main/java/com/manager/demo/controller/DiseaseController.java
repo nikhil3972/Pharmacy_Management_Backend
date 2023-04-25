@@ -3,6 +3,8 @@ package com.manager.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.manager.demo.dao.DisaeseDao;
+import com.manager.demo.service.DiseaseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -30,7 +32,8 @@ import com.manager.demo.repository.DiseaseRepository;
 @RestController
 public class DiseaseController {
 	@Autowired
-	DiseaseRepository disRepo;
+	private DiseaseService diseaseService;
+	private DisaeseDao dao;
 
 	/**
 	 * Retrieves all the records from the 'Disease' table.
@@ -40,7 +43,7 @@ public class DiseaseController {
 	@CrossOrigin("http://localhost:4200")
 	@GetMapping(path="/getAllDisease")
 	public List<Disease> getAllDisease() {
-		return disRepo.findAll();
+		return diseaseService.getDisease();
 	}
 
 	/**
@@ -51,9 +54,9 @@ public class DiseaseController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertDisease")
-	public Disease insertDisease(@Valid @RequestBody Disease obj) {
+	public String insertDisease(@Valid @RequestBody Disease obj) {
 		System.out.println("Received data : " + obj);
-		return disRepo.save(obj);
+		return diseaseService.addDisease(obj);
 	}
 
 	/**
@@ -64,8 +67,8 @@ public class DiseaseController {
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateDisease")
-	public Disease updateDisease(@Valid @RequestBody Disease obj) throws ChangeSetPersister.NotFoundException {
-		Optional<Disease> dis = disRepo.findById(obj.getId());
+	public String updateDisease(@Valid @RequestBody Disease obj) throws ChangeSetPersister.NotFoundException {
+		Optional<Disease> dis = dao.findById(obj.getId());
 
 		if (!dis.isPresent()) {
 			throw new ChangeSetPersister.NotFoundException();
@@ -75,7 +78,7 @@ public class DiseaseController {
 			disUpd.setDiseaseInfo(obj.getDiseaseInfo());
 			disUpd.setDiseaseType(obj.getDiseaseType());
 			System.out.println("Received Data in PutMapping :" + obj);
-			return disRepo.save(obj);
+			return diseaseService.updateDisease(disUpd);
 	}
 
 	/**
@@ -88,7 +91,7 @@ public class DiseaseController {
 	@DeleteMapping (path="/deleteDisease/{id}")
 	public String deleteDisease(@PathVariable int id) {
 		System.out.println("Disease record deleted. Given id : " + id);
-		disRepo.deleteById(id);
+		diseaseService.deleteDisease(id);
 		return "Record Deleted Successfully";
 	}
 

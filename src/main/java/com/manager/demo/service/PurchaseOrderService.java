@@ -1,41 +1,30 @@
 package com.manager.demo.service;
+import com.manager.demo.dao.PurchasesOrderDao;
 import com.manager.demo.entity.PurchaseOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+@Service
 public class PurchaseOrderService {
-	private int purchaseOrderIdCount= 1;
-	private List< PurchaseOrder> purchaseOrderList =new CopyOnWriteArrayList<>();
-	public  PurchaseOrder addManufacturer( PurchaseOrder  purchaseOrder) {
-		 purchaseOrder.setId( purchaseOrderIdCount);
-		 purchaseOrderList.add( purchaseOrder);
-		 purchaseOrderIdCount++;
-		return  purchaseOrder;
+	@Autowired
+	private PurchasesOrderDao dao ;
+	public String addPurchaseOrder(PurchaseOrder purchaseOrder){
+		dao.save(purchaseOrder);
+		return "PurchaseOrder added";
 	}
-
-	public List< PurchaseOrder>getmanufacture(){
-		return  purchaseOrderList;
+	public String deletePurchaseOrder(int id){
+		PurchaseOrder purchaseOrder=dao.getById(id);
+		dao.delete(purchaseOrder);
+		return "PurchaseOrder deleted "+id;
 	}
-	public 	 PurchaseOrder getPurchaseOrder(int  purchaseOrderId) {
-		return  purchaseOrderList.stream().filter(c -> c.getId()==  purchaseOrderId)
-				.findFirst().get();
+	public String updatePurchaseOrder(PurchaseOrder purchaseOrder){
+		dao.save(purchaseOrder);
+		return "PurchaseOrder Updated";
 	}
-	public  PurchaseOrder updatePurchaseOrder(int  purchaseOrderId,PurchaseOrder  purchaseOrder) {
-		 purchaseOrderList.stream().forEach(c->{
-			if(c.getId()==  purchaseOrderId) {
-				c.setPurchaseDate( purchaseOrder.getPurchaseDate());
-				c.setExpectedDeliveryDate( purchaseOrder.getExpectedDeliveryDate());
-				c.setTotalCost( purchaseOrder.getTotalCost());
-				
-			}
-		});
-		return  purchaseOrderList.stream().filter(c->c.getId()==  purchaseOrderId).findFirst().get();
+	public List<PurchaseOrder> getPurchaseOrder(){
+		List<PurchaseOrder> purchaseOrder=dao.findAll();
+		return purchaseOrder;
 	}
-	public void deletePurchaseOrder(int  purchaseOrderId) {
-		 purchaseOrderList.stream().forEach(c->{
-			if(c.getId()== purchaseOrderId) {
-				 purchaseOrderList.remove(c);
-			}
-		});
-	}
-
 }
