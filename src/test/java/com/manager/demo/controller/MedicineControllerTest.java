@@ -68,7 +68,6 @@ public class MedicineControllerTest {
     /**
      * Test case for testing the getAllMedicines() method of MedicineController, which fetches all medicines
      * from the database and returns them as JSON response.
-     *
      * @throws Exception if an error occurs during the test
      */
     @Test
@@ -87,7 +86,6 @@ public class MedicineControllerTest {
 
     /**
      * Test method for adding a new medicine using the API endpoint /insertMedicine.
-     *
      * @throws Exception if an error occurs during the test
      */
     @Test
@@ -121,7 +119,6 @@ public class MedicineControllerTest {
 
     /**
      * Test method for updating an existing medicine using the API endpoint /updateMedicine.
-     *
      * @throws Exception if an error occurs during the test
      */
     @Test
@@ -157,7 +154,6 @@ public class MedicineControllerTest {
 
     /**
      * Test method for deleting a medicine using the API endpoint /deleteMedicine/{id}.
-     *
      * @throws Exception if an error occurs during the test
      */
     @Test

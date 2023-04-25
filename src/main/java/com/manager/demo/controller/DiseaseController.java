@@ -34,7 +34,6 @@ public class DiseaseController {
 
 	/**
 	 * Retrieves all the records from the 'Disease' table.
-	 * 
 	 * @return List<Disease> List of all the Disease records
 	 */
 	@CrossOrigin("http://localhost:4200")
@@ -45,9 +44,8 @@ public class DiseaseController {
 
 	/**
 	 * Inserts a new record into the 'Disease' table.
-	 * 
 	 * @param obj Disease object to be inserted
-	 * @return String status message
+	 * @return the saved Disease object
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertDisease")
@@ -57,10 +55,10 @@ public class DiseaseController {
 	}
 
 	/**
-	 * Updates an existing record in the 'Disease' table.
-	 * 
-	 * @param obj Disease object with updated values
-	 * @return String status message
+	 * This endpoint updates an existing Disease object in the database.
+	 * @param obj The Disease object to be updated, passed in the request body
+	 * @return The updated Disease object
+	 * @throws ChangeSetPersister.NotFoundException If the Disease object to be updated is not found in the database
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateDisease")
@@ -80,7 +78,6 @@ public class DiseaseController {
 
 	/**
 	 * Deletes a record from the 'Disease' table based on the given id.
-	 * 
 	 * @param id id of the record to be deleted
 	 * @return String status message
 	 */

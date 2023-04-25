@@ -31,6 +31,9 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * JUnit test class for Disease Controller.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class DiseaseControllerTest {
 
@@ -56,12 +59,21 @@ public class DiseaseControllerTest {
     Disease diseaseOne = new Disease(13, "Fever", "Increased Body Temperature", diseaseTypes);
     Disease diseaseTwo = new Disease(14, "Cold", "Cough", diseaseTypes);
 
+    /**
+     * Sets up the test environment by initializing the Mockito annotations and creating a standalone instance of the
+     * DiseaseController.
+     */
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(diseaseController).build();
     }
 
+    /**
+     * Tests the getAllDiseases() method of the DiseaseController by mocking the disease repository and using MockMvc to
+     * perform a GET request and validate the response.
+     * @throws Exception if an error occurs during the test
+     */
     @Test
     public void getAllDiseases() throws Exception{
         List<Disease> diseases = new ArrayList<>(Arrays.asList(diseaseOne, diseaseTwo));
@@ -73,6 +85,11 @@ public class DiseaseControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)));
     }
 
+    /**
+     * Tests the addDisease() method of the DiseaseController by creating a Disease object, converting it to JSON, and using
+     * MockMvc to perform a POST request and validate the response.
+     * @throws Exception if an error occurs during the test
+     */
     @Test
     public void addDisease() throws Exception{
         List<Medicine> medicines = new ArrayList<>();
@@ -107,6 +124,12 @@ public class DiseaseControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Tests the updateDisease() method of the DiseaseController by creating a Disease object to update, mocking the disease
+     * repository to return a disease, converting the updated Disease object to JSON, and using MockMvc to perform a PUT request
+     * and validate the response.
+     * @throws Exception if an error occurs during the test
+     */
     @Test
     public void updateDisease() throws Exception{
         List<Medicine> medicines = new ArrayList<>();
@@ -141,6 +164,10 @@ public class DiseaseControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Sends a HTTP DELETE request to delete a disease with the specified ID.
+     * @throws Exception if there is an error performing the HTTP request.
+     */
     @Test
     public void deleteDisease() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders

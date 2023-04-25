@@ -43,7 +43,7 @@ public class SalesController {
 	/**
 	 * Insert a new Sales record
 	 * @param obj - Sales object to insert
-	 * @return String message indicating if the record was inserted successfully
+	 * @return the saved sales object
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertSales")
@@ -56,7 +56,8 @@ public class SalesController {
 	/**
 	 * Update an existing Sales record
 	 * @param obj - Sales object to update
-	 * @return String message indicating if the record was updated successfully or not
+	 * @return The updated Sales object.
+	 * @throws ChangeSetPersister.NotFoundException if the Sales object is not found in the database.
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateSales")

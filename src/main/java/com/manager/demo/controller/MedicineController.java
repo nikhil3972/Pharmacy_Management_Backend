@@ -57,7 +57,8 @@ public class MedicineController {
 	/**
 	 * Updates an existing medicine record in the database.
 	 * @param obj the Medicine object containing the updated data
-	 * @return a message indicating the success or failure of the operation
+	 * @return a message indicating the success or failure of the
+	 * @throws NotFoundException if the medicine with the given ID is not found in the database.
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping (path="/updateMedicine")

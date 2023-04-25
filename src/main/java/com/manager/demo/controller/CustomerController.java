@@ -43,7 +43,7 @@ public class CustomerController {
 	/**
 	 * Inserts a new customer into the CustomerRepository.
 	 * @param obj The Customer entity to be inserted.
-	 * @return A string confirming that the record was successfully inserted.
+	 * @return the saved Customer object.
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PostMapping(path="/insertCustomer")
@@ -53,9 +53,11 @@ public class CustomerController {
 	}
 	
 	/**
-	 * Updates an existing customer in the CustomerRepository.
-	 * @param obj The updated Customer entity.
-	 * @return A string confirming that the record was successfully updated.
+	 * Updates an existing Customer record in the database.
+	 * @param obj the Customer object to be updated, containing new values
+	 * @return the updated Customer object after saving to the database
+	 * @throws ChangeSetPersister.NotFoundException if the customer with the specified ID does not exist in the database
+	 * @throws Exception if there is an error while updating the customer record in the database
 	 */
 	@CrossOrigin("http://localhost:4200")
 	@PutMapping(path="/updateCustomer")
