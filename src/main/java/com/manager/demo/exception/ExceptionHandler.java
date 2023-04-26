@@ -15,14 +15,15 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.Date;
 
-/**
- * This method provides a custom exception handling mechanism for MethodArgumentNotValidException.
- * @param exception The MethodArgumentNotValidException that was thrown.
- * @return A ResponseEntity object that encapsulates an ErrorDetail object and an HTTP status code.
- * If the exception is a MethodArgumentNotValidException, it returns a 400 Bad Request status code.
- */
+
 public class ExceptionHandler {
 
+    /**
+     * This method provides a custom exception handling mechanism for MethodArgumentNotValidException.
+     * @param exception The MethodArgumentNotValidException that was thrown.
+     * @return A ResponseEntity object that encapsulates an ErrorDetail object and an HTTP status code.
+     * If the exception is a MethodArgumentNotValidException, it returns a 400 Bad Request status code.
+     */
     @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> exceptionHandling(MethodArgumentNotValidException exception){
         ErrorDetail errorDetail = new ErrorDetail(new Date(), "Validation error", exception.getBindingResult().getFieldError().getDefaultMessage());

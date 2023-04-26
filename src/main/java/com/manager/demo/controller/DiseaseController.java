@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.manager.demo.dao.DisaeseDao;
+import com.manager.demo.entity.Disease;
 import com.manager.demo.service.DiseaseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.manager.demo.entity.Disease;
+import com.manager.demo.*;
 import com.manager.demo.repository.DiseaseRepository;
 
 
@@ -74,9 +75,9 @@ public class DiseaseController {
 			Disease disUpd = dis.get();
 			disUpd.setDiseaseName(obj.getDiseaseName());
 			disUpd.setDiseaseInfo(obj.getDiseaseInfo());
-			disUpd.setDiseaseType(obj.getDiseaseType());
+			disUpd.setRecMed(obj.getRecMed());
 			System.out.println("Received Data in PutMapping :" + obj);
-			return diseaseService.updateDisease(disUpd);
+			return diseaseService.updateDisease(obj);
 	}
 
 	/**
