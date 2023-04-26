@@ -38,6 +38,21 @@ public class OnlyCustomerController {
         return customerService.getCustomer();
     }
 
+
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping(path="/getCost")
+    public int getCost() {
+        return customerService.getTotalCost();
+    }
+
+
+
+    @CrossOrigin("http://localhost:4200")
+    @PostMapping (path="/insertTotalCost")
+    public String getTotalCost( @RequestBody List<onlyCustomer> obj) {
+          return customerService.totalCost(obj);
+    }
+
     /**
      * Inserts a new customer into the CustomerRepository.
      * @param obj The Customer entity to be inserted.

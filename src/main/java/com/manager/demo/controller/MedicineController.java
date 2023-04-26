@@ -32,6 +32,7 @@ public class MedicineController {
 	
 	@Autowired
 	private MedicineService mService;
+	@Autowired
 	private CustomerMedicineDao dao;
 	
 	/**

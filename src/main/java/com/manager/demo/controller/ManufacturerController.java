@@ -33,6 +33,7 @@ import com.manager.demo.repository.ManufacturerRepository;
 public class ManufacturerController {
 	@Autowired
 	private ManufacturerService manufacturerService;
+	@Autowired
 	private ManufacturerDao dao;
 	private ManufacturerRepository manRepo;
 

@@ -131,6 +131,11 @@ public class Manufacturer {
     @GeneratedValue
     int Id;
 
+    public Manufacturer(int i, String tesla, String number, List<Medicine> medicines) {
+    }
+
+
+
     public int getTotalBill() {
         return totalBill;
     }

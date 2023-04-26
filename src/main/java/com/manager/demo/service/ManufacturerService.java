@@ -1,5 +1,6 @@
 package com.manager.demo.service;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -34,4 +35,5 @@ public class  ManufacturerService {
 		List< Manufacturer> manufacturer=dao.findAll();
 		return manufacturer;
 	}
+
 }

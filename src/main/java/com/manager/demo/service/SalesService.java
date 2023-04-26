@@ -2,10 +2,12 @@ package com.manager.demo.service;
 
 import com.manager.demo.dao.SalesDao;
 
+import com.manager.demo.entity.Manufacturer;
 import com.manager.demo.entity.Sales;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -30,5 +32,6 @@ public class SalesService {
         List<Sales> sale=dao.findAll();
         return sale;
     }
+
 
 }
