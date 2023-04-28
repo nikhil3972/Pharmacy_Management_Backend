@@ -39,18 +39,18 @@ public class OnlyCustomerController {
     }
 
 
-    @CrossOrigin("http://localhost:4200")
-    @GetMapping(path="/getCost")
-    public int getCost() {
-        return customerService.getTotalCost();
-    }
+//    @CrossOrigin("http://localhost:4200")
+//    @GetMapping(path="/getCost")
+//    public int getCost() {
+//        return customerService.getTotalCost();
+//    }
 
 
 
     @CrossOrigin("http://localhost:4200")
-    @PostMapping (path="/insertTotalCost")
-    public String getTotalCost( @RequestBody List<onlyCustomer> obj) {
-          return customerService.totalCost(obj);
+    @GetMapping (path="/getTotalCost")
+    public int getTotalCost() {
+          return customerService.totalCost();
     }
 
     /**

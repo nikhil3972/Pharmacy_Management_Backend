@@ -35,23 +35,23 @@ public class OnlyCustomerService {
     }
 
     int totalPrice=0;
-    public String totalCost(List<onlyCustomer> sale){
+    public int totalCost(){
 
-        List<onlyCustomer>saleList=sale;
+        List<onlyCustomer>saleList=dao.findAll();
+        totalPrice=0;
         Iterator<onlyCustomer> iterator = saleList.iterator();
         while(iterator.hasNext()) {
             totalPrice=totalPrice+iterator.next().getPrice();
-
         }
-        System.out.println( " Total Price :");
-return "Total price "+Integer.toString(totalPrice);
+        System.out.println( " Total Price :"+Integer.toString((totalPrice)));
+        return totalPrice;
     }
 
 
-    public int getTotalCost(){
-        List<onlyCustomer> dataNew=getCustomer();
-       String data= totalCost(dataNew);
-       return totalPrice;
-    }
+//    public int getTotalCost(){
+//        List<onlyCustomer> dataNew=getCustomer();
+//       String data= totalCost(dataNew);
+//       return totalPrice;
+//    }
 
 }
